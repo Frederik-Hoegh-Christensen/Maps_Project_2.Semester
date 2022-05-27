@@ -18,7 +18,8 @@ const googleAuthProvider = new GoogleAuthProvider();
 
 onAuthStateChanged(auth, user =>{
   if(user != null){
-      console.log(user.email)
+      console.log(user.email);
+      signOutButton();
   } else {
       console.log("no user");
   }
@@ -38,4 +39,10 @@ if(googleButton){
       }
     );
   });
+}
+
+function signOutButton(){
+    let sb = document.getElementById('signOutButton');
+    sb.addEventListener("click", e => {signOut(auth)});
+    sb.removeAttribute('hidden');
 }
