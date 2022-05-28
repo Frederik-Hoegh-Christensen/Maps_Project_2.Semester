@@ -13,6 +13,15 @@ export function initMap(){
    const mapCanvas = new google.maps.Map(document.getElementById("map"), options);
  
    removeDefaultMapPins(mapCanvas);
+
+   addMarker(mapCanvas, {
+       coords: copenhagen,
+       title: "Copenhagen",
+   })
+   addMarker(mapCanvas, {
+      coords: {lat: 55.65957337484047, lng: 12.590903511449048},
+      title: 'ITU Campus'
+   })
  }
 
 
@@ -45,4 +54,16 @@ export function removeDefaultMapPins(map){
       }
     ]
     map.setOptions({styles: removePOI})
-  }
+}
+
+export function addMarker(map, properties){
+    let marker = new google.maps.Marker({
+        position: properties.coords,
+        map: map,
+        title: properties.title,
+    })
+    marker.addListener("click", () => {
+        console.log(marker.title + " was clicked");
+    })
+    marker.setMap(map);
+}

@@ -1,7 +1,7 @@
 //Write bad-ass code here
 
 import { getFirebaseConfig } from './firebase-config.js';
-import { removeDefaultMapPins, initMap } from './mapCanvas';
+import { initMap } from './mapCanvas';
 
 import { initializeApp } from 'firebase/app';
 import { getAuth, onAuthStateChanged, GoogleAuthProvider,
