@@ -2,11 +2,14 @@
 
 import { getFirebaseConfig } from './firebase-config.js';
 import { initMap } from './mapCanvas';
+import { fillHistoryDropdown, displayUserInfo } from './account';
 
 import { initializeApp } from 'firebase/app';
 import { getAuth, onAuthStateChanged, GoogleAuthProvider,
          signInWithPopup, signInWithRedirect, signOut, } 
 from 'firebase/auth';
+
+import { getFirestore } from "firebase/firestore"
 
 const app = initializeApp(getFirebaseConfig());
 
@@ -16,6 +19,11 @@ const auth = getAuth(app);
 console.log(auth != null ? "Authentication active!":"no Authentication");
 const googleAuthProvider = new GoogleAuthProvider();
 
+const db = getFirestore(app);
+
+// Call this when user goes to account page
+fillHistoryDropdown(db, auth.currentUser);
+displayUserInfo(auth.currentUser);
 
 onAuthStateChanged(auth, user =>{
   if(user != null){
