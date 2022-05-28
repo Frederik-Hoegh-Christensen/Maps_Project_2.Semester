@@ -1,21 +1,25 @@
 //Write bad-ass code here
 
 import { getFirebaseConfig } from './firebase-config.js';
-import { initMap } from './mapCanvas';
+import { initializeMap, drawCars } from './mapCanvas';
 
 import { initializeApp } from 'firebase/app';
 import { getAuth, onAuthStateChanged, GoogleAuthProvider,
          signInWithPopup, signInWithRedirect, signOut, } 
 from 'firebase/auth';
+import {getFirestore} from 'firebase/firestore';
 
 const app = initializeApp(getFirebaseConfig());
 
 console.log(app != null ? "Firebase is active":"no Firebase");
 
 const auth = getAuth(app);
+
 console.log(auth != null ? "Authentication active!":"no Authentication");
 const googleAuthProvider = new GoogleAuthProvider();
 
+const db = getFirestore(app);
+console.log(db != null ? "Firestore active":"no Firestore");
 
 onAuthStateChanged(auth, user =>{
   if(user != null){
@@ -43,10 +47,15 @@ if(googleButton){
 }
 
 function signOutButton(){
-    let sb = document.getElementById('signOutButton');
-    sb.addEventListener("click", e => {signOut(auth)});
-    sb.removeAttribute('hidden');
+  let sb = document.getElementById('signOutButton');
+  sb.addEventListener("click", e => {signOut(auth)});
+  sb.removeAttribute('hidden');
 }
 
-window.initMap = initMap;
 
+async function initMap(){
+  let mapCanvas = initializeMap();
+  drawCars(mapCanvas, db);
+  
+}
+window.initMap = initMap;
