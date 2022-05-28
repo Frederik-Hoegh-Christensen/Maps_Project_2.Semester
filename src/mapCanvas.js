@@ -61,7 +61,7 @@ function removeDefaultMapPins(map){
     map.setOptions({styles: removePOI})
 }
 
-function addMarker(map, carData){
+function addMarker(map, carData, imgMap){
   let marker = new google.maps.Marker({
       position: {lat: carData.coords.latitude, lng: carData.coords.longitude},
       map: map,
@@ -72,6 +72,7 @@ function addMarker(map, carData){
       document.getElementById('card-text-price').textContent = carData.price;
       progressBarPower(document.getElementById('power-progress-bar'), carData.power);
       document.getElementById("car-card").removeAttribute('hidden');
+      document.getElementById('car-card-img').src = imgMap.get(carData.title);
   })
   marker.setMap(map);
 }
@@ -92,8 +93,10 @@ async function retrieveCars(db){
 export async function drawCars(mapCanvas, firestore, cloudStorage){
     let carsArray = await retrieveCars(firestore);
 
+    let carToImgMap = retrieveCarImages(cloudStorage, carsArray)
+
     for(let car of carsArray){
-      addMarker(mapCanvas, car);
+      addMarker(mapCanvas, car, carToImgMap);
     }
 }
 
@@ -105,5 +108,17 @@ function progressBarPower(progressBar, pow){
 }
 
 function retrieveCarImages(cloud, carArray){
-  let result = {};  
+  let result = new Map();
+  carArray.forEach(e =>{
+    let title = e.title;
+    let imgRef = '/carPictures/'+title+'.png';
+    getDownloadURL(ref(cloud, imgRef))
+    .then(imgURL =>{
+        result.set(title, imgURL);
+    })
+    .catch(err => {
+      console.log(err);
+    })
+  })
+  return result;
 }
