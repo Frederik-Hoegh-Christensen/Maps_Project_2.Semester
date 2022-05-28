@@ -55,7 +55,7 @@ function signOutButton(){
 
 async function initMap(){
   let mapCanvas = initializeMap();
-  drawCars(mapCanvas, db);
+  drawCars(mapCanvas, db, cloudStorage);
   
 }
 window.initMap = initMap;

@@ -1,11 +1,15 @@
 import {
-  getFirestore, query, where, updateDoc, 
+  query, where,
   collection, 
   getDocs, 
-  getDoc, 
-  doc,
-  addDoc,
 } from 'firebase/firestore';
+
+import {
+  getStorage,
+  ref,
+  uploadBytes,
+  getDownloadURL
+} from 'firebase/storage';
 
 export function initializeMap(){
   // The center on init
@@ -85,7 +89,7 @@ async function retrieveCars(db){
   return carDataArray;
 }
 
-export async function drawCars(mapCanvas, firestore){
+export async function drawCars(mapCanvas, firestore, cloudStorage){
     let carsArray = await retrieveCars(firestore);
 
     for(let car of carsArray){
@@ -98,4 +102,8 @@ function progressBarPower(progressBar, pow){
   progressBar.style.width = percentString;
   progressBar.textContent = percentString;
   progressBar.setAttribute('aria-valuenow', pow);
+}
+
+function retrieveCarImages(cloud, carArray){
+  let result = {};  
 }
