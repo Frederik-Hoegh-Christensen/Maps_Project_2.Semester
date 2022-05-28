@@ -4,22 +4,22 @@ import { getFirebaseConfig } from './firebase-config.js';
 import { initializeMap, drawCars } from './mapCanvas';
 
 import { initializeApp } from 'firebase/app';
+
 import { getAuth, onAuthStateChanged, GoogleAuthProvider,
          signInWithPopup, signInWithRedirect, signOut, } 
 from 'firebase/auth';
-import {getFirestore} from 'firebase/firestore';
+import { getStorage } from 'firebase/storage';
+import { getFirestore } from 'firebase/firestore';
 
 const app = initializeApp(getFirebaseConfig());
 
-console.log(app != null ? "Firebase is active":"no Firebase");
-
 const auth = getAuth(app);
 
-console.log(auth != null ? "Authentication active!":"no Authentication");
+console.log();
 const googleAuthProvider = new GoogleAuthProvider();
 
 const db = getFirestore(app);
-console.log(db != null ? "Firestore active":"no Firestore");
+const cloudStorage = getStorage(app);
 
 onAuthStateChanged(auth, user =>{
   if(user != null){
