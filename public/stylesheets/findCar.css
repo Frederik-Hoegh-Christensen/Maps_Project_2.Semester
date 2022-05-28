@@ -1,0 +1,82 @@
+:root{
+    --progress-bar-color: rgb(83, 206, 126);
+    --btn-primary-color: rgb(83, 206, 126);
+    --btn-primary-color-hover: rgb(68, 174, 105);
+}
+
+
+#map-container{
+    width: 100%;
+    height: 500px;
+    margin: 0;
+    padding: 0;
+}
+
+.centered-div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#map{
+    height: 100%;
+}
+
+.card-close{
+    float: right;
+}
+
+#card-text-power-p{
+    display: inline;
+}
+
+#card-text-price{
+    text-decoration: underline;
+}
+
+.progress-bar{
+    background-color: var(--progress-bar-color);
+}
+
+.card-button-grp{
+    margin-bottom: 4px;
+}
+
+.card-button-grp .btn-primary{
+    background-color: var(--btn-primary-color);
+}
+
+.card-button-grp .btn-primary:hover{
+    background-color: var(--btn-primary-color-hover);
+}
+
+#card-button-grp-reservation{
+    display:flex;
+    flex-wrap: nowrap;
+}
+
+#card-button-grp-reservation *{
+    flex: 48%;
+}
+
+#card-button-grp-reservation .btn-secondary{
+    max-width: 100px;
+}
+
+#card-button-grp-reservation input{
+    max-width: min(48%,150px) ;
+}
+
+@media screen and (max-width: 300px){
+    #card-button-grp-reservation{
+        flex-wrap: wrap;
+    }
+
+    #card-button-grp-reservation *{
+        flex: 100%;
+    }
+
+    #card-button-grp-reservation input{
+        max-width: 100px ;
+    }
+}
