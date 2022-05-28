@@ -2,7 +2,6 @@
 
 import { getFirebaseConfig } from './firebase-config.js';
 import { initializeMap, drawCars } from './mapCanvas';
-import { initMap } from './mapCanvas';
 import { fillHistoryDropdown, displayUserInfo } from './account';
 
 import { initializeApp } from 'firebase/app';
@@ -23,8 +22,11 @@ const db = getFirestore(app);
 const cloudStorage = getStorage(app);
 
 // Call this when user goes to account page
-fillHistoryDropdown(db, auth.currentUser);
+if(window.location.href.includes("account.html")){
+  fillHistoryDropdown(db, auth.currentUser);
 displayUserInfo(auth.currentUser);
+}
+
 
 onAuthStateChanged(auth, user =>{
   if(user != null){
