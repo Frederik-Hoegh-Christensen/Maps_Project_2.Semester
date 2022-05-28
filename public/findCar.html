@@ -21,47 +21,46 @@
     <div id="map-container">
         <h3>Our Map</h3>
         <div id="map"></div>
-    </div>
-
-    <div class="card-container centered-div" hidden>
-        <div class="card mb-3" style="max-width: 540px;">
-            <div class="row">
-                <div class="col-8">
-                    <h5 class="card-title">Polestar 2</h5>
+        <div class="card-container centered-div" hidden>
+            <div class="card mb-3" style="max-width: 540px;">
+                <div class="row">
+                    <div class="col-8">
+                        <h5 class="card-title">Polestar 2</h5>
+                    </div>
+                    <div class="col-4">
+                        <button type="button" class="btn-close card-close" id="carc-close-btn" aria-label="Close"></button>
+                    </div>
                 </div>
-                <div class="col-4">
-                    <button type="button" class="btn-close card-close" id="carc-close-btn" aria-label="Close"></button>
+                <div class="row g-0">
+                    <div class="col-md-4 col-sm-4 col-4">
+                    <img src=".\images\polstar2.png" class="img-fluid rounded-start" alt="...">
+                    </div>
+                    <div class="col-md-8 col-sm-8 col-8">
+                    <div class="card-body">
+                        <p class="card-text">Pris: <span id="card-text-price">1,5</span> kr. i minuttet.</p>
+                        <p class="card-text" id="card-text-power-p">Strøm: </p>
+                        <div class="progress">
+                        <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+                        </div>
+                    </div>
+                    </div>
                 </div>
-            </div>
-            <div class="row g-0">
-              <div class="col-md-4 col-sm-4 col-4">
-                <img src=".\images\polstar2.png" class="img-fluid rounded-start" alt="...">
-              </div>
-              <div class="col-md-8 col-sm-8 col-8">
-                <div class="card-body">
-                  <p class="card-text">Pris: <span id="card-text-price">1,5</span> kr. i minuttet.</p>
-                  <p class="card-text" id="card-text-power-p">Strøm: </p>
-                  <div class="progress">
-                    <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
-                  </div>
+                <div class="row card-button-grp card-button-grp-loggged-on">
+                    <div class="col-4 justify-content-center align-items-center centered-div">
+                        <button type="button" class="btn btn-primary" id="btn-open-now">Lås op</button>
+                    </div>
+                    <div class="col-8 centered-div" id="card-button-grp-reservation">
+                        <button type="button" class="btn btn-secondary">Resever</button>
+                        <input class="form-control" type="time"/>
+                    </div>
                 </div>
-              </div>
-            </div>
-            <div class="row card-button-grp card-button-grp-loggged-on">
-                <div class="col-4 justify-content-center align-items-center centered-div">
-                    <button type="button" class="btn btn-primary" id="btn-open-now">Lås op</button>
+                <div class="row card-button-grp card-button-grp-no-login" hidden>
+                    <div class="col-12 centered-div">
+                        <button type="button" class="btn btn-secondary" id="card-btn-login">Login for at leje bilen</button>
+                    </div>
                 </div>
-                <div class="col-8 centered-div" id="card-button-grp-reservation">
-                    <button type="button" class="btn btn-secondary">Resever</button>
-                    <input class="form-control" type="time"/>
                 </div>
-            </div>
-            <div class="row card-button-grp card-button-grp-no-login" hidden>
-                <div class="col-12 centered-div">
-                    <button type="button" class="btn btn-secondary" id="card-btn-login">Login for at leje bilen</button>
-                </div>
-            </div>
-          </div>
+        </div>
     </div>
 </body>
 <script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAfjkABDWzuEwouTmjqCO6zz-OP4OxznaA&callback=initMap"></script>
