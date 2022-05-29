@@ -34,29 +34,32 @@ onAuthStateChanged(auth, user =>{
       signOutButton();
   } else {
       console.log("no user");
+      signInButton();
   }
 })
 
-//This is not the way. Just want to see if it works.
-var googleButton = document.getElementById("googleButton");
-if(googleButton){
-  googleButton.addEventListener("click",e => {
+function signInButton(){
+  document.getElementById('header-btn-sign-out').hidden = true;
+
+  let signInButton = document.getElementById('header-btn-sign-in');
+  signInButton.addEventListener("click", e =>{
     signInWithRedirect(auth, googleAuthProvider)
-      .catch((error) => {
-        if (error.code == "auth/web-storage-unsupported") {
-          alert("Please enable cookies to use this feature.");
-        }else{
-          alert(error.message);
-        }
-      }
-    );
-  });
+    .catch((error) => {
+      if (error.code == "auth/web-storage-unsupported") {
+        alert("Please enable cookies to use this feature.");
+      }else{
+        alert(error.message);
+      }});
+  })
+  if(signInButton.hidden) signInButton.hidden = false;
 }
 
 function signOutButton(){
-  let sb = document.getElementById('signOutButton');
+  document.getElementById('header-btn-sign-in').hidden = true;
+
+  let sb = document.getElementById('header-btn-sign-out');
   sb.addEventListener("click", e => {signOut(auth)});
-  sb.removeAttribute('hidden');
+  if(sb.hidden) sb.hidden = false;
 }
 
 
