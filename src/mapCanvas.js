@@ -171,3 +171,32 @@ function retrieveCarImages(cloud, carArray){
   })
   return result;
 }
+
+export async function addUserPositionPin(map, cloudStorage){
+  /*  NO GEOLOCATION UNTILL HTTPS
+  let position = getUserLocation();
+  if(!position) return;
+  */
+
+  let userPositionIcon;
+  await getDownloadURL(ref(cloudStorage, 'userLocation.png'))
+  .then(imgURL => {userPositionIcon = imgURL});
+
+  let userPositionMarker = new google.maps.Marker({
+    //position: {lat: position.coords.latitude, lng: position.coords.longitude},
+    position: {lat:55.670348659964155, lng: 12.592793398842328},
+    map: map,
+    icon: userPositionIcon,
+    title: "You are here"
+})
+}
+
+export function getUserLocation(){
+  if(navigator.getLocation){
+    let position = navigator.geolocation.getCurrentPosition;
+    return position;
+  } else{
+    console.log("Geolocation is blocked")
+    return null;
+  }
+}

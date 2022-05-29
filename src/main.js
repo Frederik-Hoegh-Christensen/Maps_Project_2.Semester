@@ -1,7 +1,7 @@
 //Write bad-ass code here
 
 import { getFirebaseConfig } from './firebase-config.js';
-import { initializeMap, drawCars } from './mapCanvas';
+import { initializeMap, drawCars, addUserPositionPin, getUserLocation } from './mapCanvas';
 import { fillHistoryDropdown, displayUserInfo } from './account';
 
 import { initializeApp } from 'firebase/app';
@@ -63,7 +63,7 @@ function signOutButton(){
 async function initMap(){
   let mapCanvas = initializeMap();
   drawCars(mapCanvas, app);
-  
+  addUserPositionPin(mapCanvas, cloudStorage)
 }
 window.initMap = initMap;
 
