@@ -1,6 +1,10 @@
 :root{
     /*font-size: ;*/
     --theme-secondary-color: rgb(70, 198, 75);
+    --nav-item: rgb(239, 239, 239,0.8);
+    --nav-item-hover: rgba(239, 239, 239);
+    --nav-item-active: var(--theme-secondary-color);
+    --nav-item-active-hover: rgb(116, 226, 120);
 }
 
 body{
@@ -17,12 +21,40 @@ header{
     text-decoration: none;
 }
 
-.navbar{
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-}
-
 #navbarNav{
     width:100%;
+}
+
+.navbar-toggler{
+    display:none;
+}
+
+.nav-item.nav-link{
+    background-color: var(--nav-item);
+}
+
+.nav-item.nav-link:hover{
+    background-color: var(--nav-item-hover);
+}
+
+.nav-link.active{
+    background-color: var(--nav-item-active) !important;
+}
+
+.nav-link.active:hover{
+    background-color: var(--nav-item-active-hover) !important;
+}
+
+@media screen and (min-width: 768px) {
+    nav{
+        position: relative !important;
+    }
+
+    .nav-item{
+        max-width: 200px;
+    }
+
+    #navbarNav div{
+        justify-content: space-between;
+    }
 }
