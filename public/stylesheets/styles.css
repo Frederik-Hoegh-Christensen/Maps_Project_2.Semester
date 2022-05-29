@@ -16,3 +16,13 @@ header{
     font-size: 2rem;
     text-decoration: none;
 }
+
+.navbar{
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+#navbarNav{
+    width:100%;
+}
