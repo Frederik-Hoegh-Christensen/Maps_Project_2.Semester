@@ -1,15 +1,19 @@
 import {
+  getFirestore,
   query, where,
   collection, 
   getDocs, 
+  Timestamp,
+  addDoc,
+  updateDoc,
 } from 'firebase/firestore';
-
 import {
   getStorage,
   ref,
-  uploadBytes,
   getDownloadURL
 } from 'firebase/storage';
+import { getAuth } from 'firebase/auth';
+import { createHTMLElm } from './main';
 
 export function initializeMap(){
   // The center on init
@@ -61,20 +65,59 @@ function removeDefaultMapPins(map){
     map.setOptions({styles: removePOI})
 }
 
-function addMarker(map, carData, imgMap){
+function addMarker(map, carDataObject, imgMap, auth, db){
+  let carData = carDataObject.carData;
   let marker = new google.maps.Marker({
       position: {lat: carData.coords.latitude, lng: carData.coords.longitude},
       map: map,
       title: carData.title,
   })
   marker.addListener("click", () => {
-      document.getElementById('car-title').textContent = carData.title;
-      document.getElementById('card-text-price').textContent = carData.price;
-      progressBarPower(document.getElementById('power-progress-bar'), carData.power);
-      document.getElementById("car-card").removeAttribute('hidden');
-      document.getElementById('car-card-img').src = imgMap.get(carData.title);
+      setupCarPreviewingCard(carDataObject, imgMap, auth, db);
   })
   marker.setMap(map);
+}
+
+function setupCarPreviewingCard(carDataObject, imgMap, auth, db){
+  let carData = carDataObject.carData;
+  let carFirestoreId = carDataObject.id;
+
+  //We could have possibly used a HTML template :/
+  document.getElementById("car-card").removeAttribute('hidden');
+  document.getElementById('car-title').textContent = carData.title;
+  document.getElementById('card-text-price').textContent = carData.price;
+  progressBarPower(document.getElementById('power-progress-bar'), carData.power);
+  document.getElementById('car-card-img').src = imgMap.get(carData.title);
+
+  //When user is not logged on, we want to display something different.
+  if(!auth.currentUser){
+    document.getElementById('card-button-grp-loggged-on').hidden = true;
+    document.getElementById('card-button-grp-no-login').removeAttribute('hidden');
+    return;
+  }
+
+  //Setup "book now" / "open now" button
+  let openNowBtnContainer = document.getElementById('btn-open-now-container');
+  let openNowBtn = createHTMLElm("button", {
+    type: "button",
+    class: "btn btn-primary",
+    id: "btn-open-now",
+  })
+  openNowBtn.textContent = "Lås op";
+  openNowBtn.addEventListener("click", e =>{
+    let billsRef = collection(db, 'bills');
+    addDoc(billsRef, {
+      data: Timestamp.fromDate(new Date()),
+      model: carData.title,
+      owner: auth.currentUser.email,
+    })
+    .then(succes => {console.log(succes)})
+    .catch(err => console.log(err))
+  })
+  openNowBtnContainer.innerHTML = "";
+  openNowBtnContainer.appendChild(openNowBtn);
+
+  //TODO: setup "reserve" button
 }
 
 async function retrieveCars(db){
@@ -85,19 +128,25 @@ async function retrieveCars(db){
   let qSnapshot = await getDocs(q);
   qSnapshot.forEach(doc => {
       let carData = doc.data();
-      carDataArray.push(carData);
+      carDataArray.push({
+        carData: carData,
+        id: doc.id,
+      });
   });
   return carDataArray;
 }
 
-export async function drawCars(mapCanvas, firestore, cloudStorage){
-    let carsArray = await retrieveCars(firestore);
+export async function drawCars(mapCanvas, firebaseApp){
+  let firestore = getFirestore(firebaseApp);
+  let cloudStorage = getStorage(firebaseApp);
+  let auth = getAuth(firebaseApp)
 
-    let carToImgMap = retrieveCarImages(cloudStorage, carsArray)
+  let carsArray = await retrieveCars(firestore);
+  let carToImgMap = retrieveCarImages(cloudStorage, carsArray)
 
-    for(let car of carsArray){
-      addMarker(mapCanvas, car, carToImgMap);
-    }
+  for(let car of carsArray){
+    addMarker(mapCanvas, car, carToImgMap, auth , firestore);
+  }
 }
 
 function progressBarPower(progressBar, pow){
@@ -109,8 +158,8 @@ function progressBarPower(progressBar, pow){
 
 function retrieveCarImages(cloud, carArray){
   let result = new Map();
-  carArray.forEach(e =>{
-    let title = e.title;
+  carArray.forEach(carDataObject =>{
+    let title = carDataObject.carData.title;
     let imgRef = '/carPictures/'+title+'.png';
     getDownloadURL(ref(cloud, imgRef))
     .then(imgURL =>{

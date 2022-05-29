@@ -62,7 +62,24 @@ function signOutButton(){
 
 async function initMap(){
   let mapCanvas = initializeMap();
-  drawCars(mapCanvas, db, cloudStorage);
+  drawCars(mapCanvas, app);
   
 }
 window.initMap = initMap;
+
+/*
+    A helper method for creating HTML elements in one line
+    @tag        :  should be a string
+    @attributes :  should be declared like an object
+    Example
+    createHTMLElm("div", {class:"centeredDiv", id:"myContentDiv"})
+    Chaining together with ,
+*/
+export function createHTMLElm(tag, attributes){
+  let result = document.createElement(tag);
+  if(attributes == null) return result;
+  Object.entries(attributes).forEach(attr =>{
+      result.setAttribute(attr[0], attr[1])
+  })
+    return result;
+}

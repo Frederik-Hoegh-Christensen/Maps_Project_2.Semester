@@ -38,7 +38,7 @@
                 </div>
                 <div class="row g-0">
                     <div class="col-md-4 col-sm-4 col-4">
-                    <img src=".\images\polstar2.png" class="img-fluid rounded-start" id="car-card-img" alt="...">
+                        <img src=".\images\polstar2.png" class="img-fluid rounded-start" id="car-card-img" alt="...">
                     </div>
                     <div class="col-md-8 col-sm-8 col-8">
                     <div class="card-body">
@@ -50,16 +50,16 @@
                     </div>
                     </div>
                 </div>
-                <div class="row card-button-grp card-button-grp-loggged-on">
-                    <div class="col-4 justify-content-center align-items-center centered-div">
+                <div class="row card-button-grp" id="card-button-grp-loggged-on">
+                    <div class="col-4 justify-content-center align-items-center centered-div" id="btn-open-now-container">
                         <button type="button" class="btn btn-primary" id="btn-open-now">Lås op</button>
                     </div>
                     <div class="col-8 centered-div" id="card-button-grp-reservation">
-                        <button type="button" class="btn btn-secondary">Resever</button>
-                        <input class="form-control" type="time"/>
+                        <button type="button" class="btn btn-secondary" id="btn-reserve">Resever</button>
+                        <input class="form-control" type="time" id="input-reserve-time"/>
                     </div>
                 </div>
-                <div class="row card-button-grp card-button-grp-no-login" hidden>
+                <div class="row card-button-grp" id="card-button-grp-no-login" hidden>
                     <div class="col-12 centered-div">
                         <button type="button" class="btn btn-secondary" id="card-btn-login">Login for at leje bilen</button>
                     </div>
