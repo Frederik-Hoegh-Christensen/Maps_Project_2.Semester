@@ -6,6 +6,7 @@ import {
   Timestamp,
   addDoc,
   updateDoc,
+  doc,
 } from 'firebase/firestore';
 import {
   getStorage,
@@ -105,14 +106,24 @@ function setupCarPreviewingCard(carDataObject, imgMap, auth, db){
   })
   openNowBtn.textContent = "Lås op";
   openNowBtn.addEventListener("click", e =>{
-    let billsRef = collection(db, 'bills');
-    addDoc(billsRef, {
-      data: Timestamp.fromDate(new Date()),
-      model: carData.title,
-      owner: auth.currentUser.email,
+    let carRef = doc(db, 'cars', carFirestoreId);
+    
+    updateDoc(carRef, {
+      isOcupied: true,
     })
-    .then(succes => {console.log(succes)})
-    .catch(err => console.log(err))
+    .then(fulfillment => {
+      let billsRef = collection(db, 'bills');
+      addDoc(billsRef, {
+        date: Timestamp.fromDate(new Date()),
+        model: carData.title,
+        owner: auth.currentUser.email,
+        car: carFirestoreId,
+      })
+      .then(succes => {console.log(succes)})
+      .catch(err => console.log(err))
+    })
+    .catch(err =>{console.log(err)})
+    
   })
   openNowBtnContainer.innerHTML = "";
   openNowBtnContainer.appendChild(openNowBtn);
