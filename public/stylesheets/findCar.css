@@ -4,6 +4,9 @@
     --btn-primary-color-hover: rgb(68, 174, 105);
 }
 
+main{
+    overflow: hidden;
+}
 
 #map-container{
     position: relative;
@@ -14,7 +17,11 @@
 }
 
 #map{
-    height: 89%;
+    /*height: 89%;
+        If we want some search bar there we will
+        have to reduce the height.
+    */
+    height:100%;
 }
 
 #loader{
@@ -97,5 +104,11 @@
 
     #card-button-grp-reservation input{
         max-width: 100px ;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    #map-container{
+        height: 430px;
     }
 }
