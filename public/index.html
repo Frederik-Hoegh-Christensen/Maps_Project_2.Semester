@@ -4,18 +4,23 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./styles.css">
+    <link rel="stylesheet" href="./stylesheets/styles.css">
     <script src="main.js" defer></script>
     <title>Crazy Delebils website</title>
 </head>
 <body>
+    <header>
+        <div class="header row flex-nowrap justify-content-between mb-2">
+            <div class="col-1 col-sm-2"></div>
+            <div class="col-8 col-sm-8 text-center">
+                <a class="header-logo text-dark h2" href="#">Mo-Bil</a>
+            </div>
+            <div class="col-3 col-sm-2 d-flex justify-content-end align-items-center" >
+                <button type="button" class="btn btn-sm btn-outline-secondary" id="header-btn-sign-in">Log ind</button>
+                <button type="button" class="btn btn-sm btn-outline-secondary" id="header-btn-sign-out" hidden>Log ud</button>
+            </div>
+        </div>
+    </header>
     <h6>Nu bliver det bad!</h6>
-    <button id="googleButton">Click here to sign in with gogle!</button>
-    <button id="signOutButton" hidden>Sign out here</button>
-    <div id="map-container">
-        <h3>Our Map</h3>
-        <div id="map"></div>
-    </div>
 </body>
-<script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAfjkABDWzuEwouTmjqCO6zz-OP4OxznaA&callback=initMap"></script>
 </html>

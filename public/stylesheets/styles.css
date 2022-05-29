@@ -1,0 +1,18 @@
+:root{
+    /*font-size: ;*/
+    --theme-secondary-color: rgb(70, 198, 75);
+}
+
+body{
+    box-sizing: border-box;
+}
+
+header{
+    border-bottom: 1.5px solid var(--theme-secondary-color);
+    overflow: hidden;
+}
+
+.header-logo{
+    font-size: 2rem;
+    text-decoration: none;
+}
