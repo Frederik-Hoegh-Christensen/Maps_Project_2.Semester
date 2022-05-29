@@ -24,7 +24,7 @@ const cloudStorage = getStorage(app);
 // Call this when user goes to account page
 if(window.location.href.includes("account.html")){
   fillHistoryDropdown(db, auth.currentUser);
-displayUserInfo(auth.currentUser);
+  displayUserInfo(auth.currentUser);
 }
 
 
