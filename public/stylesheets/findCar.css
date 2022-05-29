@@ -15,7 +15,16 @@
 
 #map{
     height: 89%;
-    background-color: aqua;
+}
+
+#loader{
+    z-index: 2;
+    position: absolute;
+    width: 100%;
+    height: 89%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .card-container{

@@ -20,6 +20,11 @@
     
     <div id="map-container">
         <h3>Our Map</h3>
+        <div id="loader">
+            <div class="spinner-border text-primary" role="status">
+                <span class="sr-only"></span>
+            </div>
+        </div>
         <div id="map"></div>
         <div class="card-container centered-div" id="car-card" hidden>
             <div class="card mb-3" style="max-width: 540px;">
@@ -68,6 +73,13 @@
     document.getElementById('card-close-btn')
                         .addEventListener("click", e=>{
                             document.getElementById('car-card').hidden = true;
-                        })
+                        }
+    )
+
+    window.addEventListener("load", event =>{
+        console.log('page loaded');
+        document.getElementById('loader').hidden = true;
+    })
+
 </script>
 </html>
