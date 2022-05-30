@@ -1,12 +1,15 @@
 :root{
     /*font-size: ;*/
     --theme-secondary-color: rgb(35, 205, 41);
+    
+    --footer-color: rgb(242, 241, 241);
+
+
+    --navbar-background-color: grey;
     --nav-item: rgb(239, 239, 239,0.8);
     --nav-item-hover: rgba(239, 239, 239);
     --nav-item-active: var(--theme-secondary-color);
     --nav-item-active-hover: rgb(116, 226, 120);
-    --footer-color: rgb(242, 241, 241);
-
     --navbar-height-sm: 4rem;
 }
 
@@ -24,9 +27,13 @@ header{
     text-decoration: none;
 }
 
+.header-btns .btn{
+    margin-right: 0.5rem;
+}
+
 .navbar{
     position: fixed;
-    background-color: grey;
+    background-color: var(--navbar-background-color);
     justify-content: flex-start;
     align-items: flex-start;
     transition: width 200ms ease;
