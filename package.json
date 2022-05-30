@@ -1,0 +1,14 @@
+{
+  "dependencies": {
+    "firebase": "^9.8.1"
+  },
+  "devDependencies": {
+    "webpack": "^5.72.1",
+    "webpack-cli": "^4.9.2"
+  },
+  "scripts": {
+    "packweb": "webpack --entry ./main.js",
+    "build": "webpack",
+    "serve": "firebase serve --only hosting"
+  }
+}
