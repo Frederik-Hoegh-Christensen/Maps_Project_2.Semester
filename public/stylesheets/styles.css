@@ -5,6 +5,9 @@
     --nav-item-hover: rgba(239, 239, 239);
     --nav-item-active: var(--theme-secondary-color);
     --nav-item-active-hover: rgb(116, 226, 120);
+    --footer-color: rgb(242, 241, 241);
+
+    --navbar-height-sm: 4rem;
 }
 
 body{
@@ -70,6 +73,16 @@ header{
     display:none;
 } 
 
+footer{
+    background-color: var(--footer-color);
+    margin-left: 0.25rem;
+}
+
+.footer-container{
+    margin:0;
+    max-width: 100%;
+}
+
 .foot{
     list-style: none;
     display: flex;
@@ -92,7 +105,7 @@ header{
     .navbar{
         bottom:0;
         width:100%;
-        height: 4rem;
+        height: var(--navbar-height-sm);
     }
 
     .navbar-nav{
@@ -105,6 +118,10 @@ header{
     .nav-link-text{
         display:inline;
         margin: 2px;
+    }
+
+    .footer-container{
+        padding-bottom: var(--navbar-height-sm);
     }
 }
 
