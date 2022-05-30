@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+     <!-- GOOGLE FONTS - NEEDED FOR NAVBAR -->
+     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+     <link rel="stylesheet" href="styles.css">
+    <title>Frontpage</title>
+</head>
+<body>
+    <header class="mt-2 mx-2">
+        <div class="header row flex-nowrap justify-content-between mb-2">
+            <div class="col-1 col-sm-2"></div>
+            <div class="col-8 col-sm-8 text-center">
+                <a class="header-logo text-dark h2" href="#">Mo-Bil</a>
+            </div>
+            <div class="col-3 col-sm-2 d-flex justify-content-end align-items-center" >
+                <button type="button" class="btn btn-sm btn-outline-secondary" id="header-btn-sign-in">Log ind</button>
+                <button type="button" class="btn btn-sm btn-outline-secondary" id="header-btn-sign-out" hidden>Log ud</button>
+            </div>
+        </div>
+    </header>
+    <nav class="navbar fixed-bottom navbar-light bg-light mb-md-2">
+        <div class="navbar-collapse navbar-expand-sm" id="navbarNav">
+            <div class="navbar-nav nav-pills flex-row">
+                <a class="nav-item nav-link active flex-fill text-center" href="#">Guide</a>
+                <a class="nav-item nav-link flex-fill text-center" href="#">Find Bil</a>
+                <a class="nav-item nav-link flex-fill text-center" href="#">
+                    <span class="material-symbols-outlined">
+                        account_circle
+                    </span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="row row-cols-1">
+            <div class="col text-center gy-3">
+                <h4>
+                    Danmarks dele-biler
+                </h4>
+                <p>Her står der måske noget tekst om hvor sygt fede vi er</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col text-center gy-5">
+                <button type="button" class="btn btn-light border-dark">Tilmeld dig vores service her!</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col text-center gy-5">
+                <h4><u> Bruger Guide - Sådan gør du:</u></h4>
+            </div>
+        </div>
+        <ol>
+            <li> Tilmeld dig vores service ved at klikke <a href="#">her</a> <br> <img src="#" alt="indsæt billede"></li>
+            <li> Find en bil nær dig ved at klikke i bunden af skærmen på "Find Bil-knappen <br> <img src="#" alt="indsæt billede"></li>
+            <li> Du bør nu kunne se et kort, hvor de røde bobler illustrerer hvor vores biler er placeret. Tryk blot på den bil du gerne vil bruge og tryk bestil!</li>
+            <li> Efter at du har booket en bil vil du kunne se "Din Tur". Når du er færdig med at bruge bilen klikker du bare på "Afslut tur" og vi vil opkræve penge fra dit kort.</li>
+        </ol>
+    
+    </div>
+</body>
+</html>
