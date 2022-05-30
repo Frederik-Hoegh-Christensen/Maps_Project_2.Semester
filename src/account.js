@@ -1,7 +1,7 @@
 import { collection, query, where, getDocs } from "firebase/firestore"
 export async function fillHistoryDropdown(db, user){
     var dropdown = document.getElementById("historyDropdown");
-    //const q = await query(collection(db, "bills"), where("owner", "==", user.providerData[0].email));
+    //const q = await query(collection(db, "bills"), where("owner", "==", user.providerData[0].uid));
     const q = query(collection(db, "bills"), where("owner", "==", "silas.r.arildsen@gmail.com"));
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
@@ -37,4 +37,21 @@ export function displayUserInfo(user){
 
     nameDiv.appendChild(nameP);
     emailDiv.appendChild(emailP);
+}
+
+export async function changingUserInfo(db, user){
+    if (user.providerData[0].providerId === "google.com") {
+        location.reload();
+        alert("Du henvises til Google for at ændre dine kontooplysninger.");
+    }else{
+        var changeDisplayNameInput = document.getElementById("displayName");
+        var changeEmailInput = document.getElementById("email");
+        var changePasswordInput = document.getElementById("password");
+        var changePasswordRepeatInput = document.getElementById("repeatPassword");
+        var confirmButton = document.getElementById("changeAccountInfoButton");
+        
+        confirmButton.addEventListener("click", e => {
+              
+        })
+    }
 }
