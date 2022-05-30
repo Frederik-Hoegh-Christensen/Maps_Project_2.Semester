@@ -95,8 +95,12 @@ main{
     flex: 48%;
 }
 
-#card-button-grp-reservation .btn-secondary{
+#card-button-grp-reservation-btn-container{
     max-width: 100px;
+}
+
+#card-button-grp-reservation-btn-container .btn-secondary{
+    width:100%;
 }
 
 #card-button-grp-reservation input{
