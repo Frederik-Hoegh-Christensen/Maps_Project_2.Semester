@@ -18,8 +18,8 @@
     <script src="main.js" defer></script>
     <title>Crazy Delebils website</title>
 </head>
-<body class="mt-2 mx-2">
-    <header>
+<body >
+    <header class="mt-2 mx-2">
         <div class="header row flex-nowrap justify-content-between mb-2">
             <div class="col-3 col-sm-2">
             </div>
@@ -32,20 +32,29 @@
             </div>
         </div>
     </header>
-    <nav class="navbar fixed-bottom navbar-light bg-light mb-md-2">
-        <div class="navbar-collapse navbar-expand-sm" id="navbarNav">
-            <div class="navbar-nav nav-pills flex-row">
-                <a class="nav-item nav-link flex-fill text-center" href="#">Guide</a>
-                <a class="nav-item nav-link active flex-fill text-center" href="#">Find Bil</a>
-                <a class="nav-item nav-link flex-fill text-center" href="#">
-                    <span class="material-symbols-outlined">
-                        account_circle
-                    </span>
+    <nav class="navbar mt-0">
+        <ul class="navbar-nav">
+            <li class="nav-item active flex-fill">
+                <a class="nav-link " href="#">
+                    <span class="material-symbols-outlined">help</span>
+                    <span class="nav-link-text">Guide</span>
                 </a>
-            </div>
-        </div>
+            </li>
+            <li class="nav-item flex-fill">
+                <a class="nav-link" href="#">
+                    <span class="material-symbols-outlined">near_me</span>
+                    <span class="nav-link-text">Find Bil</span>
+                </a>
+            </li>
+            <li class="nav-item flex-fill">
+                <a class="nav-link" href="#">
+                    <span class="material-symbols-outlined">account_circle</span>
+                    <span class="nav-link-text">Konto</span>
+                </a>
+            </li>
+        </ul>
     </nav>
-    <main class="mt-2">
+    <main class="mt-2 mx-2">
         <div id="map-container">
            <!--<h3>Find bill</h3>--> 
             <div id="loader">
