@@ -1,6 +1,35 @@
+:root{
+    --jumbotron-font-color: rgb(255, 255, 255);
+}
+
 .frontPageListElement{
     margin: 1em;
     font-size: large;
+}
+
+.jumbotron{
+    background-image: url("../images/GettyImages-181877763.jpg");
+    background-size: cover;
+    height: 50vh;
+    min-height: 250px;
+    margin-bottom: 5vh;
+    color: var(--jumbotron-font-color);
+}
+
+.jumbotron h1{
+    text-shadow: 2px 2px black;
+    font-weight: 500 !important;
+}
+
+.jumbotron #jumobtron-lead-text-about-us{
+    text-shadow: 1px 1px black;
+    font-weight: 300 !important;
+}
+
+.centered-div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 @media (max-width: 767px) {
