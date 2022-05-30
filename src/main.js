@@ -2,7 +2,7 @@
 
 import { getFirebaseConfig } from './firebase-config.js';
 import { initializeMap, drawCars, addUserPositionPin, getUserLocation } from './mapCanvas';
-import { fillHistoryDropdown, displayUserInfo } from './account';
+import { fillHistoryDropdown, displayUserInfo, changeUserInfo, changePaymentMethod } from './account';
 
 import { initializeApp } from 'firebase/app';
 
@@ -25,8 +25,24 @@ const cloudStorage = getStorage(app);
 if(window.location.href.includes("account.html")){
   fillHistoryDropdown(db, auth.currentUser);
   displayUserInfo(auth.currentUser);
-}
+  var changeUserInfoButton = document.getElementById("changeUserInfoButton");
+  try {
+    changeUserInfoButton.addEventListener("click", e => {
+      changeUserInfo(auth.currentUser);
+    });
+  } catch (error) {
+    alert(error.message);
+  }
 
+  var confirmChangePaymentMethodButton = document.getElementById("confirmChangePaymentMethodButton");
+  try {
+    confirmChangePaymentMethodButton.addEventListener("click", e => {
+      changePaymentMethod(db, auth.currentUser);
+    });
+  } catch (error) {
+    alert(error.message);
+  }
+}
 
 onAuthStateChanged(auth, user =>{
   if(user != null){
