@@ -70,6 +70,8 @@ async function initMap(){
 }
 window.initMap = initMap;
 
+
+
 /*
     A helper method for creating HTML elements in one line
     @tag        :  should be a string

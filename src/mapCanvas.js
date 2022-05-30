@@ -98,6 +98,12 @@ function setupCarPreviewingCard(carDataObject, imgMap, auth, db){
   }
 
   //Setup "book now" / "open now" button
+  setupOpenNowButton(db, carFirestoreId, auth,carData);
+  //TODO: setup "reserve" button
+  setupReserveButton(db, carFirestoreId, auth, carData);
+}
+
+function setupOpenNowButton(db, carFirestoreId,auth, carData){
   let openNowBtnContainer = document.getElementById('btn-open-now-container');
   let openNowBtn = createHTMLElm("button", {
     type: "button",
@@ -112,23 +118,59 @@ function setupCarPreviewingCard(carDataObject, imgMap, auth, db){
       isOcupied: true,
     })
     .then(fulfillment => {
-      let billsRef = collection(db, 'bills');
-      addDoc(billsRef, {
-        date: Timestamp.fromDate(new Date()),
-        model: carData.title,
-        owner: auth.currentUser.email,
-        car: carFirestoreId,
-      })
-      .then(succes => {console.log(succes)})
-      .catch(err => console.log(err))
+      createBill(db, auth.currentUser.email, carFirestoreId, carData)
     })
     .catch(err =>{console.log(err)})
-    
   })
   openNowBtnContainer.innerHTML = "";
   openNowBtnContainer.appendChild(openNowBtn);
+}
 
-  //TODO: setup "reserve" button
+function createBill(db, userEmail, carFirestoreId, carData){
+  let billsRef = collection(db, 'bills');
+  addDoc(billsRef, {
+    date: Timestamp.fromDate(new Date()),
+    model: carData.title,
+    owner: userEmail,
+    car: carFirestoreId,
+    isActive: true,
+  })
+  .then(succes => {
+    //We can potentially do something here
+  })
+  .catch(err => console.log(err))
+}
+
+function setupReserveButton(db, carFirestoreId, auth, carData){
+  let container = document.getElementById('card-button-grp-reservation-btn-container');
+  
+  let reserveBtn = createHTMLElm("button", {
+    type: "button",
+    class:"btn btn-secondary",
+    id:"btn-reserve",
+  })
+  reserveBtn.textContent = "Reserver";
+  reserveBtn.addEventListener("click", e => {
+    let reservationTime = document.getElementById('input-reserve-time').value;
+    if(!reservationTime){
+      console.log('give me proper input');
+    }
+    let carRef = doc(db, 'cars', carFirestoreId);
+
+    updateDoc(carRef, {
+      isOcupied: true,
+      reservationTime: reservationTime,
+    })
+    .then(fulfillment => {
+      createBill(db, auth.currentUser.email, carFirestoreId, carData)
+    })
+    .catch(err => {
+      console.log(err)
+    })
+  })
+  container.innerHTML = "";
+  container.appendChild(reserveBtn);
+  
 }
 
 async function retrieveCars(db){

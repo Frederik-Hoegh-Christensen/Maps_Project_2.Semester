@@ -16,6 +16,9 @@
     <link rel="stylesheet" href="./stylesheets/styles.css">
     <link rel="stylesheet" href="./stylesheets/findCar.css">
     <script src="main.js" defer></script>
+
+    <script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAfjkABDWzuEwouTmjqCO6zz-OP4OxznaA&callback=initMap"></script>
+
     <title>Crazy Delebils website</title>
 </head>
 <body >
@@ -92,7 +95,9 @@
                             <button type="button" class="btn btn-primary" id="btn-open-now">Lås op</button>
                         </div>
                         <div class="col-8 centered-div" id="card-button-grp-reservation">
-                            <button type="button" class="btn btn-secondary" id="btn-reserve">Resever</button>
+                            <div id="card-button-grp-reservation-btn-container">
+                                <button type="button" class="btn btn-secondary" id="btn-reserve">Resever</button>
+                            </div>
                             <input class="form-control" type="time" id="input-reserve-time"/>
                         </div>
                     </div>
@@ -106,7 +111,6 @@
         </div>
     </main>
 </body>
-<script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAfjkABDWzuEwouTmjqCO6zz-OP4OxznaA&callback=initMap"></script>
 <script defer>
     document.getElementById('card-close-btn')
                         .addEventListener("click", e=>{
