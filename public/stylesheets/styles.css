@@ -70,6 +70,24 @@ header{
     display:none;
 } 
 
+.foot{
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.footer-item{
+    margin: 0;
+    margin-bottom: 0.5rem;
+}
+
+.footer-link{
+    text-decoration: none;
+}
+
 @media screen and (max-width: 767px) {
     .navbar{
         bottom:0;
