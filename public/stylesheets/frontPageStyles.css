@@ -2,3 +2,27 @@
     margin: 1em;
     font-size: large;
 }
+
+@media (max-width: 767px) {
+    .small-screen-text{
+        display: inline;
+    }
+    .bigScreenText{
+        display: none;
+    }
+    #picture-desktop{
+        display: none;
+    }
+}
+@media (min-width: 778px) {
+    .small-screen-text{
+        display: none;
+    }
+    .bigScreenText{
+        display: inline;
+    }
+    
+    #picture-mobile{
+        display: none;
+    }
+}
