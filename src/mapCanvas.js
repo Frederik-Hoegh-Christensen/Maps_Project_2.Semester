@@ -129,6 +129,7 @@ function setupCarPreviewingCard(carDataObject, imgMap, auth, db){
   openNowBtnContainer.appendChild(openNowBtn);
 
   //TODO: setup "reserve" button
+  
 }
 
 async function retrieveCars(db){

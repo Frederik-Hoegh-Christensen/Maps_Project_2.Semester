@@ -4,6 +4,14 @@
     --btn-primary-color-hover: rgb(68, 174, 105);
 }
 
+html, body{
+    height: 100%;
+}
+
+main{
+    height:80%
+}
+
 main{
     overflow: hidden;
 }
@@ -11,7 +19,7 @@ main{
 #map-container{
     position: relative;
     width: 100%;
-    height: 550px;
+    height: 100%;
     margin: 0;
     padding: 0;
 }
@@ -21,6 +29,8 @@ main{
         If we want some search bar there we will
         have to reduce the height.
     */
+    min-height: 200px;
+    min-width: 200px;
     height:100%;
 }
 
@@ -108,8 +118,8 @@ main{
 }
 
 @media screen and (min-width: 768px) {
-    #map-container{
-        height: 430px;
-    
+    main{
+        height:85%;
+        overflow: hidden;
     }
 }
