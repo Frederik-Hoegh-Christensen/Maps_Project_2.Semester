@@ -38,11 +38,12 @@ if (window.location.href.includes("account.html")) {
 onAuthStateChanged(auth, user => {
   if (user != null) {
     console.log(user.email);
-    signOutButton();
+    if(!window.location.href.includes("signUp.html"))signOutButton();
+    
     accountPage(db, auth.currentUser);
   } else {
     console.log("no user");
-    signInButton();
+    if(!window.location.href.includes("signUp.html"))signInButton();
   }
 });
 
@@ -75,13 +76,17 @@ function signInButton() {
   };
 }
 
+if (window.location.href.includes("signUp.html")) {
+  window.addEventListener("load", e => {
+    signUpEmail(auth);
+  });
+}
+
 function signOutButton() {
   document.getElementById('header-btn-sign-in').hidden = true;
-  if (window.location.href.includes("signUp.html")) {
-    window.addEventListener("load", e => {
-      signUpEmail(auth);
-    });
-  }
+  let sb = document.getElementById("header-btn-sign-out");
+  sb.addEventListener("click", (signOut(auth)));
+  if(sb.hidden) sb.hidden = false;
 }
 
 
