@@ -119,6 +119,7 @@ function setupOpenNowButton(db, carFirestoreId,auth, carData){
     })
     .then(fulfillment => {
       createBill(db, auth.currentUser.email, carFirestoreId, carData)
+      window.location.replace('yourCar.html')
     })
     .catch(err =>{console.log(err)})
   })
@@ -167,6 +168,7 @@ function setupReserveButton(db, carFirestoreId, auth, carData){
     })
     .then(fulfillment => {
       createBill(db, auth.currentUser.email, carFirestoreId, carData)
+      window.location.replace('yourCar.html')
     })
     .catch(err => {
       console.log(err)

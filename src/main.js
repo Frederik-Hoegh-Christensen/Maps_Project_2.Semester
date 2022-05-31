@@ -11,7 +11,7 @@ import { getAuth, onAuthStateChanged, GoogleAuthProvider,
 from 'firebase/auth';
 import { getStorage } from 'firebase/storage';
 import { getFirestore } from 'firebase/firestore';
-import {setReceiptDetails} from './yourCarScript';
+import {setReceiptDetails, endTrip} from './yourCarScript';
 
 const app = initializeApp(getFirebaseConfig());
 
@@ -41,7 +41,7 @@ onAuthStateChanged(auth, user =>{
       console.log(user.email);
       signOutButton();
       if(window.location.href.includes("yourCar.html")){
-        setReceiptDetails();
+        setReceiptDetails(db, auth.currentUser);
       }
   } else {
       console.log("no user");
@@ -50,27 +50,37 @@ onAuthStateChanged(auth, user =>{
 })
 
 function signInButton(){
-  document.getElementById('header-btn-sign-out').hidden = true;
+  let signOutButton = document.getElementById('header-btn-sign-out');
+  if(signOutButton) {
+    signOutButton.hidden = true
+  }
 
   let signInButton = document.getElementById('header-btn-sign-in');
-  signInButton.addEventListener("click", e =>{
-    signInWithRedirect(auth, googleAuthProvider)
-    .catch((error) => {
-      if (error.code == "auth/web-storage-unsupported") {
-        alert("Please enable cookies to use this feature.");
-      }else{
-        alert(error.message);
-      }});
-  })
-  if(signInButton.hidden) signInButton.hidden = false;
+  if(signInButton) {
+    signInButton.addEventListener("click", e =>{
+      signInWithRedirect(auth, googleAuthProvider)
+      .catch((error) => {
+        if (error.code == "auth/web-storage-unsupported") {
+          alert("Please enable cookies to use this feature.");
+        }else{
+          alert(error.message);
+        }});
+    })
+    if(signInButton.hidden) signInButton.hidden = false;
+  }
 }
 
  function signOutButton(){
-  document.getElementById('header-btn-sign-in').hidden = true;
+  let signInButton = document.getElementById('header-btn-sign-in');
+  if(signInButton) {
+    signInButton.hidden = true;
+  }
 
   let sb = document.getElementById('header-btn-sign-out');
-  sb.addEventListener("click", e => {signOut(auth)});
-  if(sb.hidden) sb.hidden = false;
+  if(sb){
+    sb.addEventListener("click", e => {signOut(auth)});
+    if(sb.hidden) sb.hidden = false;
+  }
 } 
 
 
@@ -81,13 +91,20 @@ async function initMap(){
 }
 window.initMap = initMap;
 
-function setYourCarPage(){
+function setYourCarPage(db, user){
   if(window.location.href.includes("yourCar.html")){
-    console.log(auth.currentUser);
+    console.log(user);
     console.log(db);
-    setReceiptDetails(db, auth.currentUser);
+    setReceiptDetails(db, user);
   }
 }
+
+  let endTripButton = document.getElementById('endTrip');
+  if(endTripButton) {
+    endTripButton.addEventListener("click", e =>{
+      endTrip(db, auth.currentUser);
+    })
+  }
 
 
 
