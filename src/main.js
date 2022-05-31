@@ -11,6 +11,7 @@ import { getAuth, onAuthStateChanged, GoogleAuthProvider,
 from 'firebase/auth';
 import { getStorage } from 'firebase/storage';
 import { getFirestore } from 'firebase/firestore';
+import {setReceiptDetails} from './yourCarScript';
 
 const app = initializeApp(getFirebaseConfig());
 
@@ -21,17 +22,27 @@ const googleAuthProvider = new GoogleAuthProvider();
 const db = getFirestore(app);
 const cloudStorage = getStorage(app);
 
+
+
+
+
 // Call this when user goes to account page
 if(window.location.href.includes("account.html")){
   fillHistoryDropdown(db, auth.currentUser);
   displayUserInfo(auth.currentUser);
+  
 }
+
+
 
 
 onAuthStateChanged(auth, user =>{
   if(user != null){
       console.log(user.email);
       signOutButton();
+      if(window.location.href.includes("yourCar.html")){
+        setReceiptDetails();
+      }
   } else {
       console.log("no user");
       signInButton();
@@ -54,13 +65,13 @@ function signInButton(){
   if(signInButton.hidden) signInButton.hidden = false;
 }
 
-function signOutButton(){
+ function signOutButton(){
   document.getElementById('header-btn-sign-in').hidden = true;
 
   let sb = document.getElementById('header-btn-sign-out');
   sb.addEventListener("click", e => {signOut(auth)});
   if(sb.hidden) sb.hidden = false;
-}
+} 
 
 
 async function initMap(){
@@ -69,6 +80,14 @@ async function initMap(){
   addUserPositionPin(mapCanvas, cloudStorage)
 }
 window.initMap = initMap;
+
+function setYourCarPage(){
+  if(window.location.href.includes("yourCar.html")){
+    console.log(auth.currentUser);
+    console.log(db);
+    setReceiptDetails(db, auth.currentUser);
+  }
+}
 
 
 

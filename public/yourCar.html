@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="./stylesheets/styles.css">
     <link rel="stylesheet" href="./stylesheets/findCar.css">
     <script src="main.js" defer></script>
-    <script src="yourCarScript.js"></script>
+    
     <style>
         .navbar-expand-md-custom,
         .footer-custom {
@@ -32,6 +32,8 @@
         <div class="header">
             <div class="col text-center">
                 <a class="header-logo text-dark h2" href="#">Mo-Bil</a>
+                <button type="button" class="btn btn-sm btn-outline-secondary" id="header-btn-sign-in">Log ind</button>
+                <button type="button" class="btn btn-sm btn-outline-secondary" id="header-btn-sign-out" hidden>Log ud</button>
             </div>
             
         </div>
@@ -47,11 +49,11 @@
                     </div>
                     <div class="col-md-6">
                         <div class="card-block py-2 px-2">
-                            <h5 class="card-title">Model: <br></h5>
-                            <h6 class="card-subtitle mb-2 text-muted">Farve: <br><br></h6>
-                            <h6 class="card-subtitle mb-2 text-muted">Pris pr. km: <br><br></h6>
-                            <h6 class="card-subtitle mb-2 text-muted">Køretur påbegyndt: <br><br></h6>
-                            <h6 class="card-subtitle mb-2 text-muted">Pris indtil videre: <br><br></h6>
+                            <h5 class="card-title">Model: <span id="modelField"></span> <br></h5>
+                            <h6 class="card-subtitle mb-2 text-muted">Farve: <span id="colorField"></span> <br><br>></h6>
+                            <h6 class="card-subtitle mb-2 text-muted">Pris pr. km: <span id="pricePerKmField"></span> <br><br></h6>
+                            <h6 class="card-subtitle mb-2 text-muted">Køretur påbegyndt: <span id="tripBeginField"></span> <br><br></h6>
+                            <h6 class="card-subtitle mb-2 text-muted">Pris indtil videre: <span id="totalPriceField"></span> <br><br></h6>
                             <button id="cancelTrip" class="btn btn-info">Afslut køretur</button>
                         </div>  
                     </div>
@@ -85,10 +87,5 @@
     </footer>
 </body>
 <script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAfjkABDWzuEwouTmjqCO6zz-OP4OxznaA&callback=initMap"></script>
-<script defer>
-    document.getElementById('card-close-btn')
-                        .addEventListener("click", e=>{
-                            document.getElementById('car-card').hidden = true;
-                        })
-</script>
+
 </html>

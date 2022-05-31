@@ -137,6 +137,7 @@ function createBill(db, userEmail, carFirestoreId, carData){
   })
   .then(succes => {
     //We can potentially do something here
+    
   })
   .catch(err => console.log(err))
 }
