@@ -24,7 +24,7 @@
                 <a class="header-logo text-dark h2" href="#">Mo-Bil</a>
             </div>
             <div class="col-3 col-sm-2 d-flex justify-content-end align-items-center" >
-                <button type="button" class="btn btn-sm btn-outline-secondary" id="header-btn-sign-in">Log ind</button>
+                <button type="button" class="btn btn-sm btn-outline-secondary" data-toggle="modal" data-target="#logInModal" id="header-btn-sign-in">Log ind</button>
                 <button type="button" class="btn btn-sm btn-outline-secondary" id="header-btn-sign-out" hidden>Log ud</button>
             </div>
         </div>
@@ -165,6 +165,37 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         <button type="button" class="btn btn-primary" data-dismiss="modal" id="confirmChangePaymentMethodButton">Godkend Ændringer</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="logInModal" tabindex="-1" role="dialog" aria-labelledby="logIn" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Log ind</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="email" class="col-form-label">Email</label>
+                                <input type="text" class="form-control" id="modal-log-in-email">
+                            </div>
+                            <div class="form-group">
+                                <label for="modal-log-in-password" class="col-form-label">Kodeord</label>
+                                <input type="password" class="form-control" id="modal-log-in-password">
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" id="btn-sign-in-email">Log ind</button> <label for="header-btn-sign-in-google">Eller:</label>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" id="btn-sign-in-google">Log ind med Google</button>
+                        <button type="button" class="btn btn-sm btn-outline-secondary" id="btn-sign-up">Opret konto</button>
                     </div>
                 </div>
             </div>
