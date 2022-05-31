@@ -1,35 +1,39 @@
-import { collection, query, where, getDocs, setDoc, doc, Timestamp } from "firebase/firestore";
+import { collection, query, where, getDocs, setDoc, doc, Timestamp, orderBy, QueryConstraint } from "firebase/firestore";
 import { updateProfile } from "firebase/auth";
+
 export async function fillHistoryDropdown(db, user){
     var dropdown = document.getElementById("historyDropdown");
-    //const q = await query(collection(db, "bills"), where("owner", "==", user.providerData[0].uid));
-    const q = query(collection(db, "bills"), where("owner", "==", "silas.r.arildsen@gmail.com"));
+    const q = await query(collection(db, "bills"), where("owner", "==", user.uid));
+    //const q = query(collection(db, "bills"), where("owner", "==", "silas.r.arildsen@gmail.com"));
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
         console.log(doc.data());
         var data = doc.data();
         var item = document.createElement("a");
-        var date = data.date.toDate();
-        var itemText = document.createTextNode(date.toString());
+        var dateString = data.date.toDate().toString();
+        var date = dateString.split(" ")[0] + " " + dateString.split(" ")[2] + ". " + dateString.split(" ")[1] + ", " + dateString.split(" ")[3];
+        var itemText = document.createTextNode(date);
         item.appendChild(itemText);
-        item.href = "index.html";
+        //item.href = "index.html"; MAKE LINK TO BILL
         dropdown.appendChild(item);
         var separator = document.createElement("div");
         separator.setAttribute("class", "dropdown-divider");
         dropdown.appendChild(separator);
-    })
+    });
 }
 
 export function displayUserInfo(user){
-    //var name = user.providerData[0].displayName;
-    //var email = user.providerData[0].email;
-    var name = "test";
-    var email = "test@test.com";
-    var nameNode = document.createTextNode(name);
-    var emailNode = document.createTextNode(email);
+    //var name = "test";
+    //var email = "test@test.com";
+    var nameNode;
+    nameNode = document.createTextNode(user.displayName);
+    
+    var emailNode = document.createTextNode(user.email);
 
     var nameP = document.createElement("p");
-    nameP.appendChild(nameNode);
+    if(user.displayName){
+        nameP.appendChild(nameNode);
+    }
     var emailP = document.createElement("p");
     emailP.appendChild(emailNode);
 
@@ -41,10 +45,10 @@ export function displayUserInfo(user){
 }
 
 export function changeUserInfo(user){
-    /*if (user.providerData[0].providerId === "google.com") {
+    if (user.providerId === "firebase") {
         location.reload();
         alert("Du henvises til Google for at ændre dine kontooplysninger.");
-    }else{*/
+    }else{
         var changeDisplayNameInput = document.getElementById("displayName");
         var changeEmailInput = document.getElementById("email");
         var changePasswordInput = document.getElementById("password");
@@ -53,14 +57,15 @@ export function changeUserInfo(user){
         var confirmEmailButton = document.getElementById("changeEmailButton");
         var confirmPasswordButton = document.getElementById("changePasswordButton");
 
-        //changeDisplayNameInput.setAttribute("placeholder", user.providerData[0].displayName);
-        //changeEmailInput.setAttribute("placeholder", user.providerData[0].email);
+        changeDisplayNameInput.setAttribute("placeholder", user.displayName);
+        changeEmailInput.setAttribute("placeholder", user.email);
         
         confirmDisplayNameButton.addEventListener("click", e => {
             try {
                 updateProfile(user, {
                     displayName: changeDisplayNameInput.value
                 });
+                alert("Ændringerne er blevet gemt");
             } catch (error) {
                 alert(error.message);
             }
@@ -71,6 +76,7 @@ export function changeUserInfo(user){
                 updateProfile(user, {
                     email: changeEmailInput.value
                 });
+                alert("Ændringerne er blevet gemt");
             } catch (error) {
                 alert(error.message);
             }
@@ -79,9 +85,8 @@ export function changeUserInfo(user){
         confirmPasswordButton.addEventListener("click", e => {
               if(changePasswordInput.value == changePasswordRepeatInput.value && changePasswordInput.value.length > 7){
                 try {
-                    updateProfile(user, {
-                        password: changePasswordInput.value
-                    });
+                    updatePassword(user, changePasswordInput.value);
+                    alert("Ændringerne er blevet gemt");
                 } catch (error) {
                     alert(error.message);
                 }
@@ -90,7 +95,7 @@ export function changeUserInfo(user){
               }
         });
     }
-//}
+}
 
 export async function changePaymentMethod(db, user){
     var nameInput = document.getElementById("nameOnCard");
@@ -98,13 +103,12 @@ export async function changePaymentMethod(db, user){
     var expDateMonthInput = document.getElementById("expDateMonth");
     var expDateYearInput = document.getElementById("expDateYear");
     var CVVInput = document.getElementById("CVV");
-//insert in setDoc: user.providerData[0].uid
     var paymentMethodRef = collection(db, "paymentMethods");
     if(cardNumberInput.value.length === 16 && expDateMonthInput.value.length === 2 && expDateYearInput.value.length === 4 && CVVInput.value.length === 3){
         try {
             var expDate = new Date(expDateYearInput.value, expDateMonthInput.value, 1, 0, 0, 0);
             var expDateTimetamp = Timestamp.fromDate(expDate);
-            await setDoc(doc(paymentMethodRef, "asdasdasd"), {
+            await setDoc(doc(paymentMethodRef, user.uid), {
                 name: nameInput.value,
                 cardNumber: cardNumberInput.value,
                 CVV: CVVInput.value,

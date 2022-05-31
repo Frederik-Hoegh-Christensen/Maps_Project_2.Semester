@@ -116,7 +116,7 @@ function setupCarPreviewingCard(carDataObject, imgMap, auth, db){
       addDoc(billsRef, {
         date: Timestamp.fromDate(new Date()),
         model: carData.title,
-        owner: auth.currentUser.email,
+        owner: auth.currentUser.uid,
         car: carFirestoreId,
       })
       .then(succes => {console.log(succes)})
