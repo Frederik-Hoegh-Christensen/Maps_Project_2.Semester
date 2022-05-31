@@ -108,6 +108,10 @@ footer{
     text-decoration: none;
 }
 
+.dropdown-menu{
+    overflow-y: auto;
+}
+
 @media screen and (max-width: 767px) {
     .navbar{
         bottom:0;
