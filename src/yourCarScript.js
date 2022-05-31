@@ -32,10 +32,10 @@ export async function setReceiptDetails(db, user){
     
 }
 
-document.addEventListener('DOMContentLoaded', (event) => {
+/*document.addEventListener('DOMContentLoaded', (event) => {
     var cancelButton = document.getElementById('cancelTrip');
     cancelButton.addEventListener('click', showModal);
-})
+})*/
 function showModal (){
     let myModal = new bootstrap.Modal(document.getElementById('endTrip'), {});
     myModal.show();
