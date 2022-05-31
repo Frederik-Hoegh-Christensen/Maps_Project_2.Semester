@@ -20,13 +20,13 @@
     <title>Crazy Delebils website</title>
 </head>
 <body>
-    <header class="mt-2 mx-2">
+    <header class="mt-2">
         <div class="header row flex-nowrap justify-content-between mb-2">
             <div class="col-3 col-sm-2"></div>
             <div class="col-6 col-sm-8 text-center">
                 <a class="header-logo text-dark h2" href="#">Mo-Bil</a>
             </div>
-            <div class="col-3 col-sm-2 d-flex justify-content-end align-items-center" >
+            <div class="col-3 col-sm-2 d-flex justify-content-end align-items-center header-btns" >
                 <button type="button" class="btn btn-sm btn-outline-secondary" id="header-btn-sign-in">Log ind</button>
                 <button type="button" class="btn btn-sm btn-outline-secondary" id="header-btn-sign-out" hidden>Log ud</button>
             </div>
@@ -56,21 +56,19 @@
     </nav>
     <main  class="mt-2 mx-2">
         <div class="container">
-            <div class="row row-cols-1">
-                <div class="col text-center gy-3">
-                    <h4>
-                        Danmarks dele-biler
-                    </h4>
-                    <p>Her står der måske noget tekst om hvor sygt fede vi er</p>
+            <div class="jumbotron jumbotron-fluid text-center centered-div">
+                <div class="container">
+                    <h1 class="display-4">Danmarks Dele-Biler</h1>
+                    <p class="lead" id="jumobtron-lead-text-about-us">
+                        Her står der måske noget tekst om hvor sygt fede vi er
+                    </p>
+                    <p clasS="lead">
+                        <a href="account.html"><button type="button" class="btn btn-light border-dark">Tilmeld dig vores service her!</button></a>
+                    </p>
                 </div>
-            </div>
+              </div>
             <div class="row">
-                <div class="col text-center gy-5">
-                    <a href="account.html"><button type="button" class="btn btn-light border-dark">Tilmeld dig vores service her!</button></a>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col text-center gy-5">
+                <div class="col text-center">
                     <h5 id="guide"><u> Bruger Guide - Sådan gør du:</u></h5>
                 </div>
             </div>
@@ -83,5 +81,54 @@
         
         </div>
     </main>
+    <div class="container footer-container">
+        <footer class="row row-cols-4 py-3 border-top">
+            <div class="col">
+                <a href="#" class="d-flex align-items-center link-dark mb-3 mt-2">
+                    <span class="material-symbols-outlined">
+                        group
+                    </span>
+                </a>
+                <p class="text-muted">Gruppe 30<br>2022<br>BSUSEXW1KU</p>
+            </div>
+            <div class="col">
+            </div>
+            <div class="col">
+                <h5>Mo-Bil</h5>
+                <ul class="foot flex-column">
+                    <li class="footer-item mb-2">
+                        <a href="#" class="footer-link text-muted">Om os</a>
+                    </li>
+                    <li class="footer-item mb-2">
+                        <a href="#" class="footer-link text-muted">CVR</a>
+                    </li>
+                    <li class="footer-item mb-2">
+                        <a href="#" class="footer-link text-muted">Priser</a>
+                    </li>
+                    <li class="footer-item mb-2">
+                        <a href="#" class="footer-link text-muted">Persondata</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col">
+                <h5 class="text-capitalize">Social Media</h5>
+                <ul class="foot flex-column">
+                    <li class="footer-item mb-2">
+                        <a href="#" class="footer-link text-muted">Facebook</a>
+                    </li>
+                    <li class="footer-item mb-2">
+                        <a href="#" class="footer-link text-muted">Instagram</a>
+                    </li>
+                    <li class="footer-item mb-2">
+                        <a href="#" class="footer-link text-muted">Twitter</a>
+                    </li>
+                    <li class="footer-item mb-2">
+                        <a href="#" class="footer-link text-muted">The Tok</a>
+                    </li>
+                </ul>
+            </div>
+        </footer>
+    </div>
+    <script src="index.js"></script>
 </body>
 </html>

@@ -58,6 +58,10 @@ main{
     align-items: center;
 }
 
+.failure{
+    color:red;
+}
+
 .card-close{
     float: right;
 }

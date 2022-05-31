@@ -154,7 +154,10 @@ function setupReserveButton(db, carFirestoreId, auth, carData){
   reserveBtn.addEventListener("click", e => {
     let reservationTime = document.getElementById('input-reserve-time').value;
     if(!reservationTime){
-      console.log('give me proper input');
+      let spanFC = document.getElementById('firebase-confirmation-field');
+      spanFC.textContent = "Venligst vælg en tid";
+      spanFC.setAttribute("class", "failure")
+      return;
     }
     let carRef = doc(db, 'cars', carFirestoreId);
 

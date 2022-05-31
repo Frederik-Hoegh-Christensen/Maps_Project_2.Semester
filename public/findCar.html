@@ -22,14 +22,14 @@
     <title>Crazy Delebils website</title>
 </head>
 <body >
-    <header class="mt-2 mx-2">
+    <header class="mt-2">
         <div class="header row flex-nowrap justify-content-between mb-2">
             <div class="col-3 col-sm-2">
             </div>
             <div class="col-6 col-sm-8 text-center">
                 <a class="header-logo text-dark h2" href="index.html">Mo-Bil</a>
             </div>
-            <div class="col-3 col-sm-2 d-flex justify-content-end align-items-center" >
+            <div class="col-3 col-sm-2 d-flex justify-content-end align-items-center header-btns" >
                 <button type="button" class="btn btn-sm btn-outline-secondary" id="header-btn-sign-in">Log ind</button>
                 <button type="button" class="btn btn-sm btn-outline-secondary" id="header-btn-sign-out" hidden>Log ud</button>
             </div>
@@ -88,6 +88,11 @@
                                 <div class="progress-bar" id="power-progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
                             </div>
                         </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 text-center">
+                            <span id="firebase-confirmation-field"></span>
                         </div>
                     </div>
                     <div class="row card-button-grp" id="card-button-grp-loggged-on">
