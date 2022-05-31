@@ -8,9 +8,10 @@
 }
 
 .jumbotron{
-    background-image: url("../images/GettyImages-181877763.jpg");
+    background-image: url("../images/view_from_windshield.jpg");
+    background-position: center;
     background-size: cover;
-    height: 50vh;
+    height: 70vh;
     min-height: 250px;
     margin-bottom: 5vh;
     color: var(--jumbotron-font-color);

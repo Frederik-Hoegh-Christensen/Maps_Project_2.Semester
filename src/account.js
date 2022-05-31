@@ -3,8 +3,7 @@ import { updateProfile } from "firebase/auth";
 
 export async function fillHistoryDropdown(db, user){
     var dropdown = document.getElementById("historyDropdown");
-    const q = await query(collection(db, "bills"), where("owner", "==", user.uid));
-    //const q = query(collection(db, "bills"), where("owner", "==", "silas.r.arildsen@gmail.com"));
+    const q = query(collection(db, "bills"), where("owner", "==", user.email));
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
         console.log(doc.data());
@@ -25,9 +24,7 @@ export async function fillHistoryDropdown(db, user){
 export function displayUserInfo(user){
     //var name = "test";
     //var email = "test@test.com";
-    var nameNode;
-    nameNode = document.createTextNode(user.displayName);
-    
+    var nameNode = document.createTextNode(user.displayName);
     var emailNode = document.createTextNode(user.email);
 
     var nameP = document.createElement("p");
@@ -48,7 +45,6 @@ export function displayUserInfo(user){
 
 export function changeUserInfo(user){
     if (user.providerData[0].providerId === "google.com") {
-        location.reload();
         alert("Du henvises til Google for at ændre dine kontooplysninger.");
     }else{
         var changeDisplayNameInput = document.getElementById("displayName");
@@ -59,10 +55,12 @@ export function changeUserInfo(user){
         var confirmEmailButton = document.getElementById("changeEmailButton");
         var confirmPasswordButton = document.getElementById("changePasswordButton");
 
-        changeDisplayNameInput.setAttribute("placeholder", user.displayName);
+        if(user.displayName)changeDisplayNameInput.setAttribute("placeholder", user.displayName);
+        else changeDisplayNameInput.setAttribute("placeholder", "Navn");
         changeEmailInput.setAttribute("placeholder", user.email);
         
         confirmDisplayNameButton.addEventListener("click", e => {
+            e.preventDefault();
             try {
                 updateProfile(user, {
                     displayName: changeDisplayNameInput.value
@@ -74,6 +72,7 @@ export function changeUserInfo(user){
         });
 
         confirmEmailButton.addEventListener("click", e => {
+            e.preventDefault();
             try {
                 updateProfile(user, {
                     email: changeEmailInput.value
@@ -85,6 +84,7 @@ export function changeUserInfo(user){
         });
 
         confirmPasswordButton.addEventListener("click", e => {
+            e.preventDefault();
               if(changePasswordInput.value == changePasswordRepeatInput.value && changePasswordInput.value.length > 7){
                 try {
                     updatePassword(user, changePasswordInput.value);
@@ -110,7 +110,7 @@ export async function changePaymentMethod(db, user){
         try {
             var expDate = new Date(expDateYearInput.value, expDateMonthInput.value, 1, 0, 0, 0);
             var expDateTimetamp = Timestamp.fromDate(expDate);
-            await setDoc(doc(paymentMethodRef, user.uid), {
+            await setDoc(doc(paymentMethodRef, user.email), {
                 name: nameInput.value,
                 cardNumber: cardNumberInput.value,
                 CVV: CVVInput.value,
