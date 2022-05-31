@@ -4,11 +4,14 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- BOOTSTRAP -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     
     <!-- GOOGLE FONTS - NEEDED FOR NAVBAR -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     
+    <!-- Our Stuff -->
     <link rel="stylesheet" href="./stylesheets/styles.css">
     <script src="main.js" defer></script>
     <title>Your Account</title>
@@ -20,8 +23,8 @@
             <div class="col-8 col-sm-8 text-center">
                 <a class="header-logo text-dark h2" href="index.html">Mo-Bil</a>
             </div>
-            <div class="col-3 col-sm-2 d-flex justify-content-end align-items-center header-btns" >
-                <button type="button" class="btn btn-sm btn-outline-secondary" id="header-btn-sign-in">Log ind</button>
+            <div class="col-3 col-sm-2 d-flex justify-content-end align-items-center" >
+                <button type="button" class="btn btn-sm btn-outline-secondary" data-toggle="modal" data-target="#logInModal" id="header-btn-sign-in">Log ind</button>
                 <button type="button" class="btn btn-sm btn-outline-secondary" id="header-btn-sign-out" hidden>Log ud</button>
             </div>
         </div>
@@ -62,7 +65,7 @@
                     
                 </div>
                 <div class="col-5 col-md-6 col-lg-7">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#accountInfoModal">Ændr kontooplysninger</button>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#accountInfoModal" id="changeUserInfoButton">Ændr kontooplysninger</button>
                 </div>
             </div>
     
@@ -74,7 +77,7 @@
                     
                 </div>
                 <div class="col-5 col-md-6 col-lg-7">
-                    <button type="button" class="btn btn-primary">Ændr kortoplysninger</button>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#paymentMethodModal" id="changePaymentMethodButton">Ændr kortoplysninger</button>
                 </div>
             </div>
     
@@ -92,7 +95,7 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Change Account Info</h5>
+                        <h5 class="modal-title">Ændr Kontooplysninger</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -101,25 +104,98 @@
                     <div class="modal-body">
                         <form>
                             <div class="form-group">
-                                <label for="displayName" class="col-form-label">Change Display Name:</label>
+                                <label for="displayName" class="col-form-label">Navn</label>
                                 <input type="text" class="form-control" id="displayName">
+                                <button type="button" class="btn btn-primary" id="changeDisplayNameButton" data-dismiss="modal">Godkend</button>
                             </div>
                             <div class="form-group">
-                                <label for="email" class="col-form-label">Change Email:</label>
+                                <label for="email" class="col-form-label">Email</label>
                                 <input type="text" class="form-control" id="email">
+                                <button type="button" class="btn btn-primary" id="changeEmailButton" data-dismiss="modal">Godkend</button>
                             </div>
                             <div class="form-group">
-                                <label for="password" class="col-form-label">Change Password:</label>
-                                <input type="password" class="form-control" id="password">
+                                <label for="password" class="col-form-label">Kodeord</label>
+                                <input type="password" class="form-control" placeholder="Kodeord" id="password">
                                 <br>
-                                <input type="password" class="form-control" id="repeatPassword">
+                                <input type="password" class="form-control" placeholder="Gentag kodeord" id="repeatPassword">
+                                <button type="button" class="btn btn-primary" id="changePasswordButton" data-dismiss="modal">Godkend</button>
                             </div>
                         </form>
                     </div>
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" id="changeAccountInfoButton">Confirm Changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="paymentMethodModal" tabindex="-1" role="dialog" aria-labelledby="changePaymentMethod" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Ændr kortoplysninger</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="name" class="col-form-label">Navn på kort</label>
+                                <input type="text" class="form-control" id="nameOnCard">
+                            </div>
+                            <div class="form-group">
+                                <label for="email" class="col-form-label">Kortnummer</label>
+                                <input type="text" class="form-control" id="cardNumber">
+                            </div>
+                            <div class="form-group">
+                                <label for="expDateMonth" class="col-form-label">Udløbsdato</label>
+                                <input type="text" class="form-control" placeholder="MM" id="expDateMonth">
+                                <input type="text" class="form-control" placeholder="ÅÅÅÅ" id="expDateYear">
+                            </div>
+                            <div class="form-group">
+                                <label for="CVV" class="col-form-label">CVV</label>
+                                <input type="text" class="form-control" placeholder="000" id="CVV">
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" id="confirmChangePaymentMethodButton">Godkend Ændringer</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="logInModal" tabindex="-1" role="dialog" aria-labelledby="logIn" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Log ind</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="email" class="col-form-label">Email</label>
+                                <input type="text" class="form-control" id="modal-log-in-email">
+                            </div>
+                            <div class="form-group">
+                                <label for="modal-log-in-password" class="col-form-label">Kodeord</label>
+                                <input type="password" class="form-control" id="modal-log-in-password">
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" id="btn-sign-in-email">Log ind</button> <label for="header-btn-sign-in-google">Eller:</label>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" id="btn-sign-in-google">Log ind med Google</button>
+                        <button type="button" class="btn btn-sm btn-outline-secondary" id="btn-sign-up">Opret konto</button>
                     </div>
                 </div>
             </div>
