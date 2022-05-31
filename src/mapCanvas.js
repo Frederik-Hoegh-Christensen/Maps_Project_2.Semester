@@ -26,6 +26,7 @@ export function initializeMap(){
     center: copenhagen,
     streetViewControl: false,
     mapTypeControl: false,
+    fullscreenControl: false,
   }
   // The map, centered at Copenhagen
   const mapCanvas = new google.maps.Map(document.getElementById("map"), options);

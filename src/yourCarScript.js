@@ -47,6 +47,8 @@ export async function setReceiptDetails(db, user) {
     document.querySelector("#colorField").innerHTML = carData.color;
     document.querySelector("#pricePerKmField").innerHTML = price + " kr";
     //document.querySelector("#totalPriceField").innerHTML = 
+
+    return thisDoc;
 }
 
 function showModal() {
@@ -56,18 +58,22 @@ function showModal() {
     myModal.show();
 }
 
-export async function endTrip(db, user) {
-    let colRef = collection(db, 'bills');
-    let q = query(colRef, where('owner', '==', user.email), where('isActive', '==', true));
-    let correct = await getDocs(q);
-    let thisDoc = correct.docs[0];
-
-    await updateDoc(doc(db, 'bills', thisDoc.id), {
+export async function endTrip(db, billDoc) {
+    await updateDoc(doc(db, 'bills', billDoc.id), {
         isActive: false
-    }).then(confir => {console.log(confir)});
-    await updateDoc(doc(db,'cars',thisDoc.data().car), {
+    });
+    await updateDoc(doc(db,'cars',billDoc.data().car), {
         isOcupied: false
     });
-    console.log("Ended trip", thisDoc.id)
     window.location.replace('index.html')
+}
+
+export async function drawUserCar(map, db, carReference){
+    let carData =  (await getDoc(doc(db, 'cars', carReference))).data();
+    let marker = new google.maps.Marker({
+        position: {lat: carData.coords.latitude, lng: carData.coords.longitude},
+        map: map,
+        title: "Your car: " + carData.title,
+    })
+    marker.setMap(map);
 }
