@@ -2,13 +2,16 @@
 
 import { getFirebaseConfig } from './firebase-config.js';
 import { initializeMap, drawCars, addUserPositionPin, getUserLocation } from './mapCanvas';
-import { fillHistoryDropdown, displayUserInfo } from './account';
+import { fillHistoryDropdown, displayUserInfo, changeUserInfo, changePaymentMethod } from './account';
+import { initSignUp, logInEmail, logInGoogle, signUpEmail } from './sign-in-sign-up.js';
 
 import { initializeApp } from 'firebase/app';
 
-import { getAuth, onAuthStateChanged, GoogleAuthProvider,
-         signInWithPopup, signInWithRedirect, signOut, } 
-from 'firebase/auth';
+import {
+  getAuth, onAuthStateChanged, GoogleAuthProvider,
+  signInWithPopup, signInWithRedirect, signOut, signInWithEmailAndPassword,
+}
+  from 'firebase/auth';
 import { getStorage } from 'firebase/storage';
 import { getFirestore } from 'firebase/firestore';
 import {setReceiptDetails, endTrip} from './yourCarScript';
@@ -22,82 +25,74 @@ const googleAuthProvider = new GoogleAuthProvider();
 const db = getFirestore(app);
 const cloudStorage = getStorage(app);
 
-
-
-
-
-// Call this when user goes to account page
-if(window.location.href.includes("account.html")){
-  fillHistoryDropdown(db, auth.currentUser);
-  displayUserInfo(auth.currentUser);
-  
-}
-
-
-
-
-onAuthStateChanged(auth, user =>{
-  if(user != null){
-      console.log(user.email);
-      signOutButton();
-      if(window.location.href.includes("yourCar.html")){
-        setReceiptDetails(db, auth.currentUser);
-      }
+onAuthStateChanged(auth, user => {
+  if (user != null) {
+    console.log(user.toJSON());
+    if(!window.location.href.includes("signUp.html"))signOutButton();
+    if(window.location.href.includes("account.html"))accountPage(db, auth.currentUser);
   } else {
-      console.log("no user");
-      signInButton();
+    console.log("no user");
+    if(!window.location.href.includes("signUp.html"))signInButton();
   }
-})
+});
 
-function signInButton(){
-  let signOutButton = document.getElementById('header-btn-sign-out');
-  if(signOutButton) {
-    signOutButton.hidden = true
-  }
+function accountPage(db, user) {
+  fillHistoryDropdown(db, user);
+  displayUserInfo(user);
+  var changeUserInfoButton = document.getElementById("changeUserInfoButton");
+  changeUserInfoButton.addEventListener("click", e => {
+    e.preventDefault();
+    changeUserInfo(user);
+  });
 
-  let signInButton = document.getElementById('header-btn-sign-in');
-  if(signInButton) {
-    signInButton.addEventListener("click", e =>{
-      signInWithRedirect(auth, googleAuthProvider)
-      .catch((error) => {
-        if (error.code == "auth/web-storage-unsupported") {
-          alert("Please enable cookies to use this feature.");
-        }else{
-          alert(error.message);
-        }});
-    })
-    if(signInButton.hidden) signInButton.hidden = false;
+  var confirmChangePaymentMethodButton = document.getElementById("confirmChangePaymentMethodButton");
+  confirmChangePaymentMethodButton.addEventListener("click", e => {
+    e.preventDefault();
+    changePaymentMethod(db, user);
+  });
+}
+
+function signInButton() {
+  document.getElementById('header-btn-sign-out').hidden = true;
+  let signInButtons = document.getElementsByClassName('btn-sign-in-modal-toggle');
+  if(signInButtons){
+    for (let i = 0; i < signInButtons.length; i++) {
+      signInButtons[i].addEventListener("click", e => {
+        e.preventDefault();
+        logInEmail(auth);
+        logInGoogle(auth, googleAuthProvider);
+        initSignUp();
+      });
+      if (signInButtons[i].hidden) signInButtons[i].hidden = false;
+    };
   }
 }
 
- function signOutButton(){
-  let signInButton = document.getElementById('header-btn-sign-in');
-  if(signInButton) {
-    signInButton.hidden = true;
-  }
+if (window.location.href.includes("signUp.html")) {
+  window.addEventListener("load", e => {
+    e.preventDefault();
+    signUpEmail(auth);
+  });
+}
 
-  let sb = document.getElementById('header-btn-sign-out');
+function signOutButton() {
+  document.getElementById('header-btn-sign-in').hidden = true;
+  let sb = document.getElementById("header-btn-sign-out");
   if(sb){
-    sb.addEventListener("click", e => {signOut(auth)});
+    sb.addEventListener("click", e => {
+      signOut(auth);
+    });
     if(sb.hidden) sb.hidden = false;
   }
-} 
+}
 
 
-async function initMap(){
+async function initMap() {
   let mapCanvas = initializeMap();
   drawCars(mapCanvas, app);
   addUserPositionPin(mapCanvas, cloudStorage)
 }
 window.initMap = initMap;
-
-function setYourCarPage(db, user){
-  if(window.location.href.includes("yourCar.html")){
-    console.log(user);
-    console.log(db);
-    setReceiptDetails(db, user);
-  }
-}
 
   let endTripButton = document.getElementById('endTrip');
   if(endTripButton) {
@@ -116,11 +111,11 @@ function setYourCarPage(db, user){
     createHTMLElm("div", {class:"centeredDiv", id:"myContentDiv"})
     Chaining together with ,
 */
-export function createHTMLElm(tag, attributes){
+export function createHTMLElm(tag, attributes) {
   let result = document.createElement(tag);
-  if(attributes == null) return result;
-  Object.entries(attributes).forEach(attr =>{
-      result.setAttribute(attr[0], attr[1])
-  })
-    return result;
+  if (attributes == null) return result;
+  Object.entries(attributes).forEach(attr => {
+    result.setAttribute(attr[0], attr[1])
+  });
+  return result;
 }

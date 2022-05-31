@@ -1,0 +1,7 @@
+body{
+    margin-left: 0px !important; 
+}
+
+#input-sign-up-password-repeat, #input-sign-up-email{
+    margin-bottom: 10px;
+}
