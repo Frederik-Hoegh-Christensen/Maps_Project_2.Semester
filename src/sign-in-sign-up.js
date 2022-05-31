@@ -40,7 +40,8 @@ export function logInEmail(auth) {
     var logInPasswordInput = document.getElementById("modal-log-in-password");
     logInEmailButton.addEventListener("click", e => {
         signInWithEmailAndPassword(auth, logInEmailInput.value, logInPasswordInput.value).then(userCredential => {
-            window.location.href = "account.html";
+        }).then(userCredential => {
+            
         });
     });
 }
@@ -49,7 +50,7 @@ export function logInGoogle(auth, googleAuthProvider) {
     var logInGoogleButton = document.getElementById("btn-sign-in-google");
     logInGoogleButton.addEventListener("click", e => {
         signInWithRedirect(auth, googleAuthProvider).then(userCredential => {
-            window.location.href = "account.html";
+            
         })
     });
 }

@@ -25,22 +25,11 @@ const googleAuthProvider = new GoogleAuthProvider();
 const db = getFirestore(app);
 const cloudStorage = getStorage(app);
 
-
-
-
-
-// Call this when user goes to account page
-if (window.location.href.includes("account.html")) {
-  fillHistoryDropdown(db, auth.currentUser);
-  displayUserInfo(auth.currentUser);
-}
-
 onAuthStateChanged(auth, user => {
   if (user != null) {
-    console.log(user.email);
+    console.log(user.toJSON());
     if(!window.location.href.includes("signUp.html"))signOutButton();
-    
-    accountPage(db, auth.currentUser);
+    if(window.location.href.includes("account.html"))accountPage(db, auth.currentUser);
   } else {
     console.log("no user");
     if(!window.location.href.includes("signUp.html"))signInButton();
@@ -48,19 +37,19 @@ onAuthStateChanged(auth, user => {
 });
 
 function accountPage(db, user) {
-  if (window.location.href.includes("account.html")) {
-    fillHistoryDropdown(db, user);
-    displayUserInfo(user);
-    var changeUserInfoButton = document.getElementById("changeUserInfoButton");
-    changeUserInfoButton.addEventListener("click", e => {
-      changeUserInfo(user);
-    });
+  fillHistoryDropdown(db, user);
+  displayUserInfo(user);
+  var changeUserInfoButton = document.getElementById("changeUserInfoButton");
+  changeUserInfoButton.addEventListener("click", e => {
+    e.preventDefault();
+    changeUserInfo(user);
+  });
 
-    var confirmChangePaymentMethodButton = document.getElementById("confirmChangePaymentMethodButton");
-    confirmChangePaymentMethodButton.addEventListener("click", e => {
-      changePaymentMethod(db, auth.currentUser);
-    });
-  }
+  var confirmChangePaymentMethodButton = document.getElementById("confirmChangePaymentMethodButton");
+  confirmChangePaymentMethodButton.addEventListener("click", e => {
+    e.preventDefault();
+    changePaymentMethod(db, user);
+  });
 }
 
 function signInButton() {
@@ -68,6 +57,7 @@ function signInButton() {
   let signInButtons = document.getElementsByClassName('btn-sign-in-modal-toggle');
   for (let i = 0; i < signInButtons.length; i++) {
     signInButtons[i].addEventListener("click", e => {
+      e.preventDefault();
       logInEmail(auth);
       logInGoogle(auth, googleAuthProvider);
       initSignUp();
@@ -78,6 +68,7 @@ function signInButton() {
 
 if (window.location.href.includes("signUp.html")) {
   window.addEventListener("load", e => {
+    e.preventDefault();
     signUpEmail(auth);
   });
 }
@@ -85,7 +76,9 @@ if (window.location.href.includes("signUp.html")) {
 function signOutButton() {
   document.getElementById('header-btn-sign-in').hidden = true;
   let sb = document.getElementById("header-btn-sign-out");
-  sb.addEventListener("click", (signOut(auth)));
+  sb.addEventListener("click", e => {
+    signOut(auth);
+  });
   if(sb.hidden) sb.hidden = false;
 }
 
