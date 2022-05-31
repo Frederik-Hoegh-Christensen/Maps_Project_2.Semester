@@ -30,8 +30,6 @@
         <div class="header">
             <div class="col text-center header-btns">
                 <a class="header-logo text-dark h2" href="#">Mo-Bil</a>
-                <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#logInModal" id="header-btn-sign-in">Log ind</button>
-                <button type="button" class="btn btn-sm btn-outline-secondary" id="header-btn-sign-out" hidden>Log ud</button>
             </div>
             
         </div>
@@ -48,11 +46,11 @@
                     <div class="col-md-6">
                         <div class="card-block py-2 px-2">
                             <h5 class="card-title">Model: <span id="modelField"></span> <br></h5>
-                            <h6 class="card-subtitle mb-2 text-muted">Farve: <span id="colorField"></span> <br><br>></h6>
-                            <h6 class="card-subtitle mb-2 text-muted">Pris pr. km: <span id="pricePerKmField"></span> <br><br></h6>
+                            <h6 class="card-subtitle mb-2 text-muted">Farve: <span id="colorField"></span> <br><br></h6>
+                            <h6 class="card-subtitle mb-2 text-muted">Pris pr. min: <span id="pricePerKmField"></span> <br><br></h6>
                             <h6 class="card-subtitle mb-2 text-muted">Køretur påbegyndt: <span id="tripBeginField"></span> <br><br></h6>
                             <h6 class="card-subtitle mb-2 text-muted">Pris indtil videre: <span id="totalPriceField"></span> <br><br></h6>
-                            <button id="cancelTrip" class="btn btn-info">Afslut køretur</button>
+                            <button type="button" id="cancelTrip" class="btn btn-info">Afslut køretur</button>
                         </div>  
                     </div>
                 </div>
@@ -66,10 +64,14 @@
                 <div class="modal-header">
                     <h5 class="modal-title">Afslut rejse</h5>
                 </div>
-                <div class="modal-body" id="toPay"></div>
+                <div class="modal-body">
+                    <h6>Du er igang med at afslutte din køretur.</h6>
+                    <h6 id="runtime"></h6>
+                    <h6 id="toPay"><br>Total pris: </h6>
+                </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-info" data-bs-dismiss="modal" id="cancel">Annuller</button>
-                    <button type="button" class="btn btn-info" id="accept"  href="index.html">Afslut og betal</button>
+                    <button type="button" class="btn btn-info" id="endTrip"  href="account.html">Afslut og betal</button>
                 </div>
             </div>
         </div>

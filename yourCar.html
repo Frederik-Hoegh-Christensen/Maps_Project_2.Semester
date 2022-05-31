@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- BOOTSTRAP LINKS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+        crossorigin="anonymous"></script>
+
+    <!-- Our Stuff -->
+    <link rel="stylesheet" href="./stylesheets/styles.css">
+    <link rel="stylesheet" href="./stylesheets/findCar.css">
+    <script src="main.js" defer></script>
+    <script src="yourCarScript.js"></script>
+    <style>
+        .navbar-expand-md-custom,
+        .footer-custom {
+            background-color: orange;
+        }
+    </style>
+    <title>Crazy Delebils website</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-md-custom navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">MO-BIL</a>
+            <button id="googleButton" class="btn btn-info">Click here to sign in with gogle!</button>
+            <button id="signOutButton" hidden="true" class="btn btn-info">Sign out here</button>
+        </div>
+    </nav>
+    <div class="my-3"></div>
+    <div class="d-flex justify-content-center">
+        <div class="col-12 my-3">
+            <div class="card">
+                <div class="row no-gutters">
+                    <div class="col-md-6">
+                        <img src="https://picsum.photos/id/247/800/300" class="img-fluid" alt="">
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card-block py-2 px-2">
+                            <h5 class="card-title">Model: <br></h5>
+                            <h6 class="card-subtitle mb-2 text-muted">Farve: <br><br></h6>
+                            <h6 class="card-subtitle mb-2 text-muted">Køretur påbegyndt: <br><br></h6>
+                            <button id="cancelTrip" class="btn btn-info">Afslut køretur</button>
+                        </div>  
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" tabindex="-1" aria-hidden="true" id="endTrip">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Afslut rejse</h5>
+                </div>
+                <div class="modal-body" id="toPay"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-info" data-bs-dismiss="modal" id="cancel">Annuller</button>
+                    <button type="button" class="btn btn-info" id="accept"  href="#">Afslut og betal</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="map-container">
+        <h3>Bilen kan findes her:</h3>
+        <div id="map"></div>
+    </div>
+    <footer class="footer footer-custom mt-auto py-3">
+        <div class="container">
+            <div class="text-white">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nemo, non!</div>
+        </div>
+    </footer>
+</body>
+<script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAfjkABDWzuEwouTmjqCO6zz-OP4OxznaA&callback=initMap"></script>
+<script defer>
+    document.getElementById('card-close-btn')
+                        .addEventListener("click", e=>{
+                            document.getElementById('car-card').hidden = true;
+                        })
+</script>
+</html>
