@@ -64,13 +64,15 @@ function accountPage(db, user) {
 
 function signInButton() {
   document.getElementById('header-btn-sign-out').hidden = true;
-  let signInButton = document.getElementById('header-btn-sign-in');
-  signInButton.addEventListener("click", e => {
-    logInEmail(auth);
-    logInGoogle(auth, googleAuthProvider);
-    initSignUp();
-  });
-  if (signInButton.hidden) signInButton.hidden = false;
+  let signInButtons = document.getElementsByClassName('btn-sign-in-modal-toggle');
+  for (let i = 0; i < signInButtons.length; i++) {
+    signInButtons[i].addEventListener("click", e => {
+      logInEmail(auth);
+      logInGoogle(auth, googleAuthProvider);
+      initSignUp();
+    });
+    if (signInButtons[i].hidden) signInButtons[i].hidden = false;
+  };
 }
 
 function signOutButton() {
@@ -80,13 +82,6 @@ function signOutButton() {
       signUpEmail(auth);
     });
   }
-}
-
-function signOutButton() {
-  document.getElementById('header-btn-sign-in').hidden = true;
-  let sb = document.getElementById('header-btn-sign-out');
-  sb.addEventListener("click", e => { signOut(auth) });
-  if (sb.hidden) sb.hidden = false;
 }
 
 
