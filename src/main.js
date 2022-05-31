@@ -53,7 +53,10 @@ function accountPage(db, user) {
 }
 
 function signInButton() {
-  document.getElementById('header-btn-sign-out').hidden = true;
+  let sb = document.getElementById('header-btn-sign-out')
+  if(sb){
+    sb.hidden = true;
+  }
   let signInButtons = document.getElementsByClassName('btn-sign-in-modal-toggle');
   if(signInButtons){
     for (let i = 0; i < signInButtons.length; i++) {
@@ -76,7 +79,10 @@ if (window.location.href.includes("signUp.html")) {
 }
 
 function signOutButton() {
-  document.getElementById('header-btn-sign-in').hidden = true;
+  let signInButton = document.getElementById('header-btn-sign-in')
+  if(signInButton){
+    signInButton.hidden = true;
+  }
   let sb = document.getElementById("header-btn-sign-out");
   if(sb){
     sb.addEventListener("click", e => {
