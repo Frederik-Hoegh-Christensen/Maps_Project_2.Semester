@@ -67,13 +67,3 @@ export async function endTrip(db, billDoc) {
     });
     window.location.replace('index.html')
 }
-
-export async function drawUserCar(map, db, carReference){
-    let carData =  (await getDoc(doc(db, 'cars', carReference))).data();
-    let marker = new google.maps.Marker({
-        position: {lat: carData.coords.latitude, lng: carData.coords.longitude},
-        map: map,
-        title: "Your car: " + carData.title,
-    })
-    marker.setMap(map);
-}
