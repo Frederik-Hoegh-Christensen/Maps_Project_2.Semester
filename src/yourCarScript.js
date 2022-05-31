@@ -28,7 +28,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
 })
 
 export async function setReceiptDetails(db, user) {
-
     let colRef = collection(db, 'bills');
     let q = query(colRef, where('owner', '==', user.email), where('isActive', '==', true));
     let correct = await getDocs(q);
@@ -62,12 +61,13 @@ export async function endTrip(db, user) {
     let q = query(colRef, where('owner', '==', user.email), where('isActive', '==', true));
     let correct = await getDocs(q);
     let thisDoc = correct.docs[0];
-    console.log(thisDoc.data().isActive)
-    await updateDoc(thisDoc, {
+
+    await updateDoc(doc(db, 'bills', thisDoc.id), {
         isActive: false
+    }).then(confir => {console.log(confir)});
+    await updateDoc(doc(db,'cars',thisDoc.data().car), {
+        isOcupied: false
     });
-    await updateDoc(car, {
-        isOccupied: false
-    });
+    console.log("Ended trip", thisDoc.id)
     window.location.replace('index.html')
 }

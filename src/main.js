@@ -30,6 +30,7 @@ onAuthStateChanged(auth, user => {
     console.log(user.toJSON());
     if(!window.location.href.includes("signUp.html"))signOutButton();
     if(window.location.href.includes("account.html"))accountPage(db, auth.currentUser);
+    if(window.location.href.includes('yourCar.html')) setReceiptDetails(db,auth.currentUser)
   } else {
     console.log("no user");
     if(!window.location.href.includes("signUp.html"))signInButton();
@@ -100,12 +101,12 @@ async function initMap() {
 }
 window.initMap = initMap;
 
-  let endTripButton = document.getElementById('endTrip');
-  if(endTripButton) {
-    endTripButton.addEventListener("click", e =>{
-      endTrip(db, auth.currentUser);
-    })
-  }
+let endTripButton = document.getElementById('endTrip-btn-accept');
+if(endTripButton) {
+  endTripButton.addEventListener("click", e =>{
+    endTrip(db, auth.currentUser);
+  })
+}
 
 
 
