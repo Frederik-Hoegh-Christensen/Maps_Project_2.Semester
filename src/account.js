@@ -33,6 +33,8 @@ export function displayUserInfo(user){
     var nameP = document.createElement("p");
     if(user.displayName){
         nameP.appendChild(nameNode);
+    }else{
+        nameP.appendChild(document.createTextNode("Navn ikke angivet"));
     }
     var emailP = document.createElement("p");
     emailP.appendChild(emailNode);
@@ -45,7 +47,7 @@ export function displayUserInfo(user){
 }
 
 export function changeUserInfo(user){
-    if (user.providerId === "firebase") {
+    if (user.providerData[0].providerId === "google.com") {
         location.reload();
         alert("Du henvises til Google for at ændre dine kontooplysninger.");
     }else{
