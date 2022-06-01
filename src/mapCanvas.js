@@ -108,6 +108,13 @@ function setupCarPreviewingCard(carDataObject, imgMap, auth, db){
   calculateUserDistanceToCarAndShow(carData.coords)
 }
 
+function progressBarPower(progressBar, pow){
+  let percentString = pow + '%';
+  progressBar.style.width = percentString;
+  progressBar.textContent = percentString;
+  progressBar.setAttribute('aria-valuenow', pow);
+}
+
 async function calculateUserDistanceToCarAndShow(carCoords){
   if(!navigator.geolocation){
     document.getElementById('card-distance-text')
@@ -146,8 +153,10 @@ function setupOpenNowButton(db, carFirestoreId,auth, carData){
   })
   openNowBtn.textContent = "Lås op";
   openNowBtn.addEventListener("click", e =>{
+    replaceButtonsWithSpinner();
+
     let carRef = doc(db, 'cars', carFirestoreId);
-    
+
     updateDoc(carRef, {
       isOcupied: true,
     })
@@ -159,22 +168,6 @@ function setupOpenNowButton(db, carFirestoreId,auth, carData){
   })
   openNowBtnContainer.innerHTML = "";
   openNowBtnContainer.appendChild(openNowBtn);
-}
-
-function createBill(db, userEmail, carFirestoreId, carData){
-  let billsRef = collection(db, 'bills');
-  addDoc(billsRef, {
-    date: Timestamp.fromDate(new Date()),
-    model: carData.title,
-    owner: userEmail,
-    car: carFirestoreId,
-    isActive: true,
-  })
-  .then(succes => {
-    //We can potentially do something here
-    
-  })
-  .catch(err => console.log(err))
 }
 
 function setupReserveButton(db, carFirestoreId, auth, carData){
@@ -194,6 +187,8 @@ function setupReserveButton(db, carFirestoreId, auth, carData){
       spanFC.setAttribute("class", "failure")
       return;
     }
+    replaceButtonsWithSpinner();
+
     let carRef = doc(db, 'cars', carFirestoreId);
 
     updateDoc(carRef, {
@@ -209,8 +204,58 @@ function setupReserveButton(db, carFirestoreId, auth, carData){
     })
   })
   container.innerHTML = "";
-  container.appendChild(reserveBtn);
+  container.appendChild(reserveBtn); 
+}
+
+function createBill(db, userEmail, carFirestoreId, carData){
+  let billsRef = collection(db, 'bills');
+  addDoc(billsRef, {
+    date: Timestamp.fromDate(new Date()),
+    model: carData.title,
+    owner: userEmail,
+    car: carFirestoreId,
+    isActive: true,
+  })
+  .then(succes => {
+    //We can potentially do something here
+    
+  })
+  .catch(err => console.log(err))
+}
+
+function replaceButtonsWithSpinner(){  
+  let containerToPlaceSpinner = document.getElementById('card-button-grp-loggged-on');
+
+  let outerSpinnerDiv = createHTMLElm("div", {
+    class: "d-flex justify-content-center"
+  })
+
+  let spinnerBorder = createHTMLElm("div",{
+    class: "spinner-border",
+    role: "status"
+  })
+
+  let spinnerScreenReader = createHTMLElm("span",{
+    class: "sr-only",
+  })
+  spinnerBorder.appendChild(spinnerScreenReader);
+  outerSpinnerDiv.appendChild(spinnerBorder);
   
+  containerToPlaceSpinner.innerHTML ="";
+  containerToPlaceSpinner.appendChild(outerSpinnerDiv);
+}
+
+export async function drawCars(mapCanvas, firebaseApp){
+  let firestore = getFirestore(firebaseApp);
+  let cloudStorage = getStorage(firebaseApp);
+  let auth = getAuth(firebaseApp)
+
+  let carsArray = await retrieveCars(firestore);
+  let carToImgMap = retrieveCarImages(cloudStorage, carsArray)
+
+  for(let car of carsArray){
+    addMarker(mapCanvas, car, carToImgMap, auth , firestore);
+  }
 }
 
 async function retrieveCars(db){
@@ -227,26 +272,6 @@ async function retrieveCars(db){
       });
   });
   return carDataArray;
-}
-
-export async function drawCars(mapCanvas, firebaseApp){
-  let firestore = getFirestore(firebaseApp);
-  let cloudStorage = getStorage(firebaseApp);
-  let auth = getAuth(firebaseApp)
-
-  let carsArray = await retrieveCars(firestore);
-  let carToImgMap = retrieveCarImages(cloudStorage, carsArray)
-
-  for(let car of carsArray){
-    addMarker(mapCanvas, car, carToImgMap, auth , firestore);
-  }
-}
-
-function progressBarPower(progressBar, pow){
-  let percentString = pow + '%';
-  progressBar.style.width = percentString;
-  progressBar.textContent = percentString;
-  progressBar.setAttribute('aria-valuenow', pow);
 }
 
 function retrieveCarImages(cloud, carArray){
