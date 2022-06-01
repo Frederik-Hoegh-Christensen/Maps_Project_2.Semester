@@ -1,10 +1,11 @@
-import { collection, query, where, getDocs, setDoc, doc, Timestamp, orderBy, QueryConstraint } from "firebase/firestore";
+import { collection, query, where, getDocs, setDoc, doc, Timestamp, orderBy } from "firebase/firestore";
 import { updateProfile } from "firebase/auth";
 import { createHTMLElm } from "./main.js";
 
 export async function fillHistoryDropdown(db, user) {
     var dropdown = document.getElementById("historyDropdown");
-    const q = query(collection(db, "bills"), where("owner", "==", user.email));
+    let col = collection(db, "bills");
+    const q = query(col, orderBy("date", "desc"), where("owner", "==", user.email));
     const querySnapshot = await getDocs(q);
 
 for(let i = 0; i < querySnapshot.docs.length; i++){
