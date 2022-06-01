@@ -55,11 +55,13 @@ export function displayUserInfo(user) {
     var emailNode = document.createTextNode(user.email);
 
     var nameP = document.createElement("p");
-    var emailP = document.createElement("p");
-    if (user) {
+    if (user.displayName) {
         nameP.appendChild(nameNode);
-        emailP.appendChild(emailNode);
+    }else{
+        nameP.appendChild(document.createTextNode("Navn ikke angivet"));
     }
+    var emailP = document.createElement("p");
+    emailP.appendChild(emailNode);
     
     var nameDiv = document.getElementById("nameTextDiv");
     var emailDiv = document.getElementById("emailTextDiv");
@@ -92,6 +94,7 @@ export function changeUserInfo(user) {
                     displayName: changeDisplayNameInput.value
                 });
                 alert("Ændringerne er blevet gemt");
+                location.reload();
             } catch (error) {
                 alert(error.message);
             }
@@ -104,6 +107,7 @@ export function changeUserInfo(user) {
                     email: changeEmailInput.value
                 });
                 alert("Ændringerne er blevet gemt");
+                location.reload();
             } catch (error) {
                 alert(error.message);
             }
@@ -115,6 +119,7 @@ export function changeUserInfo(user) {
                 try {
                     updatePassword(user, changePasswordInput.value);
                     alert("Ændringerne er blevet gemt");
+                    location.reload();
                 } catch (error) {
                     alert(error.message);
                 }

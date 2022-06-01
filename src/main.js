@@ -44,6 +44,11 @@ onAuthStateChanged(auth, user => {
     console.log("no user");
     if(!window.location.href.includes("signUp.html"))signInButton();
     if(window.location.href.includes("account.html"))notSignedInAccountPage();
+
+    if(window.location.href.includes("index.html")){
+      let signUpBtnGuide = document.getElementById("btn-sign-up-guide");
+      signUpBtnGuide.hidden = false;
+    }
   }
 });
 
