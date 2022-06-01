@@ -144,10 +144,10 @@ function msToTime(duration) {
         , minutes = parseInt((duration / (1000 * 60)) % 60)
         , hours = parseInt((duration / (1000 * 60 * 60)) % 24);
 
-    //hours = (hours < 10) ? "0" + hours : hours;
     minutes = (minutes < 10) ? "0" + minutes : minutes;
     seconds = (seconds < 10) ? "0" + seconds : seconds;
-    var timeString = (hours == 1) ? " time " : " timer ";
-
-    return hours + timeString + minutes + " minutter og " + seconds + " sekunder.";
+    var hourString = (hours == 1) ? " time, " : " timer, ";
+    var minuteString = (minutes == 1) ? " minut og " : " minutter og ";
+    var secondString = (seconds == 1) ? " sekund." : " sekunder."; 
+    return hours + hourString + minutes + minuteString + seconds + secondString;
 }
