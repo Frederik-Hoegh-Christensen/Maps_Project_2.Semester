@@ -70,12 +70,20 @@ function showModal() {
 }
 
 export async function endTrip(db, billDoc) {
+    var pricePerSecond = price/60;
+    endTime = new Date();
+    var tripPrice = (((endTime.getTime() - timeBegun)/1000)*pricePerSecond).toFixed(2);
+
     await updateDoc(doc(db, 'bills', billDoc.id), {
         isActive: false
     });
     await updateDoc(doc(db,'cars',billDoc.data().car), {
         isOcupied: false
     });
+    await updateDoc(doc(db, 'bills', billDoc.id),{
+        tripPrice: tripPrice,
+        endTime: endTime
+    })
     window.location.replace('index.html')
 }
 
