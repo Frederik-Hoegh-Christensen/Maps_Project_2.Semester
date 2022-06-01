@@ -129,6 +129,8 @@ async function calculateUserDistanceToCarAndShow(carCoords){
   })
 
   locationPromise.then(userCoords =>{
+    //Shoutout to stackoverflow - Haversine below
+    //https://stackoverflow.com/questions/14560999/using-the-haversine-formula-in-javascript
     let p = userCoords.position;
 
     let dLat = toRad(carCoords.latitude -  p.latitude);
@@ -143,7 +145,7 @@ async function calculateUserDistanceToCarAndShow(carCoords){
     let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
 
     let dist = R * c;
-    
+
     let distValField = document.getElementById('card-distance-val');
     distValField.textContent = dist > 1000 ?  (dist/1000).toFixed(1): dist.toFixed(1);
     
