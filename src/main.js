@@ -1,8 +1,8 @@
 //Write bad-ass code here
 
 import { getFirebaseConfig } from './firebase-config.js';
-import { initializeMap, drawCars, addUserPositionPin, drawUserCar } from './mapCanvas';
-import { fillHistoryDropdown, displayUserInfo, changeUserInfo, changePaymentMethod } from './account';
+import { initializeMap, drawCars, addUserPositionPin } from './mapCanvas.js';
+import { fillHistoryDropdown, displayUserInfo, changeUserInfo, changePaymentMethod, notSignedInAccountPage } from './account.js';
 import { initSignUp, logInEmail, logInGoogle, signUpEmail } from './sign-in-sign-up.js';
 import {setReceiptDetails, endTrip} from './yourCarScript';
 
@@ -42,6 +42,7 @@ onAuthStateChanged(auth, user => {
   } else {
     console.log("no user");
     if(!window.location.href.includes("signUp.html"))signInButton();
+    if(window.location.href.includes("account.html"))notSignedInAccountPage();
   }
 });
 
@@ -96,6 +97,7 @@ function signOutButton() {
   if(sb){
     sb.addEventListener("click", e => {
       signOut(auth);
+      location.reload();
     });
     if(sb.hidden) sb.hidden = false;
   }
