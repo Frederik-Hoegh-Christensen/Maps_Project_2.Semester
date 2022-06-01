@@ -12,7 +12,7 @@ for(let i = 0; i < querySnapshot.docs.length; i++){
     let data = querySnapshot.docs[i].data();
     let item = document.createElement("a");
     let dateString = data.date.toDate().toString();
-    let date = dateString.split(" ")[0] + " " + dateString.split(" ")[2] + ". " + dateString.split(" ")[1] + ", " + dateString.split(" ")[3];
+    let date = dateString.split(" ")[0] + " " + dateString.split(" ")[2] + ". " + dateString.split(" ")[1] + ", " + dateString.split(" ")[3] + " " + dateString.split(" ")[4];
     let itemText = document.createTextNode(date);
     item.appendChild(itemText);
     //item.href = "index.html"; MAKE LINK TO BILL
