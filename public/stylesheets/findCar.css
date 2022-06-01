@@ -111,6 +111,10 @@ main{
     max-width: min(48%,150px) ;
 }
 
+.text-muted.card-text{
+    margin-top: 2px;
+}
+
 @media screen and (max-width: 300px){
     #card-button-grp-reservation{
         flex-wrap: wrap;
