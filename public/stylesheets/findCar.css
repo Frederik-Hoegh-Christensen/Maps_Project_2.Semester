@@ -1,7 +1,5 @@
 :root{
     --progress-bar-color: rgb(83, 206, 126);
-    --btn-primary-color: rgb(83, 206, 126);
-    --btn-primary-color-hover: rgb(68, 174, 105);
 }
 
 html, body{

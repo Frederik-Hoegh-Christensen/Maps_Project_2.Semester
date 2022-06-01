@@ -27,6 +27,10 @@
     font-weight: 300 !important;
 }
 
+img{
+    width: 100%;
+}
+
 .centered-div{
     display: flex;
     justify-content: center;
@@ -44,7 +48,7 @@
         display: none;
     }
 }
-@media (min-width: 778px) {
+@media (min-width: 768px) {
     .small-screen-text{
         display: none;
     }
@@ -54,5 +58,9 @@
     
     #picture-mobile{
         display: none;
+    }
+
+    #picture-desktop{
+        max-width: 60px;
     }
 }
