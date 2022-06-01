@@ -4,7 +4,7 @@ import { getFirebaseConfig } from './firebase-config.js';
 import { initializeMap, drawCars, addUserPositionPin, drawUserCar } from './mapCanvas';
 import { fillHistoryDropdown, displayUserInfo, changeUserInfo, changePaymentMethod } from './account';
 import { initSignUp, logInEmail, logInGoogle, signUpEmail } from './sign-in-sign-up.js';
-import {setReceiptDetails, endTrip} from './yourCarScript';
+import {setReceiptDetails, endTrip, calculateTime} from './yourCarScript';
 
 import { initializeApp } from 'firebase/app';
 import {
@@ -37,6 +37,7 @@ onAuthStateChanged(auth, user => {
       .then(billDoc => {
         userBillDoc = billDoc
         drawUserCar(mapCanvas, db, userBillDoc.data().car)
+        
       })
     }
   } else {
