@@ -1,6 +1,8 @@
 :root{
     /*font-size: ;*/
+    --theme-main-color: rgb(0,0,0);
     --theme-secondary-color: rgb(35, 205, 41);
+    --theme-third-color: rgb(35, 205, 41);
     
     --footer-color: rgb(242, 241, 241);
 
