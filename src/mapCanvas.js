@@ -147,10 +147,10 @@ async function calculateUserDistanceToCarAndShow(carCoords){
     let dist = R * c;
 
     let distValField = document.getElementById('card-distance-val');
-    distValField.textContent = dist > 1000 ?  (dist/1000).toFixed(1): dist.toFixed(1);
+    distValField.textContent = dist > 1 ?  dist.toFixed(1): (dist*1000).toFixed(1);
     
     let distUnitField = document.getElementById('card-distance-unit');
-    distUnitField.textContent = dist > 1000 ? " KM": " M";
+    distUnitField.textContent = dist > 1 ? " KM":" M";
   })
 }
 
