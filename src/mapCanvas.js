@@ -92,6 +92,9 @@ function setupCarPreviewingCard(carDataObject, imgMap, auth, db){
   progressBarPower(document.getElementById('power-progress-bar'), carData.power);
   document.getElementById('car-card-img').src = imgMap.get(carData.title);
 
+  // set the distance text
+  calculateUserDistanceToCarAndShow(carData.coords)
+
   //When user is not logged on, we want to display something different.
   if(!auth.currentUser){
     document.getElementById('card-button-grp-loggged-on').hidden = true;
@@ -103,9 +106,6 @@ function setupCarPreviewingCard(carDataObject, imgMap, auth, db){
   setupOpenNowButton(db, carFirestoreId, auth,carData);
   //TODO: setup "reserve" button
   setupReserveButton(db, carFirestoreId, auth, carData);
-
-  // set the distance text
-  calculateUserDistanceToCarAndShow(carData.coords)
 }
 
 function progressBarPower(progressBar, pow){
@@ -130,18 +130,30 @@ async function calculateUserDistanceToCarAndShow(carCoords){
 
   locationPromise.then(userCoords =>{
     let p = userCoords.position;
-    let dLat = Math.pow(carCoords.latitude -  p.latitude,2);
-    let dLon = Math.pow(carCoords.longitude - p.longitude,2)
 
-    let dist = Math.sqrt(dLat + dLon) * 111139;
-    // 111,139 is the number to get dist in meters
+    let dLat = toRad(carCoords.latitude -  p.latitude);
+    let dLon = toRad(carCoords.longitude - p.longitude)
+    
+    let R = 6371
 
+    let a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+                Math.cos(toRad(carCoords.latitude)) * Math.cos(toRad(p.latitude))
+                * Math.sin(dLon/2) * Math.sin(dLon/2);
+
+    let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+
+    let dist = R * c;
+    
     let distValField = document.getElementById('card-distance-val');
     distValField.textContent = dist > 1000 ?  (dist/1000).toFixed(1): dist.toFixed(1);
     
     let distUnitField = document.getElementById('card-distance-unit');
     distUnitField.textContent = dist > 1000 ? " KM": " M";
   })
+}
+
+function toRad(num){
+  return num * Math.PI / 180;
 }
 
 function setupOpenNowButton(db, carFirestoreId,auth, carData){
