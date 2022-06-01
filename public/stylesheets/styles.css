@@ -19,6 +19,7 @@
 
 body{
     box-sizing: border-box;
+    height: 100vh;
 }
 
 header{
@@ -128,6 +129,20 @@ footer{
 .dropdown-menu{
     overflow-y: auto;
     max-height: 200px;
+}
+
+.sticky-footer-container{
+    min-height: 100%;
+    display:flex;
+    flex-direction: column;
+}
+
+.sticky-footer-container main{
+    flex: 1 0 auto;
+}
+
+.sticky-footer-container .footer-container{
+    flex-shrink: 0;
 }
 
 @media screen and (max-width: 767px) {
