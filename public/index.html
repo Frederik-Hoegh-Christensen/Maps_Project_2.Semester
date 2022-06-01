@@ -17,8 +17,8 @@
     <link rel="stylesheet" href="./stylesheets/styles.css">
     <link rel="stylesheet" href="./stylesheets/frontPageStyles.css">
     <script src="main.js" defer></script>
-    
-    <title>Crazy Delebils website</title>
+    <link rel="shortcut icon" href="images/icon.png" type="image/x-icon">
+    <title>Hvordan gør jeg?</title>
 </head>
 <body>
     <header class="mt-2">
@@ -61,10 +61,10 @@
                 <div class="container">
                     <h1 class="display-4">Danmarks Dele-Biler</h1>
                     <p class="lead" id="jumobtron-lead-text-about-us">
-                        Her står der måske noget tekst om hvor sygt fede vi er
+                        Kom nemt fra A til B
                     </p>
                     <p clasS="lead">
-                        <button type="button" class="btn btn-light border-dark btn-sign-in-modal-toggle" data-bs-toggle="modal" data-bs-target="#logInModal">Tilmeld dig vores service her!</button>
+                        <button hidden type="button" class="btn btn-light border-dark btn-sign-in-modal-toggle" data-bs-toggle="modal" data-bs-target="#logInModal" id="btn-sign-up-guide">Tilmeld dig vores service her!</button>
                     </p>
                 </div>
               </div>
@@ -74,14 +74,13 @@
                 </div>
             </div>
             <ol>
-                <li class="frontPageListElement"> Tilmeld dig vores service ved at klikke <a href="account.html">her.</a> <br> <img src="#" alt="indsæt billede"></li>
-                <li class="frontPageListElement" id="findCarDescription"> <span class="small-screen-text">Find en bil nær dig ved at klikke i bunden af skærmen på "Find Bil-knappen</span> <span class="bigScreenText">Find en bil nær dig ved at klikke på navigations-pilen til venstre på skærmen.</span> <br><img src=".\images\findCarLink_Desktop.png" alt="desktop Link" width="20%" height="30%" id="picture-desktop"> <img src=".\images\findCarLink_Mobile.PNG" alt="" width="100%" id="picture-mobile"></li>
-                <li class="frontPageListElement"> Du bør nu kunne se et kort, hvor de røde bobler illustrerer hvor vores biler er placeret. Tryk blot på den bil du gerne vil bruge og tryk bestil! <br> <img src="./images/findCar.PNG" alt="Kort billede" width="100%" height="15%" ></li>
+                <li class="frontPageListElement" id="findCarDescription"> <span class="small-screen-text">Find en bil nær dig ved at klikke i bunden af skærmen på "Find Bil-knappen</span> <span class="bigScreenText">Find en bil nær dig ved at klikke på navigations-pilen til venstre på skærmen.</span> <br><img src="./images/findCarLink_Desktop.png" alt="desktop Link" id="picture-desktop"> <img src="./images/findCarLink_Mobile.PNG" alt="" id="picture-mobile"></li>
+                <li class="frontPageListElement"> Du bør nu kunne se et kort, hvor de røde bobler illustrerer hvor vores biler er placeret. Tryk blot på den bil du gerne vil bruge og tryk bestil! <br> <img src="./images/findCar.PNG" alt="Kort billede"></li>
                 <li class="frontPageListElement"> Efter at du har booket en bil vil du kunne se "Din Tur". Når du er færdig med at bruge bilen klikker du bare på "Afslut tur" og vi vil opkræve penge fra dit kort.</li>
             </ol>
         </div>
 
-        <div class="modal fade" id="logInModal" tabindex="-1" role="dialog" aria-labelledby="logIn" aria-hidden="true">
+        <div class="modal fade" id="logInModal" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -92,7 +91,7 @@
                     <div class="modal-body">
                         <form>
                             <div class="form-group">
-                                <label for="email" class="col-form-label">Email</label>
+                                <label for="modal-log-in-email" class="col-form-label">Email</label>
                                 <input type="text" class="form-control" id="modal-log-in-email">
                             </div>
                             <div class="form-group">
@@ -103,7 +102,7 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" data-dismiss="modal" id="btn-sign-in-email">Log ind</button> <label for="header-btn-sign-in-google">Eller:</label>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" id="btn-sign-in-email">Log ind</button> <label for="btn-sign-in-google">Eller:</label>
                         <button type="button" class="btn btn-primary" data-dismiss="modal" id="btn-sign-in-google">Log ind med Google</button>
                         <button type="button" class="btn btn-sm btn-outline-secondary" id="btn-sign-up">Opret konto</button>
                     </div>

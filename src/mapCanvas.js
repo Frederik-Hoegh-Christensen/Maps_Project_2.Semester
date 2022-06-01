@@ -108,6 +108,13 @@ function setupCarPreviewingCard(carDataObject, imgMap, auth, db){
   calculateUserDistanceToCarAndShow(carData.coords)
 }
 
+function progressBarPower(progressBar, pow){
+  let percentString = pow + '%';
+  progressBar.style.width = percentString;
+  progressBar.textContent = percentString;
+  progressBar.setAttribute('aria-valuenow', pow);
+}
+
 async function calculateUserDistanceToCarAndShow(carCoords){
   if(!navigator.geolocation){
     document.getElementById('card-distance-text')
@@ -146,19 +153,85 @@ function setupOpenNowButton(db, carFirestoreId,auth, carData){
   })
   openNowBtn.textContent = "Lås op";
   openNowBtn.addEventListener("click", e =>{
-    let carRef = doc(db, 'cars', carFirestoreId);
-    
-    updateDoc(carRef, {
-      isOcupied: true,
+    replaceButtonsWithSpinner();
+
+    let paymentRef = doc(db, 'paymentMethods', auth.currentUser.email);
+    getDoc(paymentRef)
+    .then(paymentCard => {
+      if(paymentCard.exists()){
+        let carRef = doc(db, 'cars', carFirestoreId);
+
+        updateDoc(carRef, {
+          isOcupied: true,
+        })
+        .then(fulfillment => {
+          createBill(db, auth.currentUser.email, carFirestoreId, carData)
+          window.location.replace('yourCar.html')
+        })
+        .catch(err =>{console.log(err)})
+      }
+      else{
+        let spanFC = document.getElementById('firebase-confirmation-field');
+        spanFC.textContent = "Du skal have en betalingsmetode. Gå til konto";
+        spanFC.setAttribute("class", "failure")
+        document.getElementById('card-button-grp-loggged-on').hidden = true;
+      }
     })
-    .then(fulfillment => {
-      createBill(db, auth.currentUser.email, carFirestoreId, carData)
-      window.location.replace('yourCar.html')
-    })
-    .catch(err =>{console.log(err)})
   })
-  openNowBtnContainer.innerHTML = "";
-  openNowBtnContainer.appendChild(openNowBtn);
+  if(openNowBtnContainer){
+    openNowBtnContainer.innerHTML = "";
+    openNowBtnContainer.appendChild(openNowBtn);
+  }
+}
+
+function setupReserveButton(db, carFirestoreId, auth, carData){
+  let container = document.getElementById('card-button-grp-reservation-btn-container');
+  
+  let reserveBtn = createHTMLElm("button", {
+    type: "button",
+    class:"btn btn-secondary",
+    id:"btn-reserve",
+  })
+  reserveBtn.textContent = "Reserver";
+  reserveBtn.addEventListener("click", e => {
+    let reservationTime = document.getElementById('input-reserve-time').value;
+    if(!reservationTime){
+      let spanFC = document.getElementById('firebase-confirmation-field');
+      spanFC.textContent = "Venligst vælg en tid";
+      spanFC.setAttribute("class", "failure");
+      return;
+    }
+    replaceButtonsWithSpinner();
+
+    let paymentRef = doc(db, 'paymentMethods', auth.currentUser.email);
+    getDoc(paymentRef)
+    .then(paymentCard => {
+      if(!paymentCard.exists()){
+        let spanFC = document.getElementById('firebase-confirmation-field');
+        spanFC.textContent = "Du skal have en betalingsmetode. Gå til konto";
+        spanFC.setAttribute("class", "failure")
+        document.getElementById('card-button-grp-loggged-on').hidden = true;
+        return;
+      }
+      let carRef = doc(db, 'cars', carFirestoreId);
+
+      updateDoc(carRef, {
+        isOcupied: true,
+        reservationTime: reservationTime,
+      })
+      .then(fulfillment => {
+        createBill(db, auth.currentUser.email, carFirestoreId, carData)
+        window.location.replace('yourCar.html')
+      })
+      .catch(err => {
+        console.log(err)
+      })
+    })
+  })
+  if(container){
+    container.innerHTML = "";
+    container.appendChild(reserveBtn); 
+  }
 }
 
 function createBill(db, userEmail, carFirestoreId, carData){
@@ -177,40 +250,39 @@ function createBill(db, userEmail, carFirestoreId, carData){
   .catch(err => console.log(err))
 }
 
-function setupReserveButton(db, carFirestoreId, auth, carData){
-  let container = document.getElementById('card-button-grp-reservation-btn-container');
-  
-  let reserveBtn = createHTMLElm("button", {
-    type: "button",
-    class:"btn btn-secondary",
-    id:"btn-reserve",
-  })
-  reserveBtn.textContent = "Reserver";
-  reserveBtn.addEventListener("click", e => {
-    let reservationTime = document.getElementById('input-reserve-time').value;
-    if(!reservationTime){
-      let spanFC = document.getElementById('firebase-confirmation-field');
-      spanFC.textContent = "Venligst vælg en tid";
-      spanFC.setAttribute("class", "failure")
-      return;
-    }
-    let carRef = doc(db, 'cars', carFirestoreId);
+function replaceButtonsWithSpinner(){  
+  let containerToPlaceSpinner = document.getElementById('card-button-grp-loggged-on');
 
-    updateDoc(carRef, {
-      isOcupied: true,
-      reservationTime: reservationTime,
-    })
-    .then(fulfillment => {
-      createBill(db, auth.currentUser.email, carFirestoreId, carData)
-      window.location.replace('yourCar.html')
-    })
-    .catch(err => {
-      console.log(err)
-    })
+  let outerSpinnerDiv = createHTMLElm("div", {
+    class: "d-flex justify-content-center"
   })
-  container.innerHTML = "";
-  container.appendChild(reserveBtn);
+
+  let spinnerBorder = createHTMLElm("div",{
+    class: "spinner-border",
+    role: "status"
+  })
+
+  let spinnerScreenReader = createHTMLElm("span",{
+    class: "sr-only",
+  })
+  spinnerBorder.appendChild(spinnerScreenReader);
+  outerSpinnerDiv.appendChild(spinnerBorder);
   
+  containerToPlaceSpinner.innerHTML ="";
+  containerToPlaceSpinner.appendChild(outerSpinnerDiv);
+}
+
+export async function drawCars(mapCanvas, firebaseApp){
+  let firestore = getFirestore(firebaseApp);
+  let cloudStorage = getStorage(firebaseApp);
+  let auth = getAuth(firebaseApp)
+
+  let carsArray = await retrieveCars(firestore);
+  let carToImgMap = retrieveCarImages(cloudStorage, carsArray)
+
+  for(let car of carsArray){
+    addMarker(mapCanvas, car, carToImgMap, auth , firestore);
+  }
 }
 
 async function retrieveCars(db){
@@ -227,26 +299,6 @@ async function retrieveCars(db){
       });
   });
   return carDataArray;
-}
-
-export async function drawCars(mapCanvas, firebaseApp){
-  let firestore = getFirestore(firebaseApp);
-  let cloudStorage = getStorage(firebaseApp);
-  let auth = getAuth(firebaseApp)
-
-  let carsArray = await retrieveCars(firestore);
-  let carToImgMap = retrieveCarImages(cloudStorage, carsArray)
-
-  for(let car of carsArray){
-    addMarker(mapCanvas, car, carToImgMap, auth , firestore);
-  }
-}
-
-function progressBarPower(progressBar, pow){
-  let percentString = pow + '%';
-  progressBar.style.width = percentString;
-  progressBar.textContent = percentString;
-  progressBar.setAttribute('aria-valuenow', pow);
 }
 
 function retrieveCarImages(cloud, carArray){

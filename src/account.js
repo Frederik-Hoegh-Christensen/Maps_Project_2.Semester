@@ -1,17 +1,18 @@
-import { collection, query, where, getDocs, setDoc, doc, Timestamp, orderBy, QueryConstraint } from "firebase/firestore";
+import { collection, query, where, getDocs, setDoc, doc, Timestamp, orderBy } from "firebase/firestore";
 import { updateProfile } from "firebase/auth";
 import { createHTMLElm } from "./main.js";
 
 export async function fillHistoryDropdown(db, user) {
     var dropdown = document.getElementById("historyDropdown");
-    const q = query(collection(db, "bills"), where("owner", "==", user.email));
+    let col = collection(db, "bills");
+    const q = query(col, orderBy("date", "desc"), where("owner", "==", user.email));
     const querySnapshot = await getDocs(q);
 
 for(let i = 0; i < querySnapshot.docs.length; i++){
     let data = querySnapshot.docs[i].data();
     let item = document.createElement("a");
     let dateString = data.date.toDate().toString();
-    let date = dateString.split(" ")[0] + " " + dateString.split(" ")[2] + ". " + dateString.split(" ")[1] + ", " + dateString.split(" ")[3];
+    let date = dateString.split(" ")[0] + " " + dateString.split(" ")[2] + ". " + dateString.split(" ")[1] + ", " + dateString.split(" ")[3] + " " + dateString.split(" ")[4];
     let itemText = document.createTextNode(date);
     item.appendChild(itemText);
     //item.href = "index.html"; MAKE LINK TO BILL
@@ -55,11 +56,13 @@ export function displayUserInfo(user) {
     var emailNode = document.createTextNode(user.email);
 
     var nameP = document.createElement("p");
-    var emailP = document.createElement("p");
-    if (user) {
+    if (user.displayName) {
         nameP.appendChild(nameNode);
-        emailP.appendChild(emailNode);
+    }else{
+        nameP.appendChild(document.createTextNode("Navn ikke angivet"));
     }
+    var emailP = document.createElement("p");
+    emailP.appendChild(emailNode);
     
     var nameDiv = document.getElementById("nameTextDiv");
     var emailDiv = document.getElementById("emailTextDiv");
@@ -92,6 +95,7 @@ export function changeUserInfo(user) {
                     displayName: changeDisplayNameInput.value
                 });
                 alert("Ændringerne er blevet gemt");
+                location.reload();
             } catch (error) {
                 alert(error.message);
             }
@@ -104,6 +108,7 @@ export function changeUserInfo(user) {
                     email: changeEmailInput.value
                 });
                 alert("Ændringerne er blevet gemt");
+                location.reload();
             } catch (error) {
                 alert(error.message);
             }
@@ -115,6 +120,7 @@ export function changeUserInfo(user) {
                 try {
                     updatePassword(user, changePasswordInput.value);
                     alert("Ændringerne er blevet gemt");
+                    location.reload();
                 } catch (error) {
                     alert(error.message);
                 }

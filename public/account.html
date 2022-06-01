@@ -23,14 +23,15 @@
     <!-- Our Stuff -->
     <link rel="stylesheet" href="./stylesheets/styles.css">
     <script src="main.js" defer></script>
+    <link rel="shortcut icon" href="images/icon.png" type="image/x-icon">
     <title>Your Account</title>
 </head>
 
 <body>
     <header class="mt-2">
         <div class="header row flex-nowrap justify-content-between mb-2">
-            <div class="col-1 col-sm-2"></div>
-            <div class="col-8 col-sm-8 text-center">
+            <div class="col-3 col-sm-2"></div>
+            <div class="col-6 col-sm-8 text-center">
                 <a class="header-logo text-dark h2" href="index.html">Mo-Bil</a>
             </div>
             <div class="col-3 col-sm-2 d-flex justify-content-end align-items-center header-btns">
@@ -70,7 +71,7 @@
             </div>
 
             <div style="display: flex; justify-content: center; align-items: center;">
-                <button hidden type="button", class="btn btn-lg border-dark btn-sign-in-modal-toggle" data-bs-toggle="modal" data-bs-target="#logInModal" id="signInSignUpButton">Tilmeld dig eller log ind her!</button>
+                <button hidden type="button" class="btn btn-lg border-dark btn-sign-in-modal-toggle" data-bs-toggle="modal" data-bs-target="#logInModal" id="signInSignUpButton">Tilmeld dig eller log ind her!</button>
             </div>
 
             <div class="row mx-1">
@@ -113,7 +114,7 @@
             </div>
         </div>
 
-        <div class="modal fade" id="accountInfoModal" tabindex="-1" role="dialog" aria-labelledby="changeAccountInfo"
+        <div class="modal fade" id="accountInfoModal" tabindex="-1" role="dialog"
             aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
@@ -156,7 +157,7 @@
         </div>
 
         <div class="modal fade" id="paymentMethodModal" tabindex="-1" role="dialog"
-            aria-labelledby="changePaymentMethod" aria-hidden="true">
+             aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -167,7 +168,7 @@
                     <div class="modal-body">
                         <form>
                             <div class="form-group">
-                                <label for="name" class="col-form-label">Navn på kort</label>
+                                <label for="nameOnCard" class="col-form-label">Navn på kort</label>
                                 <input type="text" class="form-control" id="nameOnCard">
                             </div>
                             <div class="form-group">
@@ -194,7 +195,7 @@
                 </div>
             </div>
         </div>
-        <div class="modal fade" id="logInModal" tabindex="-1" role="dialog" aria-labelledby="logIn" aria-hidden="true">
+        <div class="modal fade" id="logInModal" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -217,7 +218,7 @@
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="btn-sign-in-email">Log
-                            ind</button> <label for="header-btn-sign-in-google">Eller:</label>
+                            ind</button> <label for="btn-sign-in-google">Eller:</label>
                         <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
                             id="btn-sign-in-google">Log ind med Google</button>
                         <button type="button" class="btn btn-sm btn-outline-secondary" id="btn-sign-up">Opret
