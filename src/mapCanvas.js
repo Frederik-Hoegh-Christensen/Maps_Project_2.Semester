@@ -6,6 +6,7 @@ import {
   Timestamp,
   addDoc,
   updateDoc,
+  getDoc,
   doc,
 } from 'firebase/firestore';
 import {
@@ -26,6 +27,7 @@ export function initializeMap(){
     center: copenhagen,
     streetViewControl: false,
     mapTypeControl: false,
+    fullscreenControl: false,
   }
   // The map, centered at Copenhagen
   const mapCanvas = new google.maps.Map(document.getElementById("map"), options);
@@ -101,6 +103,38 @@ function setupCarPreviewingCard(carDataObject, imgMap, auth, db){
   setupOpenNowButton(db, carFirestoreId, auth,carData);
   //TODO: setup "reserve" button
   setupReserveButton(db, carFirestoreId, auth, carData);
+
+  // set the distance text
+  calculateUserDistanceToCarAndShow(carData.coords)
+}
+
+async function calculateUserDistanceToCarAndShow(carCoords){
+  if(!navigator.geolocation){
+    document.getElementById('card-distance-text')
+    .textContent = "Bruger Lokation Blokeret"
+  }
+  let position;
+  let locationPromise = new Promise((resolve, reject) => {
+    navigator.geolocation.getCurrentPosition(pos => {
+      position = pos.coords;
+      resolve({position})
+    });
+  })
+
+  locationPromise.then(userCoords =>{
+    let p = userCoords.position;
+    let dLat = Math.pow(carCoords.latitude -  p.latitude,2);
+    let dLon = Math.pow(carCoords.longitude - p.longitude,2)
+
+    let dist = Math.sqrt(dLat + dLon) * 111139;
+    // 111,139 is the number to get dist in meters
+
+    let distValField = document.getElementById('card-distance-val');
+    distValField.textContent = dist > 1000 ?  (dist/1000).toFixed(1): dist.toFixed(1);
+    
+    let distUnitField = document.getElementById('card-distance-unit');
+    distUnitField.textContent = dist > 1000 ? " KM": " M";
+  })
 }
 
 function setupOpenNowButton(db, carFirestoreId,auth, carData){
@@ -255,6 +289,12 @@ async function geoLocationSuccessful(map, cloudStorage, coords){
 })
 }
 
-function getUserLocation(succes){
-  
+export async function drawUserCar(map, db, carReference){
+  let carData =  (await getDoc(doc(db, 'cars', carReference))).data();
+  let marker = new google.maps.Marker({
+      position: {lat: carData.coords.latitude, lng: carData.coords.longitude},
+      map: map,
+      title: "Your car: " + carData.title,
+  })
+  marker.setMap(map);
 }

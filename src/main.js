@@ -1,12 +1,12 @@
 //Write bad-ass code here
 
 import { getFirebaseConfig } from './firebase-config.js';
-import { initializeMap, drawCars, addUserPositionPin, getUserLocation } from './mapCanvas.js';
+import { initializeMap, drawCars, addUserPositionPin } from './mapCanvas.js';
 import { fillHistoryDropdown, displayUserInfo, changeUserInfo, changePaymentMethod, notSignedInAccountPage } from './account.js';
 import { initSignUp, logInEmail, logInGoogle, signUpEmail } from './sign-in-sign-up.js';
+import {setReceiptDetails, endTrip} from './yourCarScript';
 
 import { initializeApp } from 'firebase/app';
-
 import {
   getAuth, onAuthStateChanged, GoogleAuthProvider,
   signInWithPopup, signInWithRedirect, signOut, signInWithEmailAndPassword,
@@ -14,7 +14,6 @@ import {
   from 'firebase/auth';
 import { getStorage } from 'firebase/storage';
 import { getFirestore } from 'firebase/firestore';
-import {setReceiptDetails, endTrip} from './yourCarScript';
 
 const app = initializeApp(getFirebaseConfig());
 
@@ -25,11 +24,21 @@ const googleAuthProvider = new GoogleAuthProvider();
 const db = getFirestore(app);
 const cloudStorage = getStorage(app);
 
+var mapCanvas;
+var userBillDoc;
+
 onAuthStateChanged(auth, user => {
   if (user != null) {
     console.log(user.toJSON());
     if(!window.location.href.includes("signUp.html"))signOutButton();
     if(window.location.href.includes("account.html"))accountPage(db, auth.currentUser);
+    if(window.location.href.includes('yourCar.html')){
+      setReceiptDetails(db,auth.currentUser)
+      .then(billDoc => {
+        userBillDoc = billDoc
+        drawUserCar(mapCanvas, db, userBillDoc.data().car)
+      })
+    }
   } else {
     console.log("no user");
     if(!window.location.href.includes("signUp.html"))signInButton();
@@ -96,20 +105,20 @@ function signOutButton() {
 
 
 async function initMap() {
-  let mapCanvas = initializeMap();
-  drawCars(mapCanvas, app);
+  mapCanvas = initializeMap();
+  if(window.location.href.includes("findCar.html")){
+    drawCars(mapCanvas, app);
+  }
   addUserPositionPin(mapCanvas, cloudStorage)
 }
 window.initMap = initMap;
 
-  let endTripButton = document.getElementById('endTrip');
-  if(endTripButton) {
-    endTripButton.addEventListener("click", e =>{
-      endTrip(db, auth.currentUser);
-    })
-  }
-
-
+let endTripButton = document.getElementById('endTrip-btn-accept');
+if(endTripButton) {
+  endTripButton.addEventListener("click", e =>{
+    endTrip(db, userBillDoc);
+  })
+}
 
 /*
     A helper method for creating HTML elements in one line

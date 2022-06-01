@@ -28,7 +28,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
 })
 
 export async function setReceiptDetails(db, user) {
-
     let colRef = collection(db, 'bills');
     let q = query(colRef, where('owner', '==', user.email), where('isActive', '==', true));
     let correct = await getDocs(q);
@@ -48,6 +47,8 @@ export async function setReceiptDetails(db, user) {
     document.querySelector("#colorField").innerHTML = carData.color;
     document.querySelector("#pricePerKmField").innerHTML = price + " kr";
     //document.querySelector("#totalPriceField").innerHTML = 
+
+    return thisDoc;
 }
 
 function showModal() {
@@ -57,17 +58,12 @@ function showModal() {
     myModal.show();
 }
 
-export async function endTrip(db, user) {
-    let colRef = collection(db, 'bills');
-    let q = query(colRef, where('owner', '==', user.email), where('isActive', '==', true));
-    let correct = await getDocs(q);
-    let thisDoc = correct.docs[0];
-    console.log(thisDoc.data().isActive)
-    await updateDoc(thisDoc, {
+export async function endTrip(db, billDoc) {
+    await updateDoc(doc(db, 'bills', billDoc.id), {
         isActive: false
     });
-    await updateDoc(car, {
-        isOccupied: false
+    await updateDoc(doc(db,'cars',billDoc.data().car), {
+        isOcupied: false
     });
     window.location.replace('index.html')
 }
