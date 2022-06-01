@@ -5,7 +5,6 @@ import { initializeMap, drawCars, addUserPositionPin, drawUserCar } from './mapC
 import { fillHistoryDropdown, displayUserInfo, changeUserInfo, changePaymentMethod, notSignedInAccountPage } from './account.js';
 import { initSignUp, logInEmail, logInGoogle, signUpEmail } from './sign-in-sign-up.js';
 import {setReceiptDetails, endTrip, calculateTime} from './yourCarScript';
-import {setReceiptDetails, endTrip} from './yourCarScript';
 import { findCarHTMLButtons } from './findCar.js';
 
 import { initializeApp } from 'firebase/app';
