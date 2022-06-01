@@ -1,10 +1,12 @@
 //Write bad-ass code here
 
 import { getFirebaseConfig } from './firebase-config.js';
-import { initializeMap, drawCars, addUserPositionPin, drawUserCar } from './mapCanvas';
-import { fillHistoryDropdown, displayUserInfo, changeUserInfo, changePaymentMethod } from './account';
+import { initializeMap, drawCars, addUserPositionPin, drawUserCar } from './mapCanvas.js';
+import { fillHistoryDropdown, displayUserInfo, changeUserInfo, changePaymentMethod, notSignedInAccountPage } from './account.js';
 import { initSignUp, logInEmail, logInGoogle, signUpEmail } from './sign-in-sign-up.js';
 import {setReceiptDetails, endTrip, calculateTime} from './yourCarScript';
+import {setReceiptDetails, endTrip} from './yourCarScript';
+import { findCarHTMLButtons } from './findCar.js';
 
 import { initializeApp } from 'firebase/app';
 import {
@@ -43,6 +45,12 @@ onAuthStateChanged(auth, user => {
   } else {
     console.log("no user");
     if(!window.location.href.includes("signUp.html"))signInButton();
+    if(window.location.href.includes("account.html"))notSignedInAccountPage();
+
+    if(window.location.href.includes("index.html")){
+      let signUpBtnGuide = document.getElementById("btn-sign-up-guide");
+      signUpBtnGuide.hidden = false;
+    }
   }
 });
 
@@ -97,6 +105,7 @@ function signOutButton() {
   if(sb){
     sb.addEventListener("click", e => {
       signOut(auth);
+      location.reload();
     });
     if(sb.hidden) sb.hidden = false;
   }
@@ -134,4 +143,8 @@ export function createHTMLElm(tag, attributes) {
     result.setAttribute(attr[0], attr[1])
   });
   return result;
+}
+
+if(location.href.toLocaleLowerCase().includes("findcar.html")){
+  findCarHTMLButtons();
 }

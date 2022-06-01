@@ -1,12 +1,30 @@
-import { collection, query, where, getDocs, setDoc, doc, Timestamp, orderBy, QueryConstraint } from "firebase/firestore";
+import { collection, query, where, getDocs, setDoc, doc, Timestamp, orderBy } from "firebase/firestore";
 import { updateProfile } from "firebase/auth";
+import { createHTMLElm } from "./main.js";
 
 export async function fillHistoryDropdown(db, user) {
     var dropdown = document.getElementById("historyDropdown");
-    const q = query(collection(db, "bills"), where("owner", "==", user.email));
+    let col = collection(db, "bills");
+    const q = query(col, orderBy("date", "desc"), where("owner", "==", user.email));
     const querySnapshot = await getDocs(q);
 
-    querySnapshot.forEach(doc => {
+for(let i = 0; i < querySnapshot.docs.length; i++){
+    let data = querySnapshot.docs[i].data();
+    let item = document.createElement("a");
+    let dateString = data.date.toDate().toString();
+    let date = dateString.split(" ")[0] + " " + dateString.split(" ")[2] + ". " + dateString.split(" ")[1] + ", " + dateString.split(" ")[3];
+    let itemText = document.createTextNode(date);
+    item.appendChild(itemText);
+    //item.href = "index.html"; MAKE LINK TO BILL
+    dropdown.appendChild(item);
+    if(i < querySnapshot.docs.length-1){
+        let separator = document.createElement("div");
+        separator.setAttribute("class", "dropdown-divider");
+        dropdown.appendChild(separator);
+    }
+}
+
+    /*querySnapshot.forEach(doc => {
         let data = doc.data();
         let item = document.createElement("a");
         let dateString = data.date.toDate().toString();
@@ -18,24 +36,34 @@ export async function fillHistoryDropdown(db, user) {
         let separator = document.createElement("div");
         separator.setAttribute("class", "dropdown-divider");
         dropdown.appendChild(separator);
-    });
+    });*/
 }
 
 export function displayUserInfo(user) {
-    //var name = "test";
-    //var email = "test@test.com";
+    var nameTitle = document.getElementById("nameTitle");
+    var emailTitle = document.getElementById("emailTitle");
+    var changeUserInfoButton = document.getElementById("changeUserInfoButton");
+    var changePaymentMethodButton = document.getElementById("changePaymentMethodButton");
+    var historyDropdownMenu = document.getElementById("historyDropdownMenu");
+
+    nameTitle.hidden = false;
+    emailTitle.hidden = false;
+    changeUserInfoButton.hidden = false;
+    changePaymentMethodButton.hidden = false;
+    historyDropdownMenu.hidden = false;
+
     var nameNode = document.createTextNode(user.displayName);
     var emailNode = document.createTextNode(user.email);
 
     var nameP = document.createElement("p");
     if (user.displayName) {
         nameP.appendChild(nameNode);
-    } else {
+    }else{
         nameP.appendChild(document.createTextNode("Navn ikke angivet"));
     }
     var emailP = document.createElement("p");
     emailP.appendChild(emailNode);
-
+    
     var nameDiv = document.getElementById("nameTextDiv");
     var emailDiv = document.getElementById("emailTextDiv");
 
@@ -67,6 +95,7 @@ export function changeUserInfo(user) {
                     displayName: changeDisplayNameInput.value
                 });
                 alert("Ændringerne er blevet gemt");
+                location.reload();
             } catch (error) {
                 alert(error.message);
             }
@@ -79,6 +108,7 @@ export function changeUserInfo(user) {
                     email: changeEmailInput.value
                 });
                 alert("Ændringerne er blevet gemt");
+                location.reload();
             } catch (error) {
                 alert(error.message);
             }
@@ -90,6 +120,7 @@ export function changeUserInfo(user) {
                 try {
                     updatePassword(user, changePasswordInput.value);
                     alert("Ændringerne er blevet gemt");
+                    location.reload();
                 } catch (error) {
                     alert(error.message);
                 }
@@ -125,4 +156,21 @@ export async function changePaymentMethod(db, user) {
     } else {
         alert("Tjek venligst at du har indtastet korrekte oplysninger");
     }
+}
+
+export function notSignedInAccountPage(){
+    var nameTitle = document.getElementById("nameTitle");
+    var emailTitle = document.getElementById("emailTitle");
+    var changeUserInfoButton = document.getElementById("changeUserInfoButton");
+    var changePaymentMethodButton = document.getElementById("changePaymentMethodButton");
+    var historyDropdownMenu = document.getElementById("historyDropdownMenu");
+
+    nameTitle.hidden = true;
+    emailTitle.hidden = true;
+    changeUserInfoButton.hidden = true;
+    changePaymentMethodButton.hidden = true;
+    historyDropdownMenu.hidden = true;
+
+    var signInSignUpButton = document.getElementById("signInSignUpButton");
+    signInSignUpButton.hidden = false;
 }

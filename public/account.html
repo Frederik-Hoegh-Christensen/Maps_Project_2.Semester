@@ -23,6 +23,7 @@
     <!-- Our Stuff -->
     <link rel="stylesheet" href="./stylesheets/styles.css">
     <script src="main.js" defer></script>
+    <link rel="shortcut icon" href="images/icon.png" type="image/x-icon">
     <title>Your Account</title>
 </head>
 
@@ -64,14 +65,18 @@
         </ul>
     </nav>
     <main class="mt-2 mx-2" style="margin-bottom: 20%;">
-        <div class="container">
+        <div class="container" id="accountPageContainer">
             <div class="row mx-1 my-3">
                 <h1>Konto</h1>
             </div>
 
+            <div style="display: flex; justify-content: center; align-items: center;">
+                <button hidden type="button" class="btn btn-lg border-dark btn-sign-in-modal-toggle" data-bs-toggle="modal" data-bs-target="#logInModal" id="signInSignUpButton">Tilmeld dig eller log ind her!</button>
+            </div>
+
             <div class="row mx-1">
                 <div class="col-2 col-md-1">
-                    <p class="font-weight-bold">Navn:</p>
+                    <p class="font-weight-bold" id="nameTitle">Navn:</p>
                 </div>
                 <div id="nameTextDiv" class=" col-5 col-lg-3 text-truncate">
 
@@ -84,7 +89,7 @@
 
             <div class="row mx-1 my-3">
                 <div class="col-2 col-md-1">
-                    <p class="font-weight-bold">Email:</p>
+                    <p class="font-weight-bold" id="emailTitle">Email:</p>
                 </div>
                 <div id="emailTextDiv" class="col-5 col-lg-3 text-truncate">
 
@@ -97,7 +102,7 @@
             </div>
 
             <div class="row">
-                <div class="flex" style="display: flex; justify-content: center; align-items: center;">
+                <div class="flex" style="display: flex; justify-content: center; align-items: center;" id="historyDropdownMenu">
                     <div class="dropdown-center">
                         <button type="button" class="btn btn-lg btn-secondary dropdown-toggle" data-bs-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false">Historik</button>
@@ -109,7 +114,7 @@
             </div>
         </div>
 
-        <div class="modal fade" id="accountInfoModal" tabindex="-1" role="dialog" aria-labelledby="changeAccountInfo"
+        <div class="modal fade" id="accountInfoModal" tabindex="-1" role="dialog"
             aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
@@ -152,7 +157,7 @@
         </div>
 
         <div class="modal fade" id="paymentMethodModal" tabindex="-1" role="dialog"
-            aria-labelledby="changePaymentMethod" aria-hidden="true">
+             aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -163,7 +168,7 @@
                     <div class="modal-body">
                         <form>
                             <div class="form-group">
-                                <label for="name" class="col-form-label">Navn på kort</label>
+                                <label for="nameOnCard" class="col-form-label">Navn på kort</label>
                                 <input type="text" class="form-control" id="nameOnCard">
                             </div>
                             <div class="form-group">
@@ -190,7 +195,7 @@
                 </div>
             </div>
         </div>
-        <div class="modal fade" id="logInModal" tabindex="-1" role="dialog" aria-labelledby="logIn" aria-hidden="true">
+        <div class="modal fade" id="logInModal" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -213,7 +218,7 @@
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="btn-sign-in-email">Log
-                            ind</button> <label for="header-btn-sign-in-google">Eller:</label>
+                            ind</button> <label for="btn-sign-in-google">Eller:</label>
                         <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
                             id="btn-sign-in-google">Log ind med Google</button>
                         <button type="button" class="btn btn-sm btn-outline-secondary" id="btn-sign-up">Opret
