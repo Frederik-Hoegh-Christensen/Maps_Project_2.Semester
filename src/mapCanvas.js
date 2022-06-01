@@ -155,19 +155,33 @@ function setupOpenNowButton(db, carFirestoreId,auth, carData){
   openNowBtn.addEventListener("click", e =>{
     replaceButtonsWithSpinner();
 
-    let carRef = doc(db, 'cars', carFirestoreId);
+    let paymentRef = doc(db, 'paymentMethods', auth.currentUser.email);
+    getDoc(paymentRef)
+    .then(paymentCard => {
+      if(paymentCard.exists()){
+        let carRef = doc(db, 'cars', carFirestoreId);
 
-    updateDoc(carRef, {
-      isOcupied: true,
+        updateDoc(carRef, {
+          isOcupied: true,
+        })
+        .then(fulfillment => {
+          createBill(db, auth.currentUser.email, carFirestoreId, carData)
+          window.location.replace('yourCar.html')
+        })
+        .catch(err =>{console.log(err)})
+      }
+      else{
+        let spanFC = document.getElementById('firebase-confirmation-field');
+        spanFC.textContent = "Du skal have en betalingsmetode. Gå til konto";
+        spanFC.setAttribute("class", "failure")
+        document.getElementById('card-button-grp-loggged-on').hidden = true;
+      }
     })
-    .then(fulfillment => {
-      createBill(db, auth.currentUser.email, carFirestoreId, carData)
-      window.location.replace('yourCar.html')
-    })
-    .catch(err =>{console.log(err)})
   })
-  openNowBtnContainer.innerHTML = "";
-  openNowBtnContainer.appendChild(openNowBtn);
+  if(openNowBtnContainer){
+    openNowBtnContainer.innerHTML = "";
+    openNowBtnContainer.appendChild(openNowBtn);
+  }
 }
 
 function setupReserveButton(db, carFirestoreId, auth, carData){
@@ -184,27 +198,40 @@ function setupReserveButton(db, carFirestoreId, auth, carData){
     if(!reservationTime){
       let spanFC = document.getElementById('firebase-confirmation-field');
       spanFC.textContent = "Venligst vælg en tid";
-      spanFC.setAttribute("class", "failure")
+      spanFC.setAttribute("class", "failure");
       return;
     }
     replaceButtonsWithSpinner();
 
-    let carRef = doc(db, 'cars', carFirestoreId);
+    let paymentRef = doc(db, 'paymentMethods', auth.currentUser.email);
+    getDoc(paymentRef)
+    .then(paymentCard => {
+      if(!paymentCard.exists()){
+        let spanFC = document.getElementById('firebase-confirmation-field');
+        spanFC.textContent = "Du skal have en betalingsmetode. Gå til konto";
+        spanFC.setAttribute("class", "failure")
+        document.getElementById('card-button-grp-loggged-on').hidden = true;
+        return;
+      }
+      let carRef = doc(db, 'cars', carFirestoreId);
 
-    updateDoc(carRef, {
-      isOcupied: true,
-      reservationTime: reservationTime,
-    })
-    .then(fulfillment => {
-      createBill(db, auth.currentUser.email, carFirestoreId, carData)
-      window.location.replace('yourCar.html')
-    })
-    .catch(err => {
-      console.log(err)
+      updateDoc(carRef, {
+        isOcupied: true,
+        reservationTime: reservationTime,
+      })
+      .then(fulfillment => {
+        createBill(db, auth.currentUser.email, carFirestoreId, carData)
+        window.location.replace('yourCar.html')
+      })
+      .catch(err => {
+        console.log(err)
+      })
     })
   })
-  container.innerHTML = "";
-  container.appendChild(reserveBtn); 
+  if(container){
+    container.innerHTML = "";
+    container.appendChild(reserveBtn); 
+  }
 }
 
 function createBill(db, userEmail, carFirestoreId, carData){
