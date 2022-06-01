@@ -289,12 +289,21 @@ async function geoLocationSuccessful(map, cloudStorage, coords){
 })
 }
 
-export async function drawUserCar(map, db, carReference){
+export async function drawUserCar(map, db, carReference, cloudStorage){
   let carData =  (await getDoc(doc(db, 'cars', carReference))).data();
   let marker = new google.maps.Marker({
       position: {lat: carData.coords.latitude, lng: carData.coords.longitude},
       map: map,
       title: "Your car: " + carData.title,
   })
+  let title = carData.title;
+  let imgRef = '/carPictures/'+ title +'.png';
+    getDownloadURL(ref(cloudStorage, imgRef))
+    .then(imgURL =>{
+      document.getElementById('car-card-img').src = (title, imgURL);
+    })
+    .catch(err => {
+      console.log(err);
+    })
   marker.setMap(map);
 }
