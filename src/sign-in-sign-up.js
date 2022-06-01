@@ -41,7 +41,9 @@ export function logInEmail(auth) {
     logInEmailButton.addEventListener("click", e => {
         signInWithEmailAndPassword(auth, logInEmailInput.value, logInPasswordInput.value).then(userCredential => {
         }).then(userCredential => {
-            
+            window.location.href = "account.html";
+        }).catch(error => {
+            alert(error.message);
         });
     });
 }
@@ -51,6 +53,8 @@ export function logInGoogle(auth, googleAuthProvider) {
     logInGoogleButton.addEventListener("click", e => {
         signInWithRedirect(auth, googleAuthProvider).then(userCredential => {
             
-        })
+        }).catch(error => {
+            alert(error.message);
+        });
     });
 }
