@@ -30,8 +30,8 @@
 <body>
     <header class="mt-2">
         <div class="header row flex-nowrap justify-content-between mb-2">
-            <div class="col-1 col-sm-2"></div>
-            <div class="col-8 col-sm-8 text-center">
+            <div class="col-3 col-sm-2"></div>
+            <div class="col-6 col-sm-8 text-center">
                 <a class="header-logo text-dark h2" href="index.html">Mo-Bil</a>
             </div>
             <div class="col-3 col-sm-2 d-flex justify-content-end align-items-center header-btns">
@@ -64,217 +64,218 @@
             </li>
         </ul>
     </nav>
-    <main class="mt-2 mx-2" style="margin-bottom: 20%;">
-        <div class="container" id="accountPageContainer">
-            <div class="row mx-1 my-3">
-                <h1>Konto</h1>
-            </div>
-
-            <div style="display: flex; justify-content: center; align-items: center;">
-                <button hidden type="button" class="btn btn-lg border-dark btn-sign-in-modal-toggle" data-bs-toggle="modal" data-bs-target="#logInModal" id="signInSignUpButton">Tilmeld dig eller log ind her!</button>
-            </div>
-
-            <div class="row mx-1">
-                <div class="col-2 col-md-1">
-                    <p class="font-weight-bold" id="nameTitle">Navn:</p>
+    <div class="sticky-footer-container">
+        <main class="mt-2 mx-2">
+            <div class="container" id="accountPageContainer">
+                <div class="row mx-1 my-3">
+                    <h1>Konto</h1>
                 </div>
-                <div id="nameTextDiv" class=" col-5 col-lg-3 text-truncate">
-
+    
+                <div style="display: flex; justify-content: center; align-items: center;">
+                    <button hidden type="button" class="btn btn-lg border-dark btn-sign-in-modal-toggle" data-bs-toggle="modal" data-bs-target="#logInModal" id="signInSignUpButton">Tilmeld dig eller log ind her!</button>
                 </div>
-                <div class="col-5 col-md-6 col-lg-7">
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                        data-bs-target="#accountInfoModal" id="changeUserInfoButton">Ændr kontooplysninger</button>
+    
+                <div class="row mx-1">
+                    <div class="col-2 col-md-1">
+                        <p class="font-weight-bold" id="nameTitle">Navn:</p>
+                    </div>
+                    <div id="nameTextDiv" class=" col-5 col-lg-3 text-truncate">
+    
+                    </div>
+                    <div class="col-5 col-md-6 col-lg-7">
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#accountInfoModal" id="changeUserInfoButton">Ændr kontooplysninger</button>
+                    </div>
                 </div>
-            </div>
-
-            <div class="row mx-1 my-3">
-                <div class="col-2 col-md-1">
-                    <p class="font-weight-bold" id="emailTitle">Email:</p>
+    
+                <div class="row mx-1 my-3">
+                    <div class="col-2 col-md-1">
+                        <p class="font-weight-bold" id="emailTitle">Email:</p>
+                    </div>
+                    <div id="emailTextDiv" class="col-5 col-lg-3 text-truncate">
+    
+                    </div>
+                    <div class="col-5 col-md-6 col-lg-7">
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#paymentMethodModal" id="changePaymentMethodButton">Ændr
+                            kortoplysninger</button>
+                    </div>
                 </div>
-                <div id="emailTextDiv" class="col-5 col-lg-3 text-truncate">
-
-                </div>
-                <div class="col-5 col-md-6 col-lg-7">
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                        data-bs-target="#paymentMethodModal" id="changePaymentMethodButton">Ændr
-                        kortoplysninger</button>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="flex" style="display: flex; justify-content: center; align-items: center;" id="historyDropdownMenu">
-                    <div class="dropdown-center">
-                        <button type="button" class="btn btn-lg btn-secondary dropdown-toggle" data-bs-toggle="dropdown"
-                            aria-haspopup="true" aria-expanded="false">Historik</button>
-                        <ul class="dropdown-menu" id="historyDropdown">
-
-                        </ul>
+    
+                <div class="row">
+                    <div class="flex" style="display: flex; justify-content: center; align-items: center;" id="historyDropdownMenu">
+                        <div class="dropdown-center">
+                            <button type="button" class="btn btn-lg btn-secondary dropdown-toggle" data-bs-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">Historik</button>
+                            <ul class="dropdown-menu" id="historyDropdown">
+    
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
+            <div class="modal fade" id="accountInfoModal" tabindex="-1" role="dialog"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Ændr Kontooplysninger</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+    
+                        <div class="modal-body">
+                            <form>
+                                <div class="form-group">
+                                    <label for="displayName" class="col-form-label">Navn</label>
+                                    <input type="text" class="form-control" id="displayName">
+                                    <button type="button" class="btn btn-primary" id="changeDisplayNameButton"
+                                        data-bs-dismiss="modal">Godkend</button>
+                                </div>
+                                <div class="form-group">
+                                    <label for="email" class="col-form-label">Email</label>
+                                    <input type="text" class="form-control" id="email">
+                                    <button type="button" class="btn btn-primary" id="changeEmailButton"
+                                        data-bs-dismiss="modal">Godkend</button>
+                                </div>
+                                <div class="form-group">
+                                    <label for="password" class="col-form-label">Kodeord</label>
+                                    <input type="password" class="form-control" placeholder="Kodeord" id="password">
+                                    <br>
+                                    <input type="password" class="form-control" placeholder="Gentag kodeord"
+                                        id="repeatPassword">
+                                    <button type="button" class="btn btn-primary" id="changePasswordButton"
+                                        data-bs-dismiss="modal">Godkend</button>
+                                </div>
+                            </form>
+                        </div>
+    
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+            <div class="modal fade" id="paymentMethodModal" tabindex="-1" role="dialog"
+                 aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Ændr kortoplysninger</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+    
+                        <div class="modal-body">
+                            <form>
+                                <div class="form-group">
+                                    <label for="nameOnCard" class="col-form-label">Navn på kort</label>
+                                    <input type="text" class="form-control" id="nameOnCard">
+                                </div>
+                                <div class="form-group">
+                                    <label for="email" class="col-form-label">Kortnummer</label>
+                                    <input type="text" class="form-control" id="cardNumber">
+                                </div>
+                                <div class="form-group">
+                                    <label for="expDateMonth" class="col-form-label">Udløbsdato</label>
+                                    <input type="text" class="form-control" placeholder="MM" id="expDateMonth">
+                                    <input type="text" class="form-control" placeholder="ÅÅÅÅ" id="expDateYear">
+                                </div>
+                                <div class="form-group">
+                                    <label for="CVV" class="col-form-label">CVV</label>
+                                    <input type="text" class="form-control" placeholder="000" id="CVV">
+                                </div>
+                            </form>
+                        </div>
+    
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                                id="confirmChangePaymentMethodButton">Godkend Ændringer</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="logInModal" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Log ind</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+    
+                        <div class="modal-body">
+                            <form>
+                                <div class="form-group">
+                                    <label for="email" class="col-form-label">Email</label>
+                                    <input type="text" class="form-control" id="modal-log-in-email">
+                                </div>
+                                <div class="form-group">
+                                    <label for="modal-log-in-password" class="col-form-label">Kodeord</label>
+                                    <input type="password" class="form-control" id="modal-log-in-password">
+                                </div>
+                            </form>
+                        </div>
+    
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="btn-sign-in-email">Log
+                                ind</button> <label for="btn-sign-in-google">Eller:</label>
+                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                                id="btn-sign-in-google">Log ind med Google</button>
+                            <button type="button" class="btn btn-sm btn-outline-secondary" id="btn-sign-up">Opret
+                                konto</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <div class="container footer-container">
+            <footer class="row row-cols-4 py-3 border-top">
+                <div class="col">
+                    <a href="#" class="d-flex align-items-center link-dark mb-3 mt-2">
+                        <span class="material-symbols-outlined">
+                            group
+                        </span>
+                    </a>
+                    <p class="text-muted">Gruppe 30<br>2022<br>BSUSEXW1KU</p>
+                </div>
+                <div class="col">
+                </div>
+                <div class="col">
+                    <h5>Mo-Bil</h5>
+                    <ul class="foot flex-column">
+                        <li class="footer-item mb-2">
+                            <a href="#" class="footer-link text-muted">Om os</a>
+                        </li>
+                        <li class="footer-item mb-2">
+                            <a href="#" class="footer-link text-muted">CVR</a>
+                        </li>
+                        <li class="footer-item mb-2">
+                            <a href="#" class="footer-link text-muted">Priser</a>
+                        </li>
+                        <li class="footer-item mb-2">
+                            <a href="#" class="footer-link text-muted">Persondata</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col">
+                    <h5 class="text-capitalize">Social Media</h5>
+                    <ul class="foot flex-column">
+                        <li class="footer-item mb-2">
+                            <a href="#" class="footer-link text-muted">Facebook</a>
+                        </li>
+                        <li class="footer-item mb-2">
+                            <a href="#" class="footer-link text-muted">Instagram</a>
+                        </li>
+                        <li class="footer-item mb-2">
+                            <a href="#" class="footer-link text-muted">Twitter</a>
+                        </li>
+                        <li class="footer-item mb-2">
+                            <a href="#" class="footer-link text-muted">The Tok</a>
+                        </li>
+                    </ul>
+                </div>
+            </footer>
         </div>
-
-        <div class="modal fade" id="accountInfoModal" tabindex="-1" role="dialog"
-            aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Ændr Kontooplysninger</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-
-                    <div class="modal-body">
-                        <form>
-                            <div class="form-group">
-                                <label for="displayName" class="col-form-label">Navn</label>
-                                <input type="text" class="form-control" id="displayName">
-                                <button type="button" class="btn btn-primary" id="changeDisplayNameButton"
-                                    data-bs-dismiss="modal">Godkend</button>
-                            </div>
-                            <div class="form-group">
-                                <label for="email" class="col-form-label">Email</label>
-                                <input type="text" class="form-control" id="email">
-                                <button type="button" class="btn btn-primary" id="changeEmailButton"
-                                    data-bs-dismiss="modal">Godkend</button>
-                            </div>
-                            <div class="form-group">
-                                <label for="password" class="col-form-label">Kodeord</label>
-                                <input type="password" class="form-control" placeholder="Kodeord" id="password">
-                                <br>
-                                <input type="password" class="form-control" placeholder="Gentag kodeord"
-                                    id="repeatPassword">
-                                <button type="button" class="btn btn-primary" id="changePasswordButton"
-                                    data-bs-dismiss="modal">Godkend</button>
-                            </div>
-                        </form>
-                    </div>
-
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="modal fade" id="paymentMethodModal" tabindex="-1" role="dialog"
-             aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Ændr kortoplysninger</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-
-                    <div class="modal-body">
-                        <form>
-                            <div class="form-group">
-                                <label for="nameOnCard" class="col-form-label">Navn på kort</label>
-                                <input type="text" class="form-control" id="nameOnCard">
-                            </div>
-                            <div class="form-group">
-                                <label for="email" class="col-form-label">Kortnummer</label>
-                                <input type="text" class="form-control" id="cardNumber">
-                            </div>
-                            <div class="form-group">
-                                <label for="expDateMonth" class="col-form-label">Udløbsdato</label>
-                                <input type="text" class="form-control" placeholder="MM" id="expDateMonth">
-                                <input type="text" class="form-control" placeholder="ÅÅÅÅ" id="expDateYear">
-                            </div>
-                            <div class="form-group">
-                                <label for="CVV" class="col-form-label">CVV</label>
-                                <input type="text" class="form-control" placeholder="000" id="CVV">
-                            </div>
-                        </form>
-                    </div>
-
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
-                            id="confirmChangePaymentMethodButton">Godkend Ændringer</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="modal fade" id="logInModal" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Log ind</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-
-                    <div class="modal-body">
-                        <form>
-                            <div class="form-group">
-                                <label for="email" class="col-form-label">Email</label>
-                                <input type="text" class="form-control" id="modal-log-in-email">
-                            </div>
-                            <div class="form-group">
-                                <label for="modal-log-in-password" class="col-form-label">Kodeord</label>
-                                <input type="password" class="form-control" id="modal-log-in-password">
-                            </div>
-                        </form>
-                    </div>
-
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="btn-sign-in-email">Log
-                            ind</button> <label for="btn-sign-in-google">Eller:</label>
-                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
-                            id="btn-sign-in-google">Log ind med Google</button>
-                        <button type="button" class="btn btn-sm btn-outline-secondary" id="btn-sign-up">Opret
-                            konto</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
-    <div class="container footer-container">
-        <footer class="row row-cols-4 py-3 border-top">
-            <div class="col">
-                <a href="#" class="d-flex align-items-center link-dark mb-3 mt-2">
-                    <span class="material-symbols-outlined">
-                        group
-                    </span>
-                </a>
-                <p class="text-muted">Gruppe 30<br>2022<br>BSUSEXW1KU</p>
-            </div>
-            <div class="col">
-            </div>
-            <div class="col">
-                <h5>Mo-Bil</h5>
-                <ul class="foot flex-column">
-                    <li class="footer-item mb-2">
-                        <a href="#" class="footer-link text-muted">Om os</a>
-                    </li>
-                    <li class="footer-item mb-2">
-                        <a href="#" class="footer-link text-muted">CVR</a>
-                    </li>
-                    <li class="footer-item mb-2">
-                        <a href="#" class="footer-link text-muted">Priser</a>
-                    </li>
-                    <li class="footer-item mb-2">
-                        <a href="#" class="footer-link text-muted">Persondata</a>
-                    </li>
-                </ul>
-            </div>
-            <div class="col">
-                <h5 class="text-capitalize">Social Media</h5>
-                <ul class="foot flex-column">
-                    <li class="footer-item mb-2">
-                        <a href="#" class="footer-link text-muted">Facebook</a>
-                    </li>
-                    <li class="footer-item mb-2">
-                        <a href="#" class="footer-link text-muted">Instagram</a>
-                    </li>
-                    <li class="footer-item mb-2">
-                        <a href="#" class="footer-link text-muted">Twitter</a>
-                    </li>
-                    <li class="footer-item mb-2">
-                        <a href="#" class="footer-link text-muted">The Tok</a>
-                    </li>
-                </ul>
-            </div>
-        </footer>
     </div>
 </body>
 

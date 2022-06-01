@@ -92,6 +92,9 @@ function setupCarPreviewingCard(carDataObject, imgMap, auth, db){
   progressBarPower(document.getElementById('power-progress-bar'), carData.power);
   document.getElementById('car-card-img').src = imgMap.get(carData.title);
 
+  // set the distance text
+  calculateUserDistanceToCarAndShow(carData.coords)
+
   //When user is not logged on, we want to display something different.
   if(!auth.currentUser){
     document.getElementById('card-button-grp-loggged-on').hidden = true;
@@ -103,9 +106,6 @@ function setupCarPreviewingCard(carDataObject, imgMap, auth, db){
   setupOpenNowButton(db, carFirestoreId, auth,carData);
   //TODO: setup "reserve" button
   setupReserveButton(db, carFirestoreId, auth, carData);
-
-  // set the distance text
-  calculateUserDistanceToCarAndShow(carData.coords)
 }
 
 function progressBarPower(progressBar, pow){
@@ -129,19 +129,33 @@ async function calculateUserDistanceToCarAndShow(carCoords){
   })
 
   locationPromise.then(userCoords =>{
+    //Shoutout to stackoverflow - Haversine below
+    //https://stackoverflow.com/questions/14560999/using-the-haversine-formula-in-javascript
     let p = userCoords.position;
-    let dLat = Math.pow(carCoords.latitude -  p.latitude,2);
-    let dLon = Math.pow(carCoords.longitude - p.longitude,2)
 
-    let dist = Math.sqrt(dLat + dLon) * 111139;
-    // 111,139 is the number to get dist in meters
+    let dLat = toRad(carCoords.latitude -  p.latitude);
+    let dLon = toRad(carCoords.longitude - p.longitude)
+    
+    let R = 6371
+
+    let a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+                Math.cos(toRad(carCoords.latitude)) * Math.cos(toRad(p.latitude))
+                * Math.sin(dLon/2) * Math.sin(dLon/2);
+
+    let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+
+    let dist = R * c;
 
     let distValField = document.getElementById('card-distance-val');
-    distValField.textContent = dist > 1000 ?  (dist/1000).toFixed(1): dist.toFixed(1);
+    distValField.textContent = dist > 1 ?  dist.toFixed(1): (dist*1000).toFixed(1);
     
     let distUnitField = document.getElementById('card-distance-unit');
-    distUnitField.textContent = dist > 1000 ? " KM": " M";
+    distUnitField.textContent = dist > 1 ? " KM":" M";
   })
+}
+
+function toRad(num){
+  return num * Math.PI / 180;
 }
 
 function setupOpenNowButton(db, carFirestoreId,auth, carData){
@@ -155,19 +169,33 @@ function setupOpenNowButton(db, carFirestoreId,auth, carData){
   openNowBtn.addEventListener("click", e =>{
     replaceButtonsWithSpinner();
 
-    let carRef = doc(db, 'cars', carFirestoreId);
+    let paymentRef = doc(db, 'paymentMethods', auth.currentUser.email);
+    getDoc(paymentRef)
+    .then(paymentCard => {
+      if(paymentCard.exists()){
+        let carRef = doc(db, 'cars', carFirestoreId);
 
-    updateDoc(carRef, {
-      isOcupied: true,
+        updateDoc(carRef, {
+          isOcupied: true,
+        })
+        .then(fulfillment => {
+          createBill(db, auth.currentUser.email, carFirestoreId, carData)
+          window.location.replace('yourCar.html')
+        })
+        .catch(err =>{console.log(err)})
+      }
+      else{
+        let spanFC = document.getElementById('firebase-confirmation-field');
+        spanFC.textContent = "Du skal have en betalingsmetode. Gå til konto";
+        spanFC.setAttribute("class", "failure")
+        document.getElementById('card-button-grp-loggged-on').hidden = true;
+      }
     })
-    .then(fulfillment => {
-      createBill(db, auth.currentUser.email, carFirestoreId, carData)
-      window.location.replace('yourCar.html')
-    })
-    .catch(err =>{console.log(err)})
   })
-  openNowBtnContainer.innerHTML = "";
-  openNowBtnContainer.appendChild(openNowBtn);
+  if(openNowBtnContainer){
+    openNowBtnContainer.innerHTML = "";
+    openNowBtnContainer.appendChild(openNowBtn);
+  }
 }
 
 function setupReserveButton(db, carFirestoreId, auth, carData){
@@ -184,27 +212,40 @@ function setupReserveButton(db, carFirestoreId, auth, carData){
     if(!reservationTime){
       let spanFC = document.getElementById('firebase-confirmation-field');
       spanFC.textContent = "Venligst vælg en tid";
-      spanFC.setAttribute("class", "failure")
+      spanFC.setAttribute("class", "failure");
       return;
     }
     replaceButtonsWithSpinner();
 
-    let carRef = doc(db, 'cars', carFirestoreId);
+    let paymentRef = doc(db, 'paymentMethods', auth.currentUser.email);
+    getDoc(paymentRef)
+    .then(paymentCard => {
+      if(!paymentCard.exists()){
+        let spanFC = document.getElementById('firebase-confirmation-field');
+        spanFC.textContent = "Du skal have en betalingsmetode. Gå til konto";
+        spanFC.setAttribute("class", "failure")
+        document.getElementById('card-button-grp-loggged-on').hidden = true;
+        return;
+      }
+      let carRef = doc(db, 'cars', carFirestoreId);
 
-    updateDoc(carRef, {
-      isOcupied: true,
-      reservationTime: reservationTime,
-    })
-    .then(fulfillment => {
-      createBill(db, auth.currentUser.email, carFirestoreId, carData)
-      window.location.replace('yourCar.html')
-    })
-    .catch(err => {
-      console.log(err)
+      updateDoc(carRef, {
+        isOcupied: true,
+        reservationTime: reservationTime,
+      })
+      .then(fulfillment => {
+        createBill(db, auth.currentUser.email, carFirestoreId, carData)
+        window.location.replace('yourCar.html')
+      })
+      .catch(err => {
+        console.log(err)
+      })
     })
   })
-  container.innerHTML = "";
-  container.appendChild(reserveBtn); 
+  if(container){
+    container.innerHTML = "";
+    container.appendChild(reserveBtn); 
+  }
 }
 
 function createBill(db, userEmail, carFirestoreId, carData){
@@ -314,12 +355,21 @@ async function geoLocationSuccessful(map, cloudStorage, coords){
 })
 }
 
-export async function drawUserCar(map, db, carReference){
+export async function drawUserCar(map, db, carReference, cloudStorage){
   let carData =  (await getDoc(doc(db, 'cars', carReference))).data();
   let marker = new google.maps.Marker({
       position: {lat: carData.coords.latitude, lng: carData.coords.longitude},
       map: map,
       title: "Your car: " + carData.title,
   })
+  let title = carData.title;
+  let imgRef = '/carPictures/'+ title +'.png';
+    getDownloadURL(ref(cloudStorage, imgRef))
+    .then(imgURL =>{
+      document.getElementById('car-card-img').src = (title, imgURL);
+    })
+    .catch(err => {
+      console.log(err);
+    })
   marker.setMap(map);
 }

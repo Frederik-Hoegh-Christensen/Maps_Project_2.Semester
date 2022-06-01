@@ -1,3 +1,7 @@
+/*
+ *  Remaining JS for findCar is in the mapCanvas.js
+ */
+
 export function findCarHTMLButtons(){
     window.addEventListener("load", event =>{
         console.log('page loaded');
