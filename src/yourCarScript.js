@@ -56,7 +56,6 @@ export async function setReceiptDetails(db, user) {
 
     document.querySelector("#colorField").innerHTML = carData.color;
     document.querySelector("#pricePerKmField").innerHTML = price + " kr";
-    //document.querySelector("#totalPriceField").innerHTML = 
 
     return thisDoc;
 }

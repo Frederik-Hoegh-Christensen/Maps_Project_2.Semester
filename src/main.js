@@ -37,8 +37,7 @@ onAuthStateChanged(auth, user => {
       setReceiptDetails(db,auth.currentUser)
       .then(billDoc => {
         userBillDoc = billDoc
-        drawUserCar(mapCanvas, db, userBillDoc.data().car)
-        
+        drawUserCar(mapCanvas, db, userBillDoc.data().car, cloudStorage)
       })
     }
   } else {
