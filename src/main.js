@@ -4,7 +4,7 @@ import { getFirebaseConfig } from './firebase-config.js';
 import { initializeMap, drawCars, addUserPositionPin, drawUserCar } from './mapCanvas.js';
 import { fillHistoryDropdown, displayUserInfo, changeUserInfo, changePaymentMethod, notSignedInAccountPage } from './account.js';
 import { initSignUp, logInEmail, logInGoogle, signUpEmail } from './sign-in-sign-up.js';
-import {setReceiptDetails, endTrip, calculateTime} from './yourCarScript';
+import {setReceiptDetails, endTrip, endReservation, calculateTime} from './yourCarScript';
 import { findCarHTMLButtons } from './findCar.js';
 
 import { initializeApp } from 'firebase/app';
@@ -123,6 +123,12 @@ let endTripButton = document.getElementById('endTrip-btn-accept');
 if(endTripButton) {
   endTripButton.addEventListener("click", e =>{
     endTrip(db, userBillDoc);
+  })
+}
+let endReservationButton = document.getElementById('endReservation-btn-accept');
+if(endReservationButton){
+  endReservationButton.addEventListener('click', e => {
+    endReservation(db, userBillDoc);
   })
 }
 

@@ -49,10 +49,11 @@
                         <div class="card-block py-2 px-2">
                             <h5 class="card-title">Model: <span id="modelField"></span> <br></h5>
                             <h6 class="card-subtitle mb-2 text-muted">Farve: <span id="colorField"></span> <br><br></h6>
-                            <h6 class="card-subtitle mb-2 text-muted">Pris pr. min: <span id="pricePerKmField"></span> <br><br></h6>
-                            <h6 class="card-subtitle mb-2 text-muted">Køretur påbegyndt: <span id="tripBeginField"></span> <br><br></h6>
-                            <h6 class="card-subtitle mb-2 text-muted">Pris indtil videre: <span id="totalPriceField"></span> <br><br></h6>
-                            <button type="button" id="cancelTrip" class="btn btn-info">Afslut køretur</button>
+                            <p class="card-subtitle mb-2 text-muted">Pris pr. min: <span id="pricePerKmField"></span> <br><br></p>
+                            <p class="card-subtitle mb-2 text-muted"></h6> <span id="tripBeginField"></span> <br><br></p>
+                            <p class="card-subtitle mb-2 text-muted">Pris indtil videre: <span id="totalPriceField"></span> <br><br></p>
+                            <button type="button" id="cancelTrip" class="btn btn-info" hidden="true">Afslut køretur</button>
+                            <button type="button" id="cancelReservation" class="btn btn-info" hidden="true">Aflys reservation</button>
                         </div>  
                     </div>
                 </div>
@@ -75,6 +76,24 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-info" data-bs-dismiss="modal" id="endTrip-btn-cancel">Annuller</button>
                     <button type="button" class="btn btn-info" id="endTrip-btn-accept">Afslut og betal</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ModalReservation -->
+    <div class="modal fade" tabindex="-1" aria-hidden="true" id="endReservation">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Aflys reservation</h5>
+                </div>
+                <div class="modal-body">
+                    <h6>Du er igang med at aflyse din reservation</h6>
+                    <p class="h6">Er du sikker?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-info" data-bs-dismiss="modal" id="endReservation-btn-cancel">Annuller</button>
+                    <button type="button" class="btn btn-info" id="endReservation-btn-accept">Aflys reservation</button>
                 </div>
             </div>
         </div>
