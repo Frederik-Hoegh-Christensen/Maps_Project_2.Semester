@@ -1,42 +1,43 @@
 import { collection, query, where, getDocs, setDoc, doc, Timestamp, orderBy } from "firebase/firestore";
 import { updateProfile } from "firebase/auth";
-import { createHTMLElm } from "./main.js";
 
 export async function fillHistoryDropdown(db, user) {
     var dropdown = document.getElementById("historyDropdown");
+
     let col = collection(db, "bills");
     const q = query(col, orderBy("date", "desc"), where("owner", "==", user.email));
     const querySnapshot = await getDocs(q);
 
-for(let i = 0; i < querySnapshot.docs.length; i++){
-    let data = querySnapshot.docs[i].data();
-    let item = document.createElement("a");
-    let dateString = data.date.toDate().toString();
-    let date = dateString.split(" ")[0] + " " + dateString.split(" ")[2] + ". " + dateString.split(" ")[1] + ", " + dateString.split(" ")[3] + " " + dateString.split(" ")[4];
-    let itemText = document.createTextNode(date);
-    item.appendChild(itemText);
-    //item.href = "index.html"; MAKE LINK TO BILL
-    dropdown.appendChild(item);
-    if(i < querySnapshot.docs.length-1){
-        let separator = document.createElement("div");
-        separator.setAttribute("class", "dropdown-divider");
-        dropdown.appendChild(separator);
-    }
-}
-
-    /*querySnapshot.forEach(doc => {
-        let data = doc.data();
-        let item = document.createElement("a");
+    for (let i = 0; i < querySnapshot.docs.length; i++) {
+        let data = querySnapshot.docs[i].data();
+        let item = document.createElement("p");
         let dateString = data.date.toDate().toString();
-        let date = dateString.split(" ")[0] + " " + dateString.split(" ")[2] + ". " + dateString.split(" ")[1] + ", " + dateString.split(" ")[3];
-        let itemText = document.createTextNode(date);
-        item.appendChild(itemText);
-        //item.href = "index.html"; MAKE LINK TO BILL
+        let date = dateString.split(" ")[0] + " " + dateString.split(" ")[2] + ". " + dateString.split(" ")[1] + ", " + dateString.split(" ")[3] + " " + dateString.split(" ")[4];
+        item.innerHTML = date;
+        item.setAttribute("data-bs-toggle", "modal");
+        item.setAttribute("data-bs-target", "#modal-bill");
+        item.setAttribute("style", "cursor: pointer; color: rgb(64, 173, 102); text\-decoration: underline;");
         dropdown.appendChild(item);
-        let separator = document.createElement("div");
-        separator.setAttribute("class", "dropdown-divider");
-        dropdown.appendChild(separator);
-    });*/
+
+        item.addEventListener("click", e => {
+            e.preventDefault();
+            let billDate = document.getElementById("bill-date")
+            let billModel = document.getElementById("bill-model");
+            let billPrice = document.getElementById("bill-price");
+            let billTime = document.getElementById("bill-time");
+
+            billDate.innerHTML = date;
+            billModel.innerHTML = data.model;
+            billPrice.innerHTML = data.tripPrice + "kr.";
+            billTime.innerHTML = date.split(" ")[4] + " - " + data.endTime.toDate().toString().split(" ")[4];
+        });
+
+        if (i < querySnapshot.docs.length - 1) {
+            let separator = document.createElement("div");
+            separator.setAttribute("class", "dropdown-divider");
+            dropdown.appendChild(separator);
+        }
+    }
 }
 
 export function displayUserInfo(user) {
@@ -58,12 +59,12 @@ export function displayUserInfo(user) {
     var nameP = document.createElement("p");
     if (user.displayName) {
         nameP.appendChild(nameNode);
-    }else{
+    } else {
         nameP.appendChild(document.createTextNode("Navn ikke angivet"));
     }
     var emailP = document.createElement("p");
     emailP.appendChild(emailNode);
-    
+
     var nameDiv = document.getElementById("nameTextDiv");
     var emailDiv = document.getElementById("emailTextDiv");
 
@@ -158,7 +159,7 @@ export async function changePaymentMethod(db, user) {
     }
 }
 
-export function notSignedInAccountPage(){
+export function notSignedInAccountPage() {
     var nameTitle = document.getElementById("nameTitle");
     var emailTitle = document.getElementById("emailTitle");
     var changeUserInfoButton = document.getElementById("changeUserInfoButton");
