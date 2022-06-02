@@ -32,12 +32,13 @@ header{
     text-decoration: none;
 }
 
-.btn-primary{
+.btn-primary, .btn-info{
     background-color: var(--btn-primary-color);
     border-color: var(--btn-primary-color);
 }
 
-.btn-primary:hover, .btn-primary:active, .btn-primary:focus{
+.btn-primary:hover, .btn-primary:active, .btn-primary:focus,
+.btn-info:hover, .btn-info:active, .btn-info:focus{
     background-color: var(--btn-primary-color-hover);
 }
 
