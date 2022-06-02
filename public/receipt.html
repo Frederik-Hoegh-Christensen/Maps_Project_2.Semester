@@ -53,7 +53,9 @@
       </li>
   </ul>
 </nav>
-    <body id = "receipt">
+    <div class="sticky-footer-container">
+        <main>
+        <body id = "receipt">
             <div class="container-fluid">
               <div class="col-md-12">
                 <div class="text-center">
@@ -71,7 +73,7 @@
                 <div class="col">
                   <ul class ="list" id="info">
                     <li class = "text"> <span class="makeBold"> Valgte model: </span> <span id ="bilModel"> </span> </li>
-                  <li class="text" id="takBesked"> Tak, fordi du valgte Mo-bil! Vi håber du har en fantastisk tur!  
+                  <li class="text" id="takBesked"> Tak, fordi du valgte Mo-bil! <br> Vi håber du har en fantastisk tur!  
                 </p> 
                   </ul>
                 </div>
@@ -85,7 +87,8 @@
                   <p class="text ms-3"> <span class="makeBold"> Samlet pris:</span>  <span id ="totalPay"> </span></p>
                   </div>
             </div>
-            <div class="container footer-width fixed-bottom">
+        </main>
+            <div class="container footer-width footer-container">
               <footer class="row row-cols-3 py-3 border-top">
                   <div class="col">
                       <a href="#" class="d-flex align-items-center link-dark mb-3 mt-2">
@@ -132,6 +135,8 @@
                   </div>
               </footer>
           </div>
+        </div>
+    
             <script src ="main.js"></script>
             
 
