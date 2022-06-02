@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link rel="stylesheet" href="./stylesheets/styles.css">
     <link rel="stylesheet" href="./stylesheets/receipt.css">
-    <link rel = "stylesheet" href="./stylesheets/frontPageStyles.css">
 
 
 
@@ -25,7 +24,7 @@
           <a class="header-logo text-dark h2" href="#">Mo-Bil</a>
       </div>
       <div class="col-3 col-sm-2 d-flex justify-content-end align-items-center" >
-          <button type="button" class="btn btn-sm btn-outline-secondary" id="header-btn-sign-out" button onclick="window.location.href='index.html';""> Log ud
+          <button type="button" class="btn btn-sm btn-outline-secondary" id="header-btn-sign-out"> Log ud
           </button>
       </div>
   </div>
@@ -63,16 +62,14 @@
               <div class="row">
                 <div class="col-xl-8">
                   <ul class="list" id = "info">
-                    <li class="text"> <span style="color:#8f8061 ;">*Brugernavn*</span></li>
-                    <li class="text"> tlf: 00000000</li>
-                    <li class="text">Dato: 29/05-2022</li>
-                    <li class="text">Tidspunkt: 15.00-16.00</li>
+                    <li class="text"> <span class="makeBold"> E-mail:  </span> <span id ="User_receipt"> </span> </li>
+                    <li class="text" id="begintime2"> <span class="makeBold"> Begyndelsestidspunkt: </span> <span id ="begintime"> </span></li>
                   </ul>
                 </div>
                 <div class="col">
                   <ul class ="list" id="info">
-                    <li class = "text"> Model: golf 4 </li>
-                  <p class="picture"><img src=".\images\golf.png" width="100" height="100">
+                    <li class = "text"> <span class="makeBold"> Valgte model: </span> <span id ="bilModel"> </span> </li>
+                  <li class="text" id="takBesked"> Tak, fordi du valgte Mo-bil! Vi håber du har en fantastisk tur!  
                 </p> 
                   </ul>
                 </div>
@@ -81,9 +78,9 @@
                 <div class ="row">
                 <div class="col-xl-3">
                   <ul class="list-unstyled">
-                    <li class="text ms-3"><span class="text me-4">Antal timer:</span> </li>
+                    <li class="text ms-3"><span class="text me-4"><span class="makeBold"> Varighed:</span> <span id ="duration"> </span> </li>
                   </ul>
-                  <p class="text ms-3" id="totalPay" ></p>
+                  <p class="text ms-3"> <span class="makeBold"> Samlet pris:</span>  <span id ="totalPay"> </span></p>
                   </div>
             </div>
             <div class="container">

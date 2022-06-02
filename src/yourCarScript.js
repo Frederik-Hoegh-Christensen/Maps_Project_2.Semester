@@ -113,7 +113,7 @@ export async function endTrip(db, billDoc) {
         tripPrice: tripPrice,
         endTime: endTime
     })
-    window.location.replace('index.html')
+    window.location.replace('receipt.html')
 }
 
 export async function endReservation(db, billDoc) {

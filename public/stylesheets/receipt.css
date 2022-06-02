@@ -5,7 +5,14 @@
     margin-top: 20px;
     
     }
-    @media screen and (min-width: 300px) {
+    .foot{
+
+
+        width: 100%;
+        margin: 0px;
+    }
+
+    /*@media screen and (min-width: 300px) {
         
     
     
@@ -20,13 +27,32 @@
 margin-top: 20px;
 
     }
-    @media screen and (max-width: 767px) {
+    /*@media screen and (max-width: 767px) {
         
     
     
-        .foot{
+      /*  .foot{
         
 margin-bottom: 50px;     
 margin-right: 50px;
-}
+}*/
+    
+
+    #takBesked{
+
+margin-top: 30px;
+
+    }
+
+    .makeBold{
+
+font-weight: bold;
+display: grid;
+
+
+    }
+
+    #begintime2{
+
+        margin-top: 30px;
     }
