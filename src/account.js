@@ -1,4 +1,4 @@
-import { collection, query, where, getDocs, setDoc, doc, Timestamp, orderBy } from "firebase/firestore";
+import { collection, query, where, getDocs, setDoc, doc, Timestamp, orderBy, getDoc } from "firebase/firestore";
 import { updateProfile } from "firebase/auth";
 
 export async function fillHistoryDropdown(db, user) {
@@ -24,7 +24,7 @@ export async function fillHistoryDropdown(db, user) {
     }
 }
 
-export function displayUserInfo(user) {
+export function displayUserInfo(user, db) {
     var nameTitle = document.getElementById("nameTitle");
     var emailTitle = document.getElementById("emailTitle");
     var changeUserInfoButton = document.getElementById("changeUserInfoButton");
@@ -54,6 +54,23 @@ export function displayUserInfo(user) {
 
     nameDiv.appendChild(nameP);
     emailDiv.appendChild(emailP);
+
+    let paymentCardRef = doc(db, 'paymentMethods', user.email);
+    getDoc(paymentCardRef)
+    .then(doc => {
+        let cardDiv = document.getElementById('cardTextDiv');
+        let cardNumP = document.createElement("p");
+        let cardNumPString;
+
+        if(doc.exists()){
+            let startOfCard = doc.data().cardNumber.substring(0,4);
+            cardNumPString = "Begynder med " + startOfCard;
+        }
+        else cardNumPString = "Intet kort tilknyttet";
+        
+        cardNumP.textContent = cardNumPString;
+        cardDiv.appendChild(cardNumP);
+    })
 }
 
 export function changeUserInfo(user) {

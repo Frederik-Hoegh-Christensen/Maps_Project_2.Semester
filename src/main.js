@@ -54,7 +54,7 @@ onAuthStateChanged(auth, user => {
 
 function accountPage(db, user) {
   fillHistoryDropdown(db, user);
-  displayUserInfo(user);
+  displayUserInfo(user, db);
   var changeUserInfoButton = document.getElementById("changeUserInfoButton");
   changeUserInfoButton.addEventListener("click", e => {
     e.preventDefault();
