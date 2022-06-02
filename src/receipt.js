@@ -119,7 +119,7 @@ export async function getReceiptPrice(db, user) {
 
    
     document.getElementById('duration').innerHTML= finaltime;
-    document.getElementById('totalPay').innerHTML= priceRef;
+    document.getElementById('totalPay').innerHTML= priceRef + "DKK";
     document.getElementById('begintime').innerHTML= timeBegun.toDate();
     document.getElementById('User_receipt').innerHTML= user.email;
     document.getElementById('bilModel').innerHTML =  modelRef;
