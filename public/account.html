@@ -22,6 +22,7 @@
 
     <!-- Our Stuff -->
     <link rel="stylesheet" href="./stylesheets/styles.css">
+    <link rel="stylesheet" href="./stylesheets/account.css">
     <script src="main.js" defer></script>
     <link rel="shortcut icon" href="images/icon.png" type="image/x-icon">
     <title>Mo-Bil</title>
@@ -81,12 +82,10 @@
                     <div class="col-2 col-md-1">
                         <p class="font-weight-bold" id="nameTitle">Navn:</p>
                     </div>
-                    <div id="nameTextDiv" class=" col-5 col-lg-3 text-truncate">
+                    <div id="nameTextDiv" class=" col-5 col-lg-3 account-text-column">
 
                     </div>
-                    <div class="col-5 col-md-6 col-lg-7">
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                            data-bs-target="#accountInfoModal" id="changeUserInfoButton">Ændr kontooplysninger</button>
+                    <div class="col-5 col-md-6 col-lg-7 account-big-column">
                     </div>
                 </div>
     
@@ -94,10 +93,12 @@
                     <div class="col-2 col-md-1">
                         <p class="font-weight-bold" id="emailTitle">Email:</p>
                     </div>
-                    <div id="emailTextDiv" class="col-5 col-lg-3 text-truncate">
+                    <div id="emailTextDiv" class="col-5 col-lg-3 account-text-column">
 
                     </div>
-                    <div class="col-5 col-md-6 col-lg-7">
+                    <div class="col-5 col-md-6 col-lg-7 account-big-column">
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                        data-bs-target="#accountInfoModal" id="changeUserInfoButton">Rediger kontooplysninger</button>
                     </div>
                 </div>
 
@@ -105,13 +106,12 @@
                     <div class="col-2 col-md-1">
                         <p id="card-display">Kort: </p>
                     </div>
-                    <div class="col-5 col-lg-3 text-truncate" id="cardTextDiv">
+                    <div class="col-5 col-lg-3 account-text-column" id="cardTextDiv">
                         
                     </div>
-                    <div class="col-5 col-md-6 col-lg-7">
+                    <div class="col-5 col-md-6 col-lg-7 account-big-column">
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                            data-bs-target="#paymentMethodModal" id="changePaymentMethodButton">Ændr
-                            kortoplysninger</button>
+                            data-bs-target="#paymentMethodModal" id="changePaymentMethodButton">Tilføj betalingskort</button>
                     </div>
                 </div>
 
@@ -163,7 +163,7 @@
                         </div>
 
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Luk</button>
                         </div>
                     </div>
                 </div>
@@ -200,7 +200,7 @@
                         </div>
 
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Luk</button>
                             <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
                                 id="confirmChangePaymentMethodButton">Godkend Ændringer</button>
                         </div>
@@ -250,7 +250,7 @@
                         </div>
 
                         <div class="modal-body">
-                            <h3>Dato</h1>
+                            <h3>Dato</h3>
                             <p id="bill-date"></p>
 
                             <h4>Model</h4>
