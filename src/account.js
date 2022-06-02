@@ -28,7 +28,7 @@ export async function fillHistoryDropdown(db, user) {
 
             billDate.innerHTML = date;
             billModel.innerHTML = data.model;
-            billPrice.innerHTML = data.tripPrice;
+            billPrice.innerHTML = data.tripPrice + "kr.";
             billTime.innerHTML = date.split(" ")[4] + " - " + data.endTime.toDate().toString().split(" ")[4];
         });
 
