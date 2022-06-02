@@ -70,30 +70,32 @@
                 <div class="row mx-1 my-3">
                     <h1>Konto</h1>
                 </div>
-    
+
                 <div style="display: flex; justify-content: center; align-items: center;">
-                    <button hidden type="button" class="btn btn-lg border-dark btn-sign-in-modal-toggle" data-bs-toggle="modal" data-bs-target="#logInModal" id="signInSignUpButton">Tilmeld dig eller log ind her!</button>
+                    <button hidden type="button" class="btn btn-lg border-dark btn-sign-in-modal-toggle"
+                        data-bs-toggle="modal" data-bs-target="#logInModal" id="signInSignUpButton">Tilmeld dig eller
+                        log ind her!</button>
                 </div>
-    
+
                 <div class="row mx-1">
                     <div class="col-2 col-md-1">
                         <p class="font-weight-bold" id="nameTitle">Navn:</p>
                     </div>
                     <div id="nameTextDiv" class=" col-5 col-lg-3 text-truncate">
-    
+
                     </div>
                     <div class="col-5 col-md-6 col-lg-7">
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                             data-bs-target="#accountInfoModal" id="changeUserInfoButton">Ændr kontooplysninger</button>
                     </div>
                 </div>
-    
+
                 <div class="row mx-1 my-3">
                     <div class="col-2 col-md-1">
                         <p class="font-weight-bold" id="emailTitle">Email:</p>
                     </div>
                     <div id="emailTextDiv" class="col-5 col-lg-3 text-truncate">
-    
+
                     </div>
                     <div class="col-5 col-md-6 col-lg-7">
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal"
@@ -101,28 +103,28 @@
                             kortoplysninger</button>
                     </div>
                 </div>
-    
+
                 <div class="row">
-                    <div class="flex" style="display: flex; justify-content: center; align-items: center;" id="historyDropdownMenu">
+                    <div class="flex" style="display: flex; justify-content: center; align-items: center;"
+                        id="historyDropdownMenu">
                         <div class="dropdown-center">
-                            <button type="button" class="btn btn-lg btn-secondary dropdown-toggle" data-bs-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="false">Historik</button>
+                            <button type="button" class="btn btn-lg btn-secondary dropdown-toggle"
+                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Historik</button>
                             <ul class="dropdown-menu" id="historyDropdown">
-    
+
                             </ul>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="modal fade" id="accountInfoModal" tabindex="-1" role="dialog"
-                aria-hidden="true">
+            <div class="modal fade" id="accountInfoModal" tabindex="-1" role="dialog" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title">Ændr Kontooplysninger</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-    
+
                         <div class="modal-body">
                             <form>
                                 <div class="form-group">
@@ -148,23 +150,22 @@
                                 </div>
                             </form>
                         </div>
-    
+
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         </div>
                     </div>
                 </div>
             </div>
-    
-            <div class="modal fade" id="paymentMethodModal" tabindex="-1" role="dialog"
-                 aria-hidden="true">
+
+            <div class="modal fade" id="paymentMethodModal" tabindex="-1" role="dialog" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title">Ændr kortoplysninger</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-    
+
                         <div class="modal-body">
                             <form>
                                 <div class="form-group">
@@ -186,7 +187,7 @@
                                 </div>
                             </form>
                         </div>
-    
+
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                             <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
@@ -202,7 +203,7 @@
                             <h5 class="modal-title">Log ind</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-    
+
                         <div class="modal-body">
                             <form>
                                 <div class="form-group">
@@ -215,14 +216,45 @@
                                 </div>
                             </form>
                         </div>
-    
+
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="btn-sign-in-email">Log
+                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                                id="btn-sign-in-email">Log
                                 ind</button> <label for="btn-sign-in-google">Eller:</label>
                             <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
                                 id="btn-sign-in-google">Log ind med Google</button>
                             <button type="button" class="btn btn-sm btn-outline-secondary" id="btn-sign-up">Opret
                                 konto</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="modal-bill" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Kvittering</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+
+                        <div class="modal-body">
+                            <h3>Dato</h1>
+                            <p id="bill-date"></p>
+
+                            <h4>Model</h4>
+                            <p id="bill-model"></p>
+
+                            <h4>Tid</h4>
+                            <p id="bill-time"></p>
+
+                            <h4>Total pris</h4>
+                            <p id="bill-price"></p>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" data-bs-dismiss="modal"
+                                class="btn btn-sm btn-outline-secondary">Luk</button>
                         </div>
                     </div>
                 </div>
