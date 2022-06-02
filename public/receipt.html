@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="./stylesheets/styles.css">
+    <link rel="stylesheet" href="./stylesheets/receipt.css">
+    <link rel = "stylesheet" href="./stylesheets/frontPageStyles.css">
+
+
+
+    <title>receipt</title>
+</head>
+<body>
+  
+<header class="mt-2 mx-2">
+  <div class="header row flex-nowrap justify-content-between mb-2">
+   
+      <div class="col-3 col-sm-2"></div>
+      <div class="col-6 col-sm-8 text-center">
+          <a class="header-logo text-dark h2" href="#">Mo-Bil</a>
+      </div>
+      <div class="col-3 col-sm-2 d-flex justify-content-end align-items-center" >
+          <button type="button" class="btn btn-sm btn-outline-secondary" id="header-btn-sign-out" button onclick="window.location.href='index.html';""> Log ud
+          </button>
+      </div>
+  </div>
+</header>
+<nav class="navbar mt-0">
+  <ul class="navbar-nav">
+      <li class="nav-item flex-fill">
+          <a class="nav-link" href="index.html#guide">
+              <span class="material-symbols-outlined">help</span>
+              <span class="nav-link-text">Guide</span>
+          </a>
+      </li>
+      <li class="nav-item flex-fill active">
+          <a class="nav-link" href="findCar.html">
+              <span class="material-symbols-outlined">near_me</span>
+              <span class="nav-link-text">Find Bil</span>
+          </a>
+      </li>
+      <li class="nav-item flex-fill">
+          <a class="nav-link" href="account.html">
+              <span class="material-symbols-outlined">account_circle</span>
+              <span class="nav-link-text">Konto</span>
+          </a>
+      </li>
+  </ul>
+</nav>
+    <body id = "receipt">
+            <div class="container-fluid">
+              <div class="col-md-12">
+                <div class="text-center">
+                  <i class="far fa-building fa-4x ms-0" style="color:#8f8061 ;"></i>
+                  <h5>Kvittering</h5>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xl-8">
+                  <ul class="list" id = "info">
+                    <li class="text"> <span style="color:#8f8061 ;">*Brugernavn*</span></li>
+                    <li class="text"> tlf: 00000000</li>
+                    <li class="text">Dato: 29/05-2022</li>
+                    <li class="text">Tidspunkt: 15.00-16.00</li>
+                  </ul>
+                </div>
+                <div class="col">
+                  <ul class ="list" id="info">
+                    <li class = "text"> Model: golf 4 </li>
+                  <p class="picture"><img src=".\images\golf.png" width="100" height="100">
+                </p> 
+                  </ul>
+                </div>
+              </div>
+                <hr>
+                <div class ="row">
+                <div class="col-xl-3">
+                  <ul class="list-unstyled">
+                    <li class="text ms-3"><span class="text me-4">Antal timer:</span> </li>
+                  </ul>
+                  <p class="text ms-3" id="totalPay" ></p>
+                  </div>
+            </div>
+            <div class="container">
+              <footer class="row row-cols-3 py-3 border-top">
+                  <div class="col">
+                      <a href="#" class="d-flex align-items-center link-dark mb-3 mt-2">
+                          <span class="material-symbols-outlined">
+                              group
+                          </span>
+                      </a>
+                      <p class="text-muted">Gruppe 30<br>2022</p>
+                  </div>
+                  
+                  <div class="col">
+                      <h5>Mo-Bil</h5>
+                      <ul class="foot flex-column">
+                          <li class="footer-item mb-2">
+                              <a href="#" class="footer-link text-muted">Om os</a>
+                          </li>
+                          <li class="footer-item mb-2">
+                              <a href="#" class="footer-link text-muted">Cvr</a>
+                          </li>
+                          <li class="footer-item mb-2">
+                              <a href="#" class="footer-link text-muted">Priser</a>
+                          </li>
+                          <li class="footer-item mb-2">
+                              <a href="#" class="footer-link text-muted">Persondata</a>
+                          </li>
+                      </ul>
+                  </div>
+                  <div class="col">
+                      <h5 class="text-capitalize">Social Media</h5>
+                      <ul class="foot flex-column">
+                          <li class="footer-item mb-2">
+                              <a href="#" class="footer-link text-muted">Facebook</a>
+                          </li>
+                          <li class="footer-item mb-2">
+                              <a href="#" class="footer-link text-muted">Instagram</a>
+                          </li>
+                          <li class="footer-item mb-2">
+                              <a href="#" class="footer-link text-muted">Twitter</a>
+                          </li>
+                          <li class="footer-item mb-2">
+                              <a href="#" class="footer-link text-muted">The Tok</a>
+                          </li>
+                      </ul>
+                  </div>
+              </footer>
+          </div>
+            <script src ="main.js"></script>
+            
+
+</body>
+</html>

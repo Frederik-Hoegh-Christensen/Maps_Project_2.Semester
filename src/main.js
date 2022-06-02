@@ -15,6 +15,7 @@ import {
   from 'firebase/auth';
 import { getStorage } from 'firebase/storage';
 import { getFirestore } from 'firebase/firestore';
+import { getReceiptPrice} from './receipt.js';
 
 const app = initializeApp(getFirebaseConfig());
 
@@ -33,6 +34,7 @@ onAuthStateChanged(auth, user => {
     console.log(user.toJSON());
     if(!window.location.href.includes("signUp.html"))signOutButton();
     if(window.location.href.includes("account.html"))accountPage(db, auth.currentUser);
+    if(window.location.href.includes('receipt.html'))getReceiptPrice(db, auth.currentUser);
     if(window.location.href.includes('yourCar.html')){
       setReceiptDetails(db,auth.currentUser)
       .then(billDoc => {
