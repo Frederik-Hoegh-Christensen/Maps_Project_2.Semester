@@ -182,7 +182,9 @@ export function notSignedInAccountPage() {
     var changeUserInfoButton = document.getElementById("changeUserInfoButton");
     var changePaymentMethodButton = document.getElementById("changePaymentMethodButton");
     var historyDropdownMenu = document.getElementById("historyDropdownMenu");
+    var cardTitle = document.getElementById("card-display");
 
+    cardTitle.hidden = true;
     nameTitle.hidden = true;
     emailTitle.hidden = true;
     changeUserInfoButton.hidden = true;
