@@ -52,7 +52,6 @@ export function logInGoogle(auth, googleAuthProvider) {
     var logInGoogleButton = document.getElementById("btn-sign-in-google");
     logInGoogleButton.addEventListener("click", e => {
         signInWithRedirect(auth, googleAuthProvider).then(userCredential => {
-            
         }).catch(error => {
             alert(error.message);
         });
