@@ -14,7 +14,7 @@ import {
 }
   from 'firebase/auth';
 import { getStorage } from 'firebase/storage';
-import { getFirestore } from 'firebase/firestore';
+import { getFirestore, collection, query, where, getDocs } from 'firebase/firestore';
 
 const app = initializeApp(getFirebaseConfig());
 
@@ -109,6 +109,21 @@ function signOutButton() {
   }
 }
 
+async function hasCar(){
+  if(auth.currentUser != null){
+    let colRef = collection(db, 'bills');
+    let q = query(colRef, where('isActive','==', true), where('owner', '==', auth.currentUser.email));
+    let qSnapshot = await getDocs(q);
+    if(qSnapshot.empty){
+      window.location.replace('findCar.html');
+    } else{
+      window.location.replace('yourCar.html');
+    }
+  } else {
+    window.location.replace('findCar.html');
+  }
+}
+
 
 async function initMap() {
   mapCanvas = initializeMap();
@@ -129,6 +144,12 @@ let endReservationButton = document.getElementById('endReservation-btn-accept');
 if(endReservationButton){
   endReservationButton.addEventListener('click', e => {
     endReservation(db, userBillDoc);
+  })
+}
+let mapButton = document.getElementById('mapBtn');
+if(mapButton){
+  mapButton.addEventListener('click', e => {
+    hasCar();
   })
 }
 

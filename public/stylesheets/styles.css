@@ -84,6 +84,7 @@ header{
 
 .nav-item:hover{
     background-color: var(--nav-item-hover);
+    cursor: pointer;
 }
 
 .active{
