@@ -1,0 +1,16 @@
+@media screen and (max-width: 576px) {
+    .account-big-column{
+        flex: 100%;
+    }
+
+    .account-text-column{
+        flex: auto;
+    }
+}
+
+@media screen and (max-width: 300px) {
+    .account-text-column{
+        flex: 100%;
+    }
+}
+
