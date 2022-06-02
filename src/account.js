@@ -29,7 +29,7 @@ export async function fillHistoryDropdown(db, user) {
             billDate.innerHTML = date;
             billModel.innerHTML = data.model;
             billPrice.innerHTML = data.tripPrice;
-            billTime.innerHTML = date.split(" ")[4] + " - " + data.endTime;
+            billTime.innerHTML = date.split(" ")[4] + " - " + data.endTime.toDate().toString().split(" ")[4];
         });
 
         if (i < querySnapshot.docs.length - 1) {
